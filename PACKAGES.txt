@@ -1,0 +1,6 @@
+git
+tmux
+vim
+openssh-server
+cscope
+ctags

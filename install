@@ -1,0 +1,119 @@
+#!/bin/bash
+
+WD=`pwd`
+PKG='PACKAGES.txt'
+VIM='vim/'
+TMUX='tmux/'
+CONFIGS='configs/'
+GITCONFIG=$CONFIGS'gitconfig'
+ALIAS=$CONFIGS'bash_aliases'
+
+## Functions
+
+clean() {
+    echo "Reverting changes"
+
+    if [[ -d "~/.vim" ]]; then
+        rm -rf ~/.vim > /dev/null 2>&1
+        rm ~/.vimrc > /dev/null 2>&1
+    fi
+
+    if [[ -d "~/.tmux" ]]; then
+        rm -rf ~/.tmux > /dev/null 2>&1
+        rm ~/.tmux.conf > /dev/null 2>&1
+    fi
+
+    if [[ -f "~/.gitconfig" ]]; then
+        rm ~/.gitconfig > /dev/null 2>&1
+    fi
+
+    if [[ -f "~/.bash_aliases" ]]; then
+        rm ~/.bash_aliases > /dev/null 2>&1
+    fi
+}
+
+
+setup_vim() {
+    cd $WD > /dev/null 2>&1
+    cp -av $VIM ~/.vim > /dev/null 2>&1
+    cd ~/.vim > /dev/null 2>&1
+    bash install.sh install > /dev/null 2>&1
+}
+
+setup_tmux() {
+    cd $WD > /dev/null 2>&1
+    cp -av $TMUX ~/.tmux > /dev/null 2>&1
+    cd ~/.tmux > /dev/null 2>&1
+    echo "Choose OS :"
+    echo -e "\t1. Ubuntu 14.04 - Ubuntu 16.04\n\t2. Ubuntu 18.04\n\t3. MacOS"
+    read version > /dev/null 2>&1
+
+    case "$version" in
+        1)
+            bash install.sh 1404 > /dev/null 2>&1
+            ;;
+        2)
+            bash install.sh 1604 > /dev/null 2>&1
+            ;;
+        3)
+            bash install.sh mac > /dev/null 2>&1
+            ;;
+        *)
+            echo "Invalid option chosen"
+            cleanup > /dev/null 2>&1
+            exit 1
+    esac
+}
+
+setup_git_config() {
+    flag=1
+    cd $WD > /dev/null 2>&1
+    echo "Git Email : "
+    read git_email
+    if [[ -z "$git_email" ]]; then
+        echo "Git email cannot be empty" > /dev/null 2>&1
+        echo "Skipping git config setup" > /dev/null 2>&1
+        flag=0 > /dev/null 2>&1
+    fi
+
+    echo "Git Name : "
+    read git_name
+    if [[ -z "$git_name" ]]; then
+        echo "Git name cannot be empty" > /dev/null 2>&1
+        echo "Skipping git config setup" > /dev/null 2>&1
+        flag=0 > /dev/null 2>&1
+    fi
+
+    if [[ $flag -ne 0 ]]; then
+        cp $GITCONFIG ~/.gitconfig > /dev/null 2>&1
+        sed -i 's/John Doe/'"${git_name}"'/g' ~/.gitconfig > /dev/null 2>&1
+        sed -i 's/johndoe@email.xxx/'"${git_email}"'/g' ~/.gitconfig > /dev/null 2>&1
+    fi
+}
+
+setup_bash_aliases() {
+    cd $WD > /dev/null 2>&1
+    cp $ALIAS ~/.bash_aliases > /dev/null 2>&1
+    source ~/.bashrc > /dev/null 2>&1
+}
+
+setup_packages() {
+    cd $WD > /dev/null 2>&1
+    sudo apt-get update > /dev/null 2>&1
+    while read -r line; do
+        pkg="$line"
+        sudo apt-get install $pkg -y > /dev/null 2>&1
+    done < "$PKG"
+}
+
+main() {
+    clean
+    setup_packages
+    setup_bash_aliases
+    setup_git_config
+    setup_tmux
+    setup_vim
+    cd $WD
+}
+
+main
