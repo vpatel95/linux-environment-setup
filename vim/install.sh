@@ -1,18 +1,25 @@
 #!/bin/bash
 
+HOMEDIR=~
+VIMRC=.vimrc
+VIM=$HOMEDIR/.vim
+BUNDLE=$VIM/.vim_bundle
+UNDOES=$VIM/.vim_undoes
 operation=$1
 
 case $1 in
     install)
-        rm -rf ~/.vim/bundle
-        cp .vimrc ~/.vimrc
-        git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-        cp -r scripts/* bundle/
+        mkdir -pv $BUNDLE
+        mkdir -pv $UNDOES
+        cp -ar ./ $VIM
+        cp -fv $VIMRC $HOMEDIR/$VIMRC
+        git clone https://github.com/VundleVim/Vundle.vim.git $BUNDLE/Vundle.vim
+        cp -r scripts/* $BUNDLE/
         vim +PluginInstall +qall!
         ;;
 
     update)
-        cp .vimrc ~/.vimrc
+        cp $VIMRC $HOMEDIR/$VIMRC
         vim +PluginInstall +qall!
         ;;
 
