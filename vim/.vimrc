@@ -61,8 +61,6 @@
     set undodir=~/.vim/.vim_undoes " Where do we store all this awesomeness?!?!
     set undofile " Persistent undos are completely freaking awesome!!!
 
-    let mapleader="\<Space>" " This vimrc frowns on overwritten vim bindings, I use the ',' quite a lot.
-    let g:mapleader="\<Space>" " It is very rare to see Vim user use <Space> in normal mode, hence this.
     set history=1024 " Defines the number of stored commands Vim can remember, doesn't really matter :).
     set ttimeoutlen=0
 " }
@@ -131,11 +129,6 @@
     set t_Co=256 " This will 'force' terminals to use 256 colors, enabling Lightline and the colorscheme to look correct.
     set background=light " Cool programmers only use dark themes. It's good for your eyes man, really nice!
 
-    " hi MatchParen cterm=none ctermbg=cyan ctermfg=white
-    " hi Visual cterm=none ctermbg=250
-
-    " hi ExtraWhitespace ctermbg=red guibg=red
-    " match ExtraWhitespace /\s\+$/
 
     " LightLine Components: {
         function! LightLineModified()
@@ -179,8 +172,7 @@
 
         let g:gundo_preview_height = 13
         let g:gundo_preview_bottom = 1
-        let g:NERDTreeWinPos = "right"
-        let g:gundo_right = 1 " right
+        let g:gundo_right = 1 " Open gundo window on right
         let g:tagbar_map_showproto=""
         let g:tagbar_autofocus = 1
         let g:tagbar_compact = 1
@@ -248,7 +240,7 @@
     nnoremap <silent> <C-L> :silent! nohl<cr><C-L>
 
     " Useful to toggle the NERDTree window back and forth.
-    noremap <silent> <leader>k :silent! NERDTreeToggle<cr>
+    noremap <silent> <leader>d :silent! NERDTreeToggle<cr>
     " Same thing as above, but for the TagBar plugin...
     noremap <silent> <leader>s :silent! TagbarToggle<cr>
     " For another window, this time for the GUndo tree.
