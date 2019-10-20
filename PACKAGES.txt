@@ -5,3 +5,4 @@ openssh-server
 cscope
 ctags
 silversearcher-ag
+tree
