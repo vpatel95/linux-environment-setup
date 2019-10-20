@@ -28,6 +28,7 @@
         Plugin 'tpope/vim-dispatch' " When launching async jobs.
         Plugin 'junegunn/fzf' " Fuzzy file search.
         Plugin 'mattn/emmet-vim' " Emmet for easy html code write up.
+        Plugin 'wellle/targets.vim' " Adds various text objects and targets.
     " }
 
     " Cosmetics: {
@@ -162,21 +163,25 @@
     " }
 
     " Windows: {
+        if has('python3')
+            let g:gundo_prefer_python3 = 1
+        endif
         let g:gundo_width = 48
+        let g:gundo_preview_height = 13
+        let g:gundo_preview_bottom = 1
+        let g:gundo_right = 1 " Open gundo window on right
+        let g:gundo_help = 0
+
         let g:tagbar_width = 48
+        let g:tagbar_show_linenumbers = -1 " Global conf.
+        let g:tagbar_map_showproto=""
+        let g:tagbar_autofocus = 1
+        let g:tagbar_compact = 1
+
         let g:NERDTreeWinSize = 48
         let g:NERDTreeMinimalUI = 1
         let g:NERDTreeShowLineNumbers = 1
         autocmd FileType nerdtree setlocal relativenumber
-        let g:tagbar_show_linenumbers = -1 " Global conf.
-
-        let g:gundo_preview_height = 13
-        let g:gundo_preview_bottom = 1
-        let g:gundo_right = 1 " Open gundo window on right
-        let g:tagbar_map_showproto=""
-        let g:tagbar_autofocus = 1
-        let g:tagbar_compact = 1
-        let g:gundo_help = 0
     " }
 
     " Graphical: {
@@ -247,7 +252,7 @@
     noremap <silent> <leader>g :silent! GundoToggle<cr>
 
     " Shortcut Ag searching.
-    noremap <leader>f :Ack! 
+    noremap <leader>f :Ack!
     " Shortcut for Tabulate.
     noremap <leader>a :Tab /
 

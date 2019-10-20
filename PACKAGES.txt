@@ -4,3 +4,4 @@ vim
 openssh-server
 cscope
 ctags
+silversearcher-ag
