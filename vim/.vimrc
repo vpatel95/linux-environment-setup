@@ -33,7 +33,7 @@
 
     " Cosmetics: {
         Plugin 'itchyny/lightline.vim' " For lightweight tbline.
-        " Plugin 'morhetz/gruvbox' " The most amazing colorscheme.
+        Plugin 'rakr/vim-one'
     " }
 
     " Syntaxes: {
@@ -128,6 +128,9 @@
     set laststatus=2 " Always have a status line, this is required in order for Lightline to work correctly.
     set noshowmode " Disables standard -INSERT-, -NORMAL-, etc... Lightline will provide a better looking one for us.
     set t_Co=256 " This will 'force' terminals to use 256 colors, enabling Lightline and the colorscheme to look correct.
+
+    colorscheme one
+    let g:one_allow_italics = 1
     set background=light " Cool programmers only use dark themes. It's good for your eyes man, really nice!
 
 

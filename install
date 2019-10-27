@@ -68,27 +68,7 @@ setup_tmux() {
 setup_git_config() {
     flag=1
     cd $WD > /dev/null 2>&1
-    echo "Git Email : "
-    read git_email
-    if [[ -z "$git_email" ]]; then
-        echo "Git email cannot be empty" > /dev/null 2>&1
-        echo "Skipping git config setup" > /dev/null 2>&1
-        flag=0 > /dev/null 2>&1
-    fi
-
-    echo "Git Name : "
-    read git_name
-    if [[ -z "$git_name" ]]; then
-        echo "Git name cannot be empty" > /dev/null 2>&1
-        echo "Skipping git config setup" > /dev/null 2>&1
-        flag=0 > /dev/null 2>&1
-    fi
-
-    if [[ $flag -ne 0 ]]; then
-        cp $GITCONFIG ~/.gitconfig > /dev/null 2>&1
-        sed -i 's/John Doe/'"${git_name}"'/g' ~/.gitconfig > /dev/null 2>&1
-        sed -i 's/johndoe@email.xxx/'"${git_email}"'/g' ~/.gitconfig > /dev/null 2>&1
-    fi
+    cp $GITCONFIG ~/.gitconfig > /dev/null 2>&1
 }
 
 setup_bash_aliases() {
@@ -108,7 +88,9 @@ setup_packages() {
 
 main() {
     clean
-    setup_packages
+    if [[ $EUID -eq 0 ]]; then
+        setup_packages
+    fi
     setup_bash_aliases
     setup_git_config
     setup_tmux

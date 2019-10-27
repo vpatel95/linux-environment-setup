@@ -64,6 +64,10 @@ alias boxes='cd $BOXES'
 # SSH Aliases
 alias 122s1='ssh ps122s1@euler.hbg.psu.edu -t bash'
 alias 122s2='ssh ps122s2@euler.hbg.psu.edu -t bash'
+alias euler='ssh vmp5265@euler.hbg.psu.edu'
+alias dahl='ssh vmp5265@dahl.hbg.psu.edu'
+alias ada='ssh vmp5265@ada.hbg.psu.edu'
+alias erdos='ssh vmp5265@erdos.hbg.psu.edu'
 
 # Custom Functions
 function cp_sh {
