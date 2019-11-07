@@ -19,6 +19,9 @@ BOXES=$MACHINES/Boxes
 
 ## Aliases
 
+# Protect against stupidity
+alias rm='rm -I'
+
 # Git Aliases
 alias gic='git clean -fdx'
 alias gib='git branch'
