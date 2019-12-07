@@ -7,6 +7,8 @@
     set nocompatible
     filetype off
 
+    let g:pymode_python = 'python3'
+
     set rtp+=~/.vim/.vim_bundle/Vundle.vim
     call vundle#begin('~/.vim/.vim_bundle')
     Plugin 'VundleVim/Vundle.vim'
@@ -33,7 +35,6 @@
 
     " Cosmetics: {
         Plugin 'itchyny/lightline.vim' " For lightweight tbline.
-        Plugin 'rakr/vim-one'
     " }
 
     " Syntaxes: {
@@ -129,8 +130,6 @@
     set noshowmode " Disables standard -INSERT-, -NORMAL-, etc... Lightline will provide a better looking one for us.
     set t_Co=256 " This will 'force' terminals to use 256 colors, enabling Lightline and the colorscheme to look correct.
 
-    colorscheme one
-    let g:one_allow_italics = 1
     set background=light " Cool programmers only use dark themes. It's good for your eyes man, really nice!
 
 
@@ -199,7 +198,7 @@
                 set guifont=Hack\ 10,Monospace\ 10
             endif
         else
-            set mouse=a " Mouse support if needed.
+            set mouse=c " Mouse support if needed.
         endif
 
         " A LightLine Theme
