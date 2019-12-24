@@ -9,6 +9,7 @@ operation=$1
 
 case $1 in
     install)
+        rm -rf $VIM
         mkdir -pv $BUNDLE
         mkdir -pv $UNDOES
         cp -ar ./ $VIM
@@ -19,7 +20,9 @@ case $1 in
         ;;
 
     update)
-        cp $VIMRC $HOMEDIR/$VIMRC
+        cp -ar ./ $VIM
+        cp -fv $VIMRC $HOMEDIR/$VIMRC
+        cp -r scripts/* $BUNDLE/
         vim +PluginInstall +qall!
         ;;
 

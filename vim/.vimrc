@@ -1,6 +1,6 @@
 " VIM Configuration file
 " Author    : Ved Patel
-" Date      : 16 October 2019
+" Date      : 24 December 2019
 
 
 " Initialization: {
@@ -16,6 +16,7 @@
 
 " Plugins: {
     " Functional: {
+        Plugin 'valloric/youcompleteme' " Code-completion engine for Vim
         Plugin 'tpope/vim-repeat'       " Extend the Vim '.' operator.
         Plugin 'tpope/vim-commentary.git' " Comment stuff out.
         Plugin 'tpope/vim-surround'     " Change (){}<>'' in a snap.
@@ -26,20 +27,23 @@
         Plugin 'tmhedberg/matchit' " The '%' now matches more k?
         Plugin 'mileszs/ack.vim' " Forget IDE searches gtg fast!
         Plugin 'sjl/gundo.vim' " Why only have linear undo tree?
-        Plugin 'ajh17/VimCompletesMe' " Standardized auto-compl.
         Plugin 'tpope/vim-dispatch' " When launching async jobs.
         Plugin 'junegunn/fzf' " Fuzzy file search.
         Plugin 'mattn/emmet-vim' " Emmet for easy html code write up.
         Plugin 'wellle/targets.vim' " Adds various text objects and targets.
+        Plugin 'scrooloose/nerdcommenter' " Advanced commenting
     " }
 
     " Cosmetics: {
         Plugin 'itchyny/lightline.vim' " For lightweight tbline.
+        Plugin 'Yggdroot/indentLine' " Display indentation level using vertical lines
+        Plugin 'morhetz/gruvbox' " Color schemes
     " }
 
     " Syntaxes: {
         Plugin 'CaffeineViking/vim-glsl' " Add support for GLSL.
         Plugin 'kbenzie/vim-spirv.git' " SPIRV syntax highlight.
+        Plugin 'octol/vim-cpp-enhanced-highlight' " C++ advanced highlighting
     "}
 " }
 
@@ -65,17 +69,6 @@
 
     set history=1024 " Defines the number of stored commands Vim can remember, doesn't really matter :).
     set ttimeoutlen=0
-" }
-
-" Autocompletions: { Basically, Vim's built-in auto-completions support with uniform keyboard shortcuts.
-    " We are using VimCompletesMe as the plugin of choice for making Vim's " built-in autocompletions be
-    " more uniformly handled with an single key: <Tab> and <Shift>-<Tab>. It will attempt to derive what
-    " the most suitable autocompletion function is to be called based on the context (omni, user etc...)
-    set omnifunc=syntaxcomplete#Complete " Enables only the default Vim auto-completion (quite fast!!!).
-    " The above autocompletion types will not call any external programs (it might however, call ctags).
-    set completeopt+=longest " Attempts to insert longest obviously current common match found so far.
-    set completeopt-=preview " Sometimes the [Scratch] preview window will pop-up. We don't want that.
-    let g:vcm_direction='p' " First choice should be the *closest* matching entry (as Bram intended).
 " }
 
 " Formatting: {
@@ -131,6 +124,7 @@
     set t_Co=256 " This will 'force' terminals to use 256 colors, enabling Lightline and the colorscheme to look correct.
 
     set background=light " Cool programmers only use dark themes. It's good for your eyes man, really nice!
+    let s:current_bg = "light"
 
 
     " LightLine Components: {
@@ -226,9 +220,30 @@
         \ }
     " }
 
+    function BGToggle()
+        if (s:current_bg ==? "light")
+            set background=dark
+            colorscheme gruvbox
+            let s:current_bg = "dark"
+        else
+            set background=light
+            colorscheme default
+            let s:current_bg = "light"
+        endif
+    endfunction
+
     set list " Enables the characters to be displayed.
     " Useful for showing trailing whitespace and others.
     set listchars=tab:›\ ,trail:•,extends:>,precedes:<,nbsp:_
+
+    " CPP enhanced highlight: {
+        let g:cpp_class_scope_highlight = 1
+        let g:cpp_member_variable_highlight = 1
+        let g:cpp_class_decl_highlight = 1
+        let g:cpp_posix_standard = 1
+        let g:cpp_experimental_template_highlight = 1
+        let g:cpp_concepts_highlight = 1
+    " }
 " }
 
 " Filetype: {
@@ -238,6 +253,7 @@
     augroup project
         autocmd!
         autocmd BufRead,BufNewFile *.h,*.c set filetype=c | set cindent | set foldmethod=syntax
+        autocmd BufRead,BufNewFile *.hpp,*.cpp set filetype=cpp | set cindent | set foldmethod=syntax
         autocmd BufRead,BufNewFile *.go set filetype=go | set foldmethod=syntax
     augroup END
 " }
@@ -263,7 +279,8 @@
     nmap <leader>fe :set foldenable
     nmap <leader>fd :set nofoldenable
 
-
+    " Toggle Background and colorscheme
+    nmap <leader>bg :call BGToggle()<CR>
 
     " Save key bindings
     nmap <F2> :w<CR>
@@ -273,7 +290,9 @@
 
     " Line number key bindings
     nmap <leader>sn :set number<CR>
-    nmap <leader>snn :set nonumber<CR>
+    nmap <leader>sr :set relativenumber<CR>
+    nmap <leader>snn :set nonumber <bar> set norelativenumber<CR>
+    nmap <leader>snr :set norelativenumber<CR>
 
     " Buffer and tab movement key bindings
     nnoremap <leader>q :bp<CR>
