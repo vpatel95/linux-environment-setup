@@ -35,8 +35,7 @@ clean() {
 
 setup_vim() {
     cd $WD > /dev/null 2>&1
-    cp -av $VIM ~/.vim > /dev/null 2>&1
-    cd ~/.vim > /dev/null 2>&1
+    cd vim > /dev/null 2>&1
     bash install.sh install > /dev/null 2>&1
 }
 
