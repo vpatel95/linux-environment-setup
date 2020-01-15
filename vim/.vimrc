@@ -44,6 +44,7 @@
         Plugin 'CaffeineViking/vim-glsl' " Add support for GLSL.
         Plugin 'kbenzie/vim-spirv.git' " SPIRV syntax highlight.
         Plugin 'octol/vim-cpp-enhanced-highlight' " C++ advanced highlighting
+        Plugin 'SirVer/ultisnips' " Code snippets. YCM queries it
     "}
 " }
 
@@ -218,6 +219,20 @@
         \ 'separator':    { 'left': '|', 'right': '|' },
         \ 'subseparator': { 'left': '|', 'right': '|' }
         \ }
+    " }
+
+    " Auto Completion : {
+        let g:ycm_max_num_candidates = 25
+        let g:ycm_max_num_identifier_candidates = 10
+        let g:ycm_collect_identifiers_from_tags_files = 1
+        let g:ycm_seed_identifiers_with_syntax = 1
+        let g:ycm_log_level = 'error'
+        let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<Enter>']
+        let g:ycm_key_list_stop_completion = ['<C-y>', '<Right>']
+        let g:ycm_goto_buffer_command = 'split-or-existing-window'
+
+        let g:ycm_auto_start_csharp_server = 0
+        let g:ycm_auto_stop_csharp_server = 0
     " }
 
     function BGToggle()

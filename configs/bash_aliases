@@ -15,6 +15,7 @@ MACHINES=$HOME/Machines
 UBUNTU1604=$MACHINES/ubuntu-1604
 WIN10=$MACHINES/win-10
 BOXES=$MACHINES/Boxes
+PROJECTS=$HOME/Projects
 
 
 ## Aliases
@@ -46,7 +47,7 @@ alias sshad='ssh-add '$HOME'/.ssh/github'
 alias ghkey='sshag sshad'
 alias pymol=$HOME'/Softwares/pymol/pymol > /dev/null &'
 alias rmtags='rm cscope.* tags'
-alias tags='rmtags; find . -name "*.c" -o -name "*.h" -o -name "*.go" -o -name "*.py" > cscope.files; cscope -b; rm cscope.files; ctags -R --exclude=*.js'
+alias tags='rmtags; find . -name "*.c" -o -name "*.cpp" -o -name "*.hpp" -o -name "*.h" -o -name "*.go" -o -name "*.py" > cscope.files; cscope -b; rm cscope.files; ctags -R --exclude=*.js'
 alias vagrant=$TOOLS'/vagrant/vagrant'
 alias vim-help='cat ~/.vim/doc/help.txt'
 
@@ -63,6 +64,8 @@ alias vms='cd $MACHINES'
 alias ubuntu='cd $UBUNTU1604'
 alias win10='cd $WIN10'
 alias boxes='cd $BOXES'
+alias proj='cd $PROJECTS'
+alias mlproj='cd $PROJECTS/comp520'
 
 # SSH Aliases
 alias 122s1='ssh ps122s1@euler.hbg.psu.edu -t bash'
@@ -71,6 +74,8 @@ alias euler='ssh vmp5265@euler.hbg.psu.edu'
 alias dahl='ssh vmp5265@dahl.hbg.psu.edu'
 alias ada='ssh vmp5265@ada.hbg.psu.edu'
 alias erdos='ssh vmp5265@erdos.hbg.psu.edu'
+alias yeuler='ssh -Y vmp5265@euler.hbg.psu.edu'
+alias ydahl='ssh -Y vmp5265@dahl.hbg.psu.edu'
 
 # Custom Functions
 function cp_sh {
