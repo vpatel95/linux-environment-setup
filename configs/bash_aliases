@@ -6,9 +6,13 @@ DESKTOP=$HOME/Desktop
 TOOLS=$HOME/Tools
 PSU=$HOME/PSU-MS-Computer-Science
 FALL19=$PSU/FALL19
+SPRING20=$PSU/SPRING20
 DBMS=$FALL19/COMP519
 AI=$FALL19/COMP520
-ALGO=$FALL19/CMPSC463
+ALGO_BS=$FALL19/CMPSC463
+ALGO=$SPRING20/COMP511
+OS=$SPRING20/COMP512
+APL=$SPRING20/COMP516
 WEBSITE=$PSU/public_html
 RA=$PSU/RA
 MACHINES=$HOME/Machines
@@ -54,7 +58,10 @@ alias vim-help='cat ~/.vim/doc/help.txt'
 # Directory Aliases
 alias dbms='cd $DBMS'
 alias ai='cd $AI'
+alias algo_bs='cd $ALGO_BS'
 alias algo='cd $ALGO'
+alias os='cd $OS'
+alias apl='cd $APL'
 alias ra='cd $RA'
 alias tools='cd $TOOLS'
 alias docs='cd $DOCUMENTS'
@@ -76,46 +83,10 @@ alias ada='ssh vmp5265@ada.hbg.psu.edu'
 alias erdos='ssh vmp5265@erdos.hbg.psu.edu'
 alias yeuler='ssh -Y vmp5265@euler.hbg.psu.edu'
 alias ydahl='ssh -Y vmp5265@dahl.hbg.psu.edu'
+alias yada='ssh -Y vmp5265@ada.hbg.psu.edu'
+alias yerdos='ssh -Y vmp5265@erdos.hbg.psu.edu'
 
 # Custom Functions
-function cp_sh {
-   if [ $# -lt 1 ]; then
-        echo "Usage : search <from|to> [OPTIONS]"
-        echo "      OPTIONS"
-        echo "          from : <file> [directory]"
-        echo "          to : <file> [directory]"
-        return
-    fi
-
-    case "$1" in
-        to)
-            if [ $# -eq 2 ]; then
-                cp -r $2 $SHARED
-            elif [ $# -eq 3 ]; then
-                cp -r $2 $SHARED'/'$3
-            else
-                echo "Usage: cp_sh to <file> [directory]"
-            fi
-            ;;
-
-        from)
-            if [ $# -eq 2 ]; then
-                cp -r $SHARED'/'$2 .
-            elif [ $# -eq 3 ]; then
-                cp -r $SHARED'/'$2 $3
-            else
-                echo "Usage: cp_sh from <file> [directory]"
-            fi
-            ;;
-        *)
-            echo "Usage : search <from|to> [OPTIONS]"
-            echo "      OPTIONS"
-            echo "          from : <file> [directory]"
-            echo "          to : <file> [directory]"
-            ;;
-    esac
-}
-
 function search {
     if [ $# -lt 1 ]; then
         echo "Usage : search <file|text> [OPTIONS]"
@@ -158,80 +129,97 @@ function course {
         exit 1
     fi
 
-    course=$1
+    course=${1^^}
     data=$2
     data_value=$3
 
-    case $course in
-        dbms)
-            case $2 in
-                book)
-                    cd $DBMS/Book
-                    ;;
-                hw)
-                    if [[ -z "$data_value" ]]; then
-                        cd $DBMS/Homeworks
-                    else
-                        cd $DBMS/Homeworks/Assignment${data_value}
-                    fi
-                    ;;
-                latex)
-                    cd $DBMS/Latex
-                    ;;
-                *)
-                    cd $DBMS
-                    ;;
-            esac
+    case $2 in
+        book)
+            cd ${!course}/Book
             ;;
-        ai)
-            case $2 in
-                book)
-                    cd $AI/Book
-                    ;;
-                hw)
-                    if [[ -z "$data_value" ]]; then
-                        cd $AI/Homeworks
-                    else
-                        cd $AI/Homeworks/Assignment${data_value}
-                    fi
-                    ;;
-                latex)
-                    cd $AI/Latex
-                    ;;
-                *)
-                    cd $AI
-                    ;;
-            esac
+        hw)
+            if [[ -z "$data_value" ]]; then
+                cd ${!course}/Homeworks
+            else
+                cd ${!course}/Homeworks/Assignment${data_value}
+            fi
             ;;
-        algo)
-            case $2 in
-                book)
-                    cd $ALGO/Book
-                    ;;
-                hw)
-                    if [[ -z "$data_value" ]]; then
-                        cd $ALGO/Homeworks
-                    else
-                        cd $ALGO/Homeworks/Assignment${data_value}
-                    fi
-                    ;;
-                latex)
-                    cd $ALGO/Latex
-                    ;;
-                *)
-                    cd $ALGO
-                    ;;
-            esac
+        latex)
+            cd ${!course}/Latex
             ;;
         *)
-            echo "Course ${1} not yet updated or taken"
-            exit 1
+            cd ${!course}
+            ;;
     esac
+    # case $course in
+    #     dbms)
+    #         case $2 in
+    #             book)
+    #                 cd $DBMS/Book
+    #                 ;;
+    #             hw)
+    #                 if [[ -z "$data_value" ]]; then
+    #                     cd $DBMS/Homeworks
+    #                 else
+    #                     cd $DBMS/Homeworks/Assignment${data_value}
+    #                 fi
+    #                 ;;
+    #             latex)
+    #                 cd $DBMS/Latex
+    #                 ;;
+    #             *)
+    #                 cd $DBMS
+    #                 ;;
+    #         esac
+    #         ;;
+    #     ai)
+    #         case $2 in
+    #             book)
+    #                 cd $AI/Book
+    #                 ;;
+    #             hw)
+    #                 if [[ -z "$data_value" ]]; then
+    #                     cd $AI/Homeworks
+    #                 else
+    #                     cd $AI/Homeworks/Assignment${data_value}
+    #                 fi
+    #                 ;;
+    #             latex)
+    #                 cd $AI/Latex
+    #                 ;;
+    #             *)
+    #                 cd $AI
+    #                 ;;
+    #         esac
+    #         ;;
+    #     algo)
+    #         case $2 in
+    #             book)
+    #                 cd $ALGO/Book
+    #                 ;;
+    #             hw)
+    #                 if [[ -z "$data_value" ]]; then
+    #                     cd $ALGO/Homeworks
+    #                 else
+    #                     cd $ALGO/Homeworks/Assignment${data_value}
+    #                 fi
+    #                 ;;
+    #             latex)
+    #                 cd $ALGO/Latex
+    #                 ;;
+    #             *)
+    #                 cd $ALGO
+    #                 ;;
+    #         esac
+    #         ;;
+    #     *)
+    #         echo "Course ${1} not yet updated or taken"
+    #         exit 1
+    # esac
 }
 
 export GIT_EDITOR=vim
 export EDITOR=vim
 export VISUAL=vim
-export -f cp_sh
 export -f search
 export -f course
