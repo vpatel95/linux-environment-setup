@@ -125,7 +125,7 @@ function search {
 
 function course {
     if [[ $# -lt 2 ]]; then
-        echo "Usage : bash $1 <course> <data> [data-value]"
+        echo "Usage : course <course> <data> [data-value]"
         exit 1
     fi
 
@@ -151,71 +151,15 @@ function course {
             cd ${!course}
             ;;
     esac
-    # case $course in
-    #     dbms)
-    #         case $2 in
-    #             book)
-    #                 cd $DBMS/Book
-    #                 ;;
-    #             hw)
-    #                 if [[ -z "$data_value" ]]; then
-    #                     cd $DBMS/Homeworks
-    #                 else
-    #                     cd $DBMS/Homeworks/Assignment${data_value}
-    #                 fi
-    #                 ;;
-    #             latex)
-    #                 cd $DBMS/Latex
-    #                 ;;
-    #             *)
-    #                 cd $DBMS
-    #                 ;;
-    #         esac
-    #         ;;
-    #     ai)
-    #         case $2 in
-    #             book)
-    #                 cd $AI/Book
-    #                 ;;
-    #             hw)
-    #                 if [[ -z "$data_value" ]]; then
-    #                     cd $AI/Homeworks
-    #                 else
-    #                     cd $AI/Homeworks/Assignment${data_value}
-    #                 fi
-    #                 ;;
-    #             latex)
-    #                 cd $AI/Latex
-    #                 ;;
-    #             *)
-    #                 cd $AI
-    #                 ;;
-    #         esac
-    #         ;;
-    #     algo)
-    #         case $2 in
-    #             book)
-    #                 cd $ALGO/Book
-    #                 ;;
-    #             hw)
-    #                 if [[ -z "$data_value" ]]; then
-    #                     cd $ALGO/Homeworks
-    #                 else
-    #                     cd $ALGO/Homeworks/Assignment${data_value}
-    #                 fi
-    #                 ;;
-    #             latex)
-    #                 cd $ALGO/Latex
-    #                 ;;
-    #             *)
-    #                 cd $ALGO
-    #                 ;;
-    #         esac
-    #         ;;
-    #     *)
-    #         echo "Course ${1} not yet updated or taken"
-    #         exit 1
-    # esac
+}
+
+function runscm {
+    if [[ $# -lt 1 ]]; then
+        echo "Usage : runscm <file>"
+        exit 1
+    fi
+
+    scheme --quiet < "$1"
 }
 
 export GIT_EDITOR=vim
@@ -223,3 +167,4 @@ export EDITOR=vim
 export VISUAL=vim
 export -f search
 export -f course
+export -f runscm

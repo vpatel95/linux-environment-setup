@@ -227,8 +227,8 @@
         let g:ycm_collect_identifiers_from_tags_files = 1
         let g:ycm_seed_identifiers_with_syntax = 1
         let g:ycm_log_level = 'error'
-        let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<Enter>']
-        let g:ycm_key_list_stop_completion = ['<C-y>', '<Right>']
+        let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
+        let g:ycm_key_list_stop_completion = ['<C-y>', '<Right>', '<Enter>']
         let g:ycm_goto_buffer_command = 'split-or-existing-window'
 
         let g:ycm_auto_start_csharp_server = 0
