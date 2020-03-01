@@ -1,3 +1,8 @@
+build-essential
+python-dev
+python3-dev
+python-pip
+python3-pip
 git
 tmux
 vim
@@ -6,3 +11,7 @@ cscope
 ctags
 silversearcher-ag
 tree
+cmake
+htop
+vlc
+gdebi-core

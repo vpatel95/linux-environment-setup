@@ -123,9 +123,11 @@
     set laststatus=2 " Always have a status line, this is required in order for Lightline to work correctly.
     set noshowmode " Disables standard -INSERT-, -NORMAL-, etc... Lightline will provide a better looking one for us.
     set t_Co=256 " This will 'force' terminals to use 256 colors, enabling Lightline and the colorscheme to look correct.
+    set t_ut=
 
-    set background=light " Cool programmers only use dark themes. It's good for your eyes man, really nice!
-    let s:current_bg = "light"
+    set background=dark " Cool programmers only use dark themes. It's good for your eyes man, really nice!
+    colorscheme gruvbox
+    let s:current_bg = "dark"
 
 
     " LightLine Components: {

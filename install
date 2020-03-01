@@ -85,10 +85,15 @@ setup_packages() {
     done < "$PKG"
 }
 
+setup_softwares() {
+    sudo dpkg -i ./softwares/google-chrome-stable_current_amd64.deb
+}
+
 main() {
     clean
     if [[ $EUID -eq 0 ]]; then
         setup_packages
+        setup_softwares
     fi
     setup_bash_aliases
     setup_git_config
