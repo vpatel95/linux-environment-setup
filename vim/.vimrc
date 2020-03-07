@@ -17,21 +17,17 @@
 " Plugins: {
     " Functional: {
         Plugin 'valloric/youcompleteme' " Code-completion engine for Vim
-        Plugin 'tpope/vim-repeat'       " Extend the Vim '.' operator.
-        Plugin 'tpope/vim-commentary.git' " Comment stuff out.
         Plugin 'tpope/vim-surround'     " Change (){}<>'' in a snap.
         Plugin 'godlygeek/tabular' " Easy automatic tabulations.
         Plugin 'scrooloose/nerdtree' " Better than NetRw, maybe.
+        Plugin 'scrooloose/nerdcommenter' " Advanced commenting
         Plugin 'majutsushi/tagbar' " Nice to get a code topview.
-        Plugin 'tpope/vim-fugitive' " Probably best Git wrapper.
         Plugin 'tmhedberg/matchit' " The '%' now matches more k?
         Plugin 'mileszs/ack.vim' " Forget IDE searches gtg fast!
         Plugin 'sjl/gundo.vim' " Why only have linear undo tree?
-        Plugin 'tpope/vim-dispatch' " When launching async jobs.
         Plugin 'junegunn/fzf' " Fuzzy file search.
         Plugin 'mattn/emmet-vim' " Emmet for easy html code write up.
         Plugin 'wellle/targets.vim' " Adds various text objects and targets.
-        Plugin 'scrooloose/nerdcommenter' " Advanced commenting
     " }
 
     " Cosmetics: {
@@ -70,6 +66,7 @@
 
     set history=1024 " Defines the number of stored commands Vim can remember, doesn't really matter :).
     set ttimeoutlen=0
+    let g:indentLine_conceallevel = 0
 " }
 
 " Formatting: {
@@ -232,6 +229,9 @@
         let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
         let g:ycm_key_list_stop_completion = ['<C-y>', '<Right>', '<Enter>']
         let g:ycm_goto_buffer_command = 'split-or-existing-window'
+        let g:ycm_confirm_extra_conf = 0
+        let g:ycm_autoclose_preview_window_after_completion = 1
+        set completeopt-=preview
 
         let g:ycm_auto_start_csharp_server = 0
         let g:ycm_auto_stop_csharp_server = 0
@@ -287,7 +287,7 @@
     noremap <silent> <leader>g :silent! GundoToggle<cr>
 
     " Shortcut Ag searching.
-    noremap <leader>f :Ack!
+    noremap <leader>f :Ack! <C-R>=expand("<cword>")<CR><CR>
     " Shortcut for Tabulate.
     noremap <leader>a :Tab /
 
