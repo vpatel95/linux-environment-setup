@@ -18,7 +18,7 @@ case $1 in
         cp -r scripts/* $BUNDLE/
         vim +PluginInstall +qall!
         cd $BUNDLE/youcompleteme
-        python install.py --clang-completer --clangd-completer --java-completer --rust-completer
+        python3 install.py --clang-completer --clangd-completer --java-completer --rust-completer
         ;;
 
     update)
