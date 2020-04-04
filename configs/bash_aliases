@@ -16,9 +16,6 @@ APL=$SPRING20/COMP516
 WEBSITE=$PSU/public_html
 RA=$PSU/RA
 MACHINES=$HOME/Machines
-UBUNTU1604=$MACHINES/ubuntu-1604
-WIN10=$MACHINES/win-10
-BOXES=$MACHINES/Boxes
 PROJECTS=$HOME/Projects
 
 
@@ -32,6 +29,7 @@ alias gic='git clean -fdx'
 alias gib='git branch'
 alias gibd='git branch -D'
 alias gid='git diff'
+alias gids='git diff --stat'
 alias gidc='git diff --cached'
 alias gil='git log --decorate --graph'
 alias gila='git log --decorate --pretty=format:"%h [%an][%ad] %s" --graph'
@@ -44,12 +42,30 @@ alias gip='git pull'
 alias gipr='git pull --rebase'
 alias giri='git rebase --interactive HEAD~'
 
+# Vagrant aliases
+alias avds-start="cd $MACHINES/server; vagrant up && vagrant ssh"
+alias avdu-start="cd $MACHINES/user; vagrant up && vagrant ssh"
+alias avdw1-start="cd $MACHINES/worker1; vagrant up && vagrant ssh"
+alias avdw1-start="cd $MACHINES/worker2; vagrant up && vagrant ssh"
+alias avdw3-start="cd $MACHINES/worker3; vagrant up && vagrant ssh"
+
+alias avds-halt="cd $MACHINES/server; vagrant halt"
+alias avdu-halt="cd $MACHINES/user; vagrant halt"
+alias avdw1-halt="cd $MACHINES/worker1; vagrant halt"
+alias avdw1-halt="cd $MACHINES/worker2; vagrant halt"
+alias avdw3-halt="cd $MACHINES/worker3; vagrant halt"
+
+alias avds-suspend="cd $MACHINES/server; vagrant suspend"
+alias avdu-suspend="cd $MACHINES/user; vagrant suspend"
+alias avdw1-suspend="cd $MACHINES/worker1; vagrant suspend"
+alias avdw1-suspend="cd $MACHINES/worker2; vagrant suspend"
+alias avdw3-suspend="cd $MACHINES/worker3; vagrant suspend"
+
 # Command Aliases
 alias torrent='utserver -settingspath /opt/utorrent-server-alpha-v3_3/'
 alias sshag='eval $(ssh-agent)'
 alias sshad='ssh-add '$HOME'/.ssh/github'
 alias ghkey='sshag sshad'
-alias pymol=$HOME'/Softwares/pymol/pymol > /dev/null &'
 alias rmtags='rm cscope.* tags'
 alias tags='rmtags; find . -name "*.c" -o -name "*.cpp" -o -name "*.hpp" -o -name "*.h" -o -name "*.go" -o -name "*.py" > cscope.files; cscope -b; rm cscope.files; ctags -R --exclude=*.js'
 alias vagrant=$TOOLS'/vagrant/vagrant'
@@ -73,6 +89,12 @@ alias win10='cd $WIN10'
 alias boxes='cd $BOXES'
 alias proj='cd $PROJECTS'
 alias mlproj='cd $PROJECTS/comp520'
+alias osproj='cd $PROJECTS/avd-pipe'
+alias avds='cs $MACHINES/server'
+alias avdu='cs $MACHINES/user'
+alias avdw1='cs $MACHINES/worker1'
+alias avdw2='cs $MACHINES/worker2'
+alias avdw3='cs $MACHINES/worker3'
 
 # SSH Aliases
 alias 122s1='ssh ps122s1@euler.hbg.psu.edu -t bash'
@@ -85,6 +107,9 @@ alias yeuler='ssh -Y vmp5265@euler.hbg.psu.edu'
 alias ydahl='ssh -Y vmp5265@dahl.hbg.psu.edu'
 alias yada='ssh -Y vmp5265@ada.hbg.psu.edu'
 alias yerdos='ssh -Y vmp5265@erdos.hbg.psu.edu'
+
+alias vps='ssh -p1109 ved@fios-router.lan'
+alias vps_local='ssh ved@192.168.0.200'
 
 # Custom Functions
 function search {

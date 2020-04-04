@@ -93,7 +93,6 @@ main() {
     clean
     if [[ $EUID -eq 0 ]]; then
         setup_packages
-        setup_softwares
     fi
     setup_bash_aliases
     setup_git_config
