@@ -46,19 +46,19 @@ alias giri='git rebase --interactive HEAD~'
 alias avds-start="cd $MACHINES/server; vagrant up && vagrant ssh"
 alias avdu-start="cd $MACHINES/user; vagrant up && vagrant ssh"
 alias avdw1-start="cd $MACHINES/worker1; vagrant up && vagrant ssh"
-alias avdw1-start="cd $MACHINES/worker2; vagrant up && vagrant ssh"
+alias avdw2-start="cd $MACHINES/worker2; vagrant up && vagrant ssh"
 alias avdw3-start="cd $MACHINES/worker3; vagrant up && vagrant ssh"
 
 alias avds-halt="cd $MACHINES/server; vagrant halt"
 alias avdu-halt="cd $MACHINES/user; vagrant halt"
 alias avdw1-halt="cd $MACHINES/worker1; vagrant halt"
-alias avdw1-halt="cd $MACHINES/worker2; vagrant halt"
+alias avdw2-halt="cd $MACHINES/worker2; vagrant halt"
 alias avdw3-halt="cd $MACHINES/worker3; vagrant halt"
 
 alias avds-suspend="cd $MACHINES/server; vagrant suspend"
 alias avdu-suspend="cd $MACHINES/user; vagrant suspend"
 alias avdw1-suspend="cd $MACHINES/worker1; vagrant suspend"
-alias avdw1-suspend="cd $MACHINES/worker2; vagrant suspend"
+alias avdw2-suspend="cd $MACHINES/worker2; vagrant suspend"
 alias avdw3-suspend="cd $MACHINES/worker3; vagrant suspend"
 
 # Command Aliases
