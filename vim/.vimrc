@@ -18,9 +18,10 @@
     " Functional: {
         Plugin 'valloric/youcompleteme' " Code-completion engine for Vim
         Plugin 'tpope/vim-surround'     " Change (){}<>'' in a snap.
+        Plugin 'tpope/vim-commentary'
+        Plugin 'tpope/vim-fugitive'
         Plugin 'godlygeek/tabular' " Easy automatic tabulations.
         Plugin 'scrooloose/nerdtree' " Better than NetRw, maybe.
-        Plugin 'scrooloose/nerdcommenter' " Advanced commenting
         Plugin 'majutsushi/tagbar' " Nice to get a code topview.
         Plugin 'tmhedberg/matchit' " The '%' now matches more k?
         Plugin 'mileszs/ack.vim' " Forget IDE searches gtg fast!
@@ -210,7 +211,7 @@
         \   'filetype': '%{&ft!=#""?&ft:"[No Type]"}'
         \ },
         \ 'component_function': {
-        \   'fugitive': 'LightLineFugitive',
+        \   'fugitive': 'FugitiveHead',
         \   'readonly': 'LightLineReadonly',
         \   'modified': 'LightLineModified',
         \   'filename': 'LightLineFilename',

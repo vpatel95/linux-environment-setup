@@ -61,6 +61,17 @@ alias avdw1-suspend="cd $MACHINES/worker1; vagrant suspend"
 alias avdw2-suspend="cd $MACHINES/worker2; vagrant suspend"
 alias avdw3-suspend="cd $MACHINES/worker3; vagrant suspend"
 
+# OS Project Aliases
+alias avd-src="osproj && cd src"
+alias avd-bin="avd-src && cd build"
+alias avd-make="avd-src && make clean && make"
+alias avd-setup="osproj && cd setup"
+alias server="sudo build/avd_server config/conf.json"
+alias user="sudo build/avd_user config/conf.json"
+alias worker1="sudo build/avd_worker config/conf_w1.json"
+alias worker2="sudo build/avd_worker config/conf_w2.json"
+alias worker3="sudo build/avd_worker config/conf_w3.json"
+
 # Command Aliases
 alias torrent='utserver -settingspath /opt/utorrent-server-alpha-v3_3/'
 alias sshag='eval $(ssh-agent)'
