@@ -29,10 +29,12 @@
         Plugin 'junegunn/fzf' " Fuzzy file search.
         Plugin 'mattn/emmet-vim' " Emmet for easy html code write up.
         Plugin 'wellle/targets.vim' " Adds various text objects and targets.
+        Plugin 'fatih/vim-go'
     " }
 
     " Cosmetics: {
-        Plugin 'itchyny/lightline.vim' " For lightweight tbline.
+        Plugin 'vim-airline/vim-airline'
+        Plugin 'vim-airline/vim-airline-themes'
         Plugin 'Yggdroot/indentLine' " Display indentation level using vertical lines
         Plugin 'morhetz/gruvbox' " Color schemes
     " }
@@ -127,38 +129,6 @@
     colorscheme gruvbox
     let s:current_bg = "dark"
 
-
-    " LightLine Components: {
-        function! LightLineModified()
-            if &modified
-                return "+"
-            else
-                return ""
-            endif
-        endfunction
-        function! LightLineReadonly()
-            if &readonly
-                return ""
-            else
-                return ""
-            endif
-        endfunction
-        function! LightLineFugitive()
-            if exists("*fugitive#head")
-                let branch = fugitive#head()
-                return branch !=# '' ? branch : '[No Head]'
-            else
-                return '[No Head]'
-            endif
-            return ''
-        endfunction
-        function! LightLineFilename()
-            return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-                 \ ('' != expand('%:f') ? expand('%:f') : '[No Name]') .
-                 \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
-        endfunction
-    " }
-
     " Windows: {
         if has('python3')
             let g:gundo_prefer_python3 = 1
@@ -196,29 +166,10 @@
             set mouse=c " Mouse support if needed.
         endif
 
-        " A LightLine Theme
-        let g:lightline = {
-        \ 'active': {
-        \  'left': [[ 'mode' ], [ 'fugitive' ], [ 'filename' ]],
-        \  'right': [[ 'linenums' ], [ 'fileencoding', 'fileformat' ], [ 'filetype']]
-        \ },
-        \ 'inactive': {
-        \  'left': [[ 'mode' ], [ 'fugitive' ], [ 'filename' ]],
-        \  'right': [[ 'linenums' ], [ 'fileencoding', 'fileformat' ], [ 'filetype']]
-        \ },
-        \ 'component': {
-        \   'linenums': '☰  %3l/%L:%-2c',
-        \   'filetype': '%{&ft!=#""?&ft:"[No Type]"}'
-        \ },
-        \ 'component_function': {
-        \   'fugitive': 'FugitiveHead',
-        \   'readonly': 'LightLineReadonly',
-        \   'modified': 'LightLineModified',
-        \   'filename': 'LightLineFilename',
-        \ },
-        \ 'separator':    { 'left': '|', 'right': '|' },
-        \ 'subseparator': { 'left': '|', 'right': '|' }
-        \ }
+        " Enable Airline
+        let g:airline#extensions#tabline#enabled = 1
+        let g:airline_powerline_fonts = 1
+
     " }
 
     " Auto Completion : {

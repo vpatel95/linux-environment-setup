@@ -48,29 +48,34 @@ alias avdu-start="cd $MACHINES/user; vagrant up && vagrant ssh"
 alias avdw1-start="cd $MACHINES/worker1; vagrant up && vagrant ssh"
 alias avdw2-start="cd $MACHINES/worker2; vagrant up && vagrant ssh"
 alias avdw3-start="cd $MACHINES/worker3; vagrant up && vagrant ssh"
+alias avdw4-start="cd $MACHINES/worker4; vagrant up && vagrant ssh"
+
+alias avds-ssh="cd $MACHINES/server; vagrant ssh"
+alias avdu-ssh="cd $MACHINES/user; vagrant ssh"
+alias avdw1-ssh="cd $MACHINES/worker1; vagrant ssh"
+alias avdw2-ssh="cd $MACHINES/worker2; vagrant ssh"
+alias avdw3-ssh="cd $MACHINES/worker3; vagrant ssh"
+alias avdw4-ssh="cd $MACHINES/worker4; vagrant ssh"
 
 alias avds-halt="cd $MACHINES/server; vagrant halt"
 alias avdu-halt="cd $MACHINES/user; vagrant halt"
 alias avdw1-halt="cd $MACHINES/worker1; vagrant halt"
 alias avdw2-halt="cd $MACHINES/worker2; vagrant halt"
 alias avdw3-halt="cd $MACHINES/worker3; vagrant halt"
+alias avdw4-halt="cd $MACHINES/worker4; vagrant halt"
 
 alias avds-suspend="cd $MACHINES/server; vagrant suspend"
 alias avdu-suspend="cd $MACHINES/user; vagrant suspend"
 alias avdw1-suspend="cd $MACHINES/worker1; vagrant suspend"
 alias avdw2-suspend="cd $MACHINES/worker2; vagrant suspend"
 alias avdw3-suspend="cd $MACHINES/worker3; vagrant suspend"
+alias avdw4-suspend="cd $MACHINES/worker4; vagrant suspend"
 
 # OS Project Aliases
 alias avd-src="osproj && cd src"
 alias avd-bin="avd-src && cd build"
 alias avd-make="avd-src && make clean && make"
 alias avd-setup="osproj && cd setup"
-alias server="sudo build/avd_server config/conf.json"
-alias user="sudo build/avd_user config/conf.json"
-alias worker1="sudo build/avd_worker config/conf_w1.json"
-alias worker2="sudo build/avd_worker config/conf_w2.json"
-alias worker3="sudo build/avd_worker config/conf_w3.json"
 
 # Command Aliases
 alias torrent='utserver -settingspath /opt/utorrent-server-alpha-v3_3/'
@@ -121,6 +126,12 @@ alias yerdos='ssh -Y vmp5265@erdos.hbg.psu.edu'
 
 alias vps='ssh -p1109 ved@fios-router.lan'
 alias vps_local='ssh ved@192.168.0.200'
+
+alias az-server='ssh -i ~/.ssh/avd_server_key ved@server.avd-pipe.io'
+alias az-user='ssh -i ~/.ssh/avd_server_key ved@user.avd-pipe.io'
+alias az-worker1='ssh -i ~/.ssh/avd_server_key ved@worker-1.avd-pipe.io'
+alias az-worker2='ssh -i ~/.ssh/avd_server_key ved@worker-2.avd-pipe.io'
+alias az-worker3='ssh -i ~/.ssh/avd_server_key ved@worker-3.avd-pipe.io'
 
 # Custom Functions
 function search {
@@ -198,9 +209,23 @@ function runscm {
     scheme --quiet < "$1"
 }
 
+function call_graph {
+    if [[ $# -ne 3 ]]; then
+        echo "Usage : call_graph <rtl_file> <caller_func> <img_name>"
+        exit 1
+    fi
+
+    rtl_file=$1
+    caller_fn=$2
+    img_file=$3
+
+    cally.py ${rtl_file} --no-extern -e "__.*|cJSON.*|.*encoded_sz" --caller ${caller_fn} | dot -Grankdir=LR -Tpng -o ${img_file}
+}
+
 export GIT_EDITOR=vim
 export EDITOR=vim
 export VISUAL=vim
 export -f search
 export -f course
 export -f runscm
+export -f call_graph
