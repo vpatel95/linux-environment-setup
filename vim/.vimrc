@@ -35,15 +35,11 @@
     " Cosmetics: {
         Plugin 'vim-airline/vim-airline'
         Plugin 'vim-airline/vim-airline-themes'
-        Plugin 'Yggdroot/indentLine' " Display indentation level using vertical lines
         Plugin 'morhetz/gruvbox' " Color schemes
     " }
 
     " Syntaxes: {
-        Plugin 'CaffeineViking/vim-glsl' " Add support for GLSL.
-        Plugin 'kbenzie/vim-spirv.git' " SPIRV syntax highlight.
         Plugin 'octol/vim-cpp-enhanced-highlight' " C++ advanced highlighting
-        Plugin 'SirVer/ultisnips' " Code snippets. YCM queries it
     "}
 " }
 
@@ -70,6 +66,7 @@
     set history=1024 " Defines the number of stored commands Vim can remember, doesn't really matter :).
     set ttimeoutlen=0
     let g:indentLine_conceallevel = 0
+    " let g:loaded_youcompleteme = 1
 " }
 
 " Formatting: {
@@ -167,8 +164,10 @@
         endif
 
         " Enable Airline
-        let g:airline#extensions#tabline#enabled = 1
+        let g:airline_extensions = ['tabline']
         let g:airline_powerline_fonts = 1
+        let g:airline#extensions#tabline#enabled = 1
+        let g:airline#extensions#tabline#buffer_idx_mode = 1
 
     " }
 
@@ -221,6 +220,7 @@
     filetype indent on
     augroup project
         autocmd!
+        autocmd BufRead,BufNewFile *.java set filetype=java | set foldmethod=syntax
         autocmd BufRead,BufNewFile *.h,*.c set filetype=c | set cindent | set foldmethod=syntax
         autocmd BufRead,BufNewFile *.hpp,*.cpp set filetype=cpp | set cindent | set foldmethod=syntax
         autocmd BufRead,BufNewFile *.go set filetype=go | set foldmethod=syntax

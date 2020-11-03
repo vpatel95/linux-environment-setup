@@ -13,5 +13,4 @@ silversearcher-ag
 tree
 cmake
 htop
-vlc
 gdebi-core
