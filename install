@@ -93,11 +93,12 @@ main() {
     clean
     if [[ $EUID -eq 0 ]]; then
         setup_packages
+    else
+        setup_bash_aliases
+        setup_git_config
+        setup_tmux
+        setup_vim
     fi
-    setup_bash_aliases
-    setup_git_config
-    setup_tmux
-    setup_vim
     cd $WD
 }
 
