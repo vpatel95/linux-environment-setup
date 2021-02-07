@@ -44,7 +44,7 @@ setup_tmux() {
     cp -av $TMUX ~/.tmux
     cd ~/.tmux
     echo "Choose OS :"
-    echo -e "\t1. Ubuntu 14.04 - Ubuntu 16.04\n\t2. Ubuntu 18.04\n\t3. MacOS"
+    echo -e "\t1. Ubuntu 14.04 - Ubuntu 16.04\n\t2. Ubuntu 18.04\n\t3. Ubuntu 20.04\n\t4. Ubuntu 20.04 - Powerline\n\t5. MacOS"
     read version
 
     case "$version" in
@@ -52,9 +52,15 @@ setup_tmux() {
             bash install.sh 1404
             ;;
         2)
-            bash install.sh 1604
+            bash install.sh 1804
             ;;
         3)
+            bash install.sh 2004
+            ;;
+        4)
+            bash install.sh powerline
+            ;;
+        5)
             bash install.sh mac
             ;;
         *)

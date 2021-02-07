@@ -5,18 +5,16 @@ DOWNLOADS=$HOME/Downloads
 DESKTOP=$HOME/Desktop
 TOOLS=$HOME/Tools
 PSU=$HOME/PSU-MS-Computer-Science
-FALL19=$PSU/FALL19
-SPRING20=$PSU/SPRING20
-FALL20=$PSU/FALL20
-DBMS=$FALL19/COMP519
-AI=$FALL19/COMP520
-ALGO_BS=$FALL19/CMPSC463
-ALGO=$SPRING20/COMP511
-OS=$SPRING20/COMP512
-APL=$SPRING20/COMP516
-TOC=$FALL20/COMP505
-MP=$FALL20/COMP594
-SEC=$FALL20/CMPSC444
+DBMS=$PSU/COMP519
+AI=$PSU/COMP520
+ALGO_BS=$PSU/CMPSC463
+ALGO=$PSU/COMP511
+OS=$PSU/COMP512
+APL=$PSU/COMP516
+TOC=$PSU/COMP505
+MP=$PSU/COMP594
+SEC=$PSU/CMPSC444
+ST=$PSU/COMP597
 WEBSITE=$PSU/public_html
 RA=$PSU/RA
 MACHINES=$HOME/Machines
@@ -55,6 +53,7 @@ alias hl-setup="cd $PROJECTS/hyper-line/setup"
 alias hl-ctrl="cd $PROJECTS/hyper-line/controller"
 
 # Command Aliases
+alias androidstudio='~/Softwares/android-studio/bin/studio.sh &'
 alias torrent='utserver -settingspath /opt/utorrent-server-alpha-v3_3/'
 alias sshag='eval $(ssh-agent)'
 alias sshad='ssh-add '$HOME'/.ssh/github'
@@ -74,6 +73,7 @@ alias algo_bs='cd $ALGO_BS'
 alias algo='cd $ALGO'
 alias os='cd $OS'
 alias apl='cd $APL'
+alias st='cd $ST'
 alias ra='cd $RA'
 alias tools='cd $TOOLS'
 alias docs='cd $DOCUMENTS'
@@ -210,3 +210,8 @@ export -f search
 export -f course
 export -f runscm
 export -f call_graph
+
+export SPARK_HOME=~/Downloads/spark-3.0.1-bin-hadoop3.2
+export PATH="$SPARK_HOME/bin:$PATH"
+export M2_HOME=~/bin/maven/current
+export PATH=${M2_HOME}/bin:${PATH}
