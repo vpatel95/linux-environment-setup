@@ -53,7 +53,7 @@ alias hl-setup="cd $PROJECTS/hyper-line/setup"
 alias hl-ctrl="cd $PROJECTS/hyper-line/controller"
 
 # Command Aliases
-alias androidstudio='~/Softwares/android-studio/bin/studio.sh &'
+alias androidstudio='~/Softwares/android-studio/bin/studio.sh'
 alias torrent='utserver -settingspath /opt/utorrent-server-alpha-v3_3/'
 alias sshag='eval $(ssh-agent)'
 alias sshad='ssh-add '$HOME'/.ssh/github'
