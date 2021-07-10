@@ -74,7 +74,7 @@ set-option -g status-justify centre
 set-option -g status-interval 1
 set-option -g status-bg colour232
 set-option -g status-fg colour255
-set-window-option -g window-status-current-style bg=colour196
+set-window-option -g window-status-current-bg colour196
 set-option -g status-left-length 50
 set-option -g status-left "#[fg=colour196]#S #I:#P #[fg=colour255]::: #[fg=green]%d %b %Y : #(date +'%r %Z')"
 

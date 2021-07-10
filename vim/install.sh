@@ -10,10 +10,10 @@ operation=$1
 case $1 in
     install)
         rm -rf $VIM
-        mkdir -pv $BUNDLE
-        mkdir -pv $UNDOES
-        cp -ar ./ $VIM
-        cp -fv $VIMRC $HOMEDIR/$VIMRC
+        mkdir -p $BUNDLE
+        mkdir -p $UNDOES
+        cp -r ./ $VIM
+        cp $VIMRC $HOMEDIR/$VIMRC
         git clone https://github.com/VundleVim/Vundle.vim.git $BUNDLE/Vundle.vim
         cp -r scripts/* $BUNDLE/
         vim +PluginInstall +qall!
@@ -22,8 +22,8 @@ case $1 in
         ;;
 
     update)
-        cp -ar ./ $VIM
-        cp -fv $VIMRC $HOMEDIR/$VIMRC
+        cp -r ./ $VIM
+        cp $VIMRC $HOMEDIR/$VIMRC
         cp -r scripts/* $BUNDLE/
         vim +PluginInstall +qall!
         ;;
