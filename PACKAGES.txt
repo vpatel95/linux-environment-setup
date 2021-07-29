@@ -6,11 +6,9 @@ python3-pip
 git
 tmux
 vim
-openssh-server
 cscope
 ctags
 silversearcher-ag
 tree
 cmake
 htop
-gdebi-core

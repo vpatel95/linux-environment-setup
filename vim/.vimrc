@@ -16,7 +16,7 @@
 
 " Plugins: {
     " Functional: {
-        Plugin 'valloric/youcompleteme' " Code-completion engine for Vim
+        " Plugin 'valloric/youcompleteme' " Code-completion engine for Vim
         Plugin 'tpope/vim-surround'     " Change (){}<>'' in a snap.
         Plugin 'tpope/vim-commentary'
         Plugin 'tpope/vim-fugitive'
@@ -111,7 +111,7 @@
     set showmatch " Will highlight matching brackets.
     set mat=2 " How long the highlight will last.
     set number " Show line numbers on left side.
-    set relativenumber " Enables the user to easily see the relative distance between cursor and target line.
+    " set relativenumber " Enables the user to easily see the relative distance between cursor and target line.
     set ttyfast " Will send characters over a terminal connection faster. We do have fast connections after all.
     set ruler " Always show current cursor position, which might be needed for the character column location.
     set hidden " Abandon buffer when closed, which is usually what we want to do in this case.

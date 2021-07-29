@@ -17,8 +17,8 @@ case $1 in
         git clone https://github.com/VundleVim/Vundle.vim.git $BUNDLE/Vundle.vim
         cp -r scripts/* $BUNDLE/
         vim +PluginInstall +qall!
-        cd $BUNDLE/youcompleteme
-        python3 install.py --clang-completer --clangd-completer
+        # cd $BUNDLE/youcompleteme
+        # python3 install.py --clang-completer --clangd-completer
         ;;
 
     update)
