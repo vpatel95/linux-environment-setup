@@ -4,21 +4,7 @@ DOCUMENTS=$HOME/Documents
 DOWNLOADS=$HOME/Downloads
 DESKTOP=$HOME/Desktop
 TOOLS=$HOME/Tools
-PSU=$HOME/PSU-MS-Computer-Science
-DBMS=$PSU/COMP519
-AI=$PSU/COMP520
-ALGO_BS=$PSU/CMPSC463
-ALGO=$PSU/COMP511
-OS=$PSU/COMP512
-APL=$PSU/COMP516
-TOC=$PSU/COMP505
-MP=$PSU/COMP594
-SEC=$PSU/CMPSC444
-ST=$PSU/COMP597
-WEBSITE=$PSU/public_html
-RA=$PSU/RA
 MACHINES=$HOME/Machines
-HYP_MAC=$MACHINES/hyper-line
 PROJECTS=$HOME/Projects
 
 
@@ -45,150 +31,21 @@ alias gip='git pull'
 alias gipr='git pull --rebase'
 alias giri='git rebase --interactive HEAD~'
 
-# Project Aliases
-alias hl-src="cd $PROJECTS/hyper-line/src"
-alias hl-bin="cd $PROJECTS/hyper-line/src/build"
-alias hl-make="hl-src && make clean && make"
-alias hl-setup="cd $PROJECTS/hyper-line/setup"
-alias hl-ctrl="cd $PROJECTS/hyper-line/controller"
-
 # Command Aliases
-alias androidstudio='~/Softwares/android-studio/bin/studio.sh'
-alias torrent='utserver -settingspath /opt/utorrent-server-alpha-v3_3/'
 alias sshag='eval $(ssh-agent)'
-alias sshad='ssh-add '$HOME'/.ssh/github'
-alias ghkey='sshag sshad'
-alias rmtags='rm cscope.* tags'
-alias tags='rmtags; find . -name "*.c" -o -name "*.cpp" -o -name "*.hpp" -o -name "*.cc" -o -name "*.hh" -o -name "*.h" -o -name "*.go" -o -name "*.py" > cscope.files; cscope -b; rm cscope.files; ctags -R --exclude=*.js'
-alias vagrant=$TOOLS'/vagrant/vagrant'
+alias ghkey='sshag ssh-add ~/.ssh/github'
+alias rmtags='rm cscope.*'
+alias tags='rmtags; find . -name "*.c" -o -name "*.cpp" -o -name "*.hpp" -o -name "*.cc" -o -name "*.hh" -o -name "*.h" -o -name "*.go" -o -name "*.py" > cscope.files; cscope -b; rm cscope.files;'
 alias vim-help='cat ~/.vim/doc/help.txt'
 
 # Directory Aliases
-alias toc='cd $TOC'
-alias mp='cd $MP'
-alias sec='cd $SEC'
-alias dbms='cd $DBMS'
-alias ai='cd $AI'
-alias algo_bs='cd $ALGO_BS'
-alias algo='cd $ALGO'
-alias os='cd $OS'
-alias apl='cd $APL'
-alias st='cd $ST'
-alias ra='cd $RA'
 alias tools='cd $TOOLS'
 alias docs='cd $DOCUMENTS'
 alias dl='cd $DOWNLOADS'
-alias psu='cd $PSU'
 alias vms='cd $MACHINES'
-alias ubuntu='cd $UBUNTU1604'
-alias win10='cd $WIN10'
-alias boxes='cd $BOXES'
 alias proj='cd $PROJECTS'
-alias mlproj='cd $PROJECTS/comp520'
-alias hl='cd $PROJECTS/hyper-line'
-alias avds='cd $MACHINES/server'
-alias avdu='cd $MACHINES/user'
-alias avdw1='cd $MACHINES/worker1'
-alias avdw2='cd $MACHINES/worker2'
-alias avdw3='cd $MACHINES/worker3'
 
 # SSH Aliases
-alias 122s1='ssh ps122s1@euler.hbg.psu.edu -t bash'
-alias 122s2='ssh ps122s2@euler.hbg.psu.edu -t bash'
-alias euler='ssh vmp5265@euler.hbg.psu.edu'
-alias dahl='ssh vmp5265@dahl.hbg.psu.edu'
-alias ada='ssh vmp5265@ada.hbg.psu.edu'
-alias erdos='ssh vmp5265@erdos.hbg.psu.edu'
-alias yeuler='ssh -Y vmp5265@euler.hbg.psu.edu'
-alias ydahl='ssh -Y vmp5265@dahl.hbg.psu.edu'
-alias yada='ssh -Y vmp5265@ada.hbg.psu.edu'
-alias yerdos='ssh -Y vmp5265@erdos.hbg.psu.edu'
-
-alias vps='ssh -p1109 ved@fios-router.lan'
-alias vps_local='ssh ved@192.168.0.200'
-
-alias az-server='ssh -i ~/.ssh/avd_server_key ved@server.avd-pipe.io'
-alias az-user='ssh -i ~/.ssh/avd_server_key ved@user.avd-pipe.io'
-alias az-worker1='ssh -i ~/.ssh/avd_server_key ved@worker-1.avd-pipe.io'
-alias az-worker2='ssh -i ~/.ssh/avd_server_key ved@worker-2.avd-pipe.io'
-alias az-worker3='ssh -i ~/.ssh/avd_server_key ved@worker-3.avd-pipe.io'
-alias csgo-srvr='ssh -i ~/.ssh/csgo_server_key csgo@51.141.105.164'
-
-# Custom Functions
-function search {
-    if [ $# -lt 1 ]; then
-        echo "Usage : search <file|text> [OPTIONS]"
-        echo "      OPTIONS"
-        echo "          file : <directory> <pattern>"
-        echo "          text : [directory] <pattern>"
-        return
-    fi
-
-    case "$1" in
-        file)
-            if [ $# -eq 3 ] && [ -d $2 ]; then
-                find $2 -name $3
-            else
-                echo "Usage : search file <directory> <pattern>";
-            fi
-            ;;
-        text)
-            if [ $# -eq 2 ] && ! [ -d $2 ]; then
-                grep -rnw -e $2;
-            elif [ $# -eq 3 ] && [ -d $2 ]; then
-                grep -rnw $1 -e $2;
-            else
-                echo "Usage : search text [directory] <pattern>";
-            fi
-            ;;
-        *)
-            echo $1
-            echo "Usage : search <file|text> [OPTIONS]"
-            echo "      OPTIONS"
-            echo "          file : <directory> <pattern>"
-            echo "          text : [directory] <pattern>"
-            ;;
-    esac
-}
-
-function course {
-    if [[ $# -lt 2 ]]; then
-        echo "Usage : course <course> <data> [data-value]"
-        exit 1
-    fi
-
-    course=${1^^}
-    data=$2
-    data_value=$3
-
-    case $2 in
-        book)
-            cd ${!course}/Book
-            ;;
-        hw)
-            if [[ -z "$data_value" ]]; then
-                cd ${!course}/Homeworks
-            else
-                cd ${!course}/Homeworks/Assignment${data_value}
-            fi
-            ;;
-        latex)
-            cd ${!course}/Latex
-            ;;
-        *)
-            cd ${!course}
-            ;;
-    esac
-}
-
-function runscm {
-    if [[ $# -lt 1 ]]; then
-        echo "Usage : runscm <file>"
-        exit 1
-    fi
-
-    scheme --quiet < "$1"
-}
 
 function call_graph {
     if [[ $# -ne 3 ]]; then
@@ -203,15 +60,21 @@ function call_graph {
     cally.py ${rtl_file} --no-extern -e "__.*|cJSON.*|.*encoded_sz" --caller ${caller_fn} | dot -Grankdir=LR -Tpng -o ${img_file}
 }
 
+# Terminal Prompt
+git_branch() {
+    git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+PS1="\[\e[0;93m\]\u\[\e[m\]"    # username
+PS1+=" "    # space
+PS1+="\[\e[0;95m\]\w\[\e[m\]"    # current directory
+PS1+="\[\e[0;92m\]\$(git_branch)\[\e[m\]"    # current branch
+PS1+=" "    # space
+PS1+="$ "    # end prompt
+
+export PS1;
+
 export GIT_EDITOR=vim
 export EDITOR=vim
 export VISUAL=vim
-export -f search
-export -f course
-export -f runscm
 export -f call_graph
-
-export SPARK_HOME=~/Downloads/spark-3.0.1-bin-hadoop3.2
-export PATH="$SPARK_HOME/bin:$PATH"
-export M2_HOME=~/bin/maven/current
-export PATH=${M2_HOME}/bin:${PATH}
