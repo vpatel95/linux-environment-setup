@@ -1,5 +1,5 @@
 [user]
-    name = Ved Patel
+    name = John Doe
 [core]
     editor = vim
     whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol

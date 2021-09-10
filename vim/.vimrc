@@ -10,6 +10,7 @@
     let g:pymode_python = 'python3'
 
     set rtp+=~/.vim/.vim_bundle/Vundle.vim
+    set rtp+=~/.vim/.vim_bundle/youcompleteme
     call vundle#begin('~/.vim/.vim_bundle')
     Plugin 'VundleVim/Vundle.vim'
 " }
@@ -137,10 +138,13 @@
         let g:gundo_help = 0
 
         let g:tagbar_width = 48
-        let g:tagbar_show_linenumbers = -1 " Global conf.
+        let g:tagbar_autopreview = 1
+        let g:tagbar_show_linenumbers = 1 " Absolute line number (2 - relative, -1 - global)
+        let g:tagbar_wrap = 0
         let g:tagbar_map_showproto=""
         let g:tagbar_autofocus = 1
         let g:tagbar_compact = 1
+        let g:tagbar_autoclose = 1
 
         let g:NERDTreeWinSize = 48
         let g:NERDTreeMinimalUI = 1
@@ -172,6 +176,7 @@
     " }
 
     " Auto Completion : {
+        let g:ycm_show_diagnostics_ui = 0
         let g:ycm_max_num_candidates = 25
         let g:ycm_max_num_identifier_candidates = 10
         let g:ycm_collect_identifiers_from_tags_files = 1
@@ -182,10 +187,13 @@
         let g:ycm_goto_buffer_command = 'split-or-existing-window'
         let g:ycm_confirm_extra_conf = 0
         let g:ycm_autoclose_preview_window_after_completion = 1
-        set completeopt-=preview
+        let g:ycm_collect_identifiers_from_tags_files = 1
+        " set completeopt-=preview
 
         let g:ycm_auto_start_csharp_server = 0
         let g:ycm_auto_stop_csharp_server = 0
+        " Show function help
+        nmap <leader>D <plug>(YCMHover)
     " }
 
     function BGToggle()
@@ -232,10 +240,13 @@
     nnoremap <silent> <C-L> :silent! nohl<cr><C-L>
 
     " Useful to toggle the NERDTree window back and forth.
+    " Opens directory tree on the left side 
     noremap <silent> <leader>d :silent! NERDTreeToggle<cr>
     " Same thing as above, but for the TagBar plugin...
+    " Opens list of tags on the right side
     noremap <silent> <leader>s :silent! TagbarToggle<cr>
     " For another window, this time for the GUndo tree.
+    " Opens the undo history on the right side
     noremap <silent> <leader>g :silent! GundoToggle<cr>
 
     " Shortcut Ag searching.
@@ -245,8 +256,8 @@
 
 
     nnoremap <leader>nhs :nohlsearch<CR>
-    nmap <leader>fe :set foldenable
-    nmap <leader>fd :set nofoldenable
+    nmap <leader>fe :set foldenable<CR>
+    nmap <leader>fd :set nofoldenable<CR>
 
     " Toggle Background and colorscheme
     nmap <leader>bg :call BGToggle()<CR>
@@ -290,7 +301,7 @@
     nmap <leader>ci :set cindent<CR>
     imap <leader>ci <ESC>:set cindent<CR>i
 
-    " Set FZF binding
+    " Set FZF binding : Opens a fuzzy file search window.
     nmap <C-f> :FZF<CR>
     imap <C-f> :FZF<CR>
 
@@ -298,5 +309,3 @@
     nmap <C-p> <C-y>,
     imap <C-p> <C-y>,
 " }
-
-

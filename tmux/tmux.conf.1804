@@ -1,3 +1,27 @@
+# vim: foldmethod=marker
+#  < useful shortcut  >{{{
+# -----------------------------------------------------------------------------
+
+# C-o   Rotate the panes in the current window forwards.
+# w     Choose the current window interactively.
+# q     kill current pane
+# C-e   toogle last window
+# r     rename current window
+# R     reload tmux configuration
+# +     toogle pane to fullscreen
+# ;     Move to the previously active pane.
+# ~     Show previous messages from tmux, if any.
+# !     Break the current pane out of the window.
+# f     Prompt to search for text in open windows.
+# Tab   swap with last windo
+# -     previous-window
+# =     next-window
+
+# <     resize-pane -L 5
+# >     resize-pane -R 5
+# J     resize-pane -D 5
+# K     resize-pane -U 5
+
 #Terminal setting
 set -g default-terminal "xterm-256color"
 set-option -ga terminal-overrides ',xterm-256color:Tc'

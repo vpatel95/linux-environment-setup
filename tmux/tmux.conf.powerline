@@ -22,21 +22,6 @@
 # J     resize-pane -D 5
 # K     resize-pane -U 5
 
-# Predefined searches
-#     prefix + ctrl-f - simple file search
-#     prefix + ctrl-g - jumping over git status files (best used after git status command)
-#     prefix + alt-h - jumping over SHA-1/SHA-256 hashes (best used after git log command)
-#     prefix + ctrl-u - url search (http, ftp and git urls)
-#     prefix + ctrl-d - number search (mnemonic d, as digit)
-#     prefix + alt-i - ip address search
-#     These start "copycat mode" and jump to first match.
-#
-# "Copycat mode" bindings
-#     These are enabled when you search with copycat:
-#
-#     n - jumps to the next match
-#     N - jumps to the previous match
-
 run-shell "powerline-daemon -q"
 
 # terminal-setting
