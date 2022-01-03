@@ -2,6 +2,7 @@
 
 WD=`pwd`
 PKG='PACKAGES.txt'
+PPA='PPA.txt'
 VIM='vim/'
 TMUX='tmux/'
 CONFIGS='configs/'
@@ -44,26 +45,17 @@ setup_tmux() {
     cp -av $TMUX ~/.tmux
     cd ~/.tmux
     echo "Choose OS :"
-    echo -e "\t1. Ubuntu 14.04\n\t2. Ubuntu 16.04\n\t3. Ubuntu 18.04\n\t4. Ubuntu 20.04\n\t5. Ubuntu 20.04 - Powerline\n\t6. MacOS"
+    echo -e "\t1. Ubuntu\n\t2. Ubuntu - Powerline\n\t3. MacOS"
     read version
 
     case "$version" in
         1)
-            bash install.sh 1404
+            bash install.sh ubuntu
             ;;
         2)
-            bash install.sh 1604
-            ;;
-        3)
-            bash install.sh 1804
-            ;;
-        4)
-            bash install.sh 2004
-            ;;
-        5)
             bash install.sh powerline
             ;;
-        6)
+        3)
             bash install.sh mac
             ;;
         *)
@@ -77,6 +69,12 @@ setup_git_config() {
     flag=1
     cd $WD
     cp $GITCONFIG ~/.gitconfig
+
+    read -p "Enter name for Git config : " name
+    sed -i 's/John Doe/'"${name}"'/g' ~/.gitconfig
+
+    read -p "Enter email for Git config : " email
+    sed -i 's/johndoe@test.com/'"${email}"'/g' ~/.gitconfig
 }
 
 setup_bash_aliases() {
@@ -87,6 +85,11 @@ setup_bash_aliases() {
 
 setup_packages() {
     cd $WD
+    sudo apt-get install software-properties-common -y
+    while read -r line; do
+        ppa="$line"
+        sudo add-apt-repository ppa:$ppa -y
+    done < "$PPA"
     sudo apt-get update
     while read -r line; do
         pkg="$line"

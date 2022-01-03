@@ -9,43 +9,39 @@
 
     let g:pymode_python = 'python3'
 
-    set rtp+=~/.vim/.vim_bundle/Vundle.vim
-    set rtp+=~/.vim/.vim_bundle/youcompleteme
-    call vundle#begin('~/.vim/.vim_bundle')
-    Plugin 'VundleVim/Vundle.vim'
+    call plug#begin('~/.vim/.vim_plug')
 " }
 
 " Plugins: {
     " Functional: {
-        " Plugin 'valloric/youcompleteme' " Code-completion engine for Vim
-        Plugin 'tpope/vim-surround'     " Change (){}<>'' in a snap.
-        Plugin 'tpope/vim-commentary'
-        Plugin 'tpope/vim-fugitive'
-        Plugin 'godlygeek/tabular' " Easy automatic tabulations.
-        Plugin 'scrooloose/nerdtree' " Better than NetRw, maybe.
-        Plugin 'majutsushi/tagbar' " Nice to get a code topview.
-        Plugin 'tmhedberg/matchit' " The '%' now matches more k?
-        Plugin 'mileszs/ack.vim' " Forget IDE searches gtg fast!
-        Plugin 'sjl/gundo.vim' " Why only have linear undo tree?
-        Plugin 'junegunn/fzf' " Fuzzy file search.
-        Plugin 'mattn/emmet-vim' " Emmet for easy html code write up.
-        Plugin 'wellle/targets.vim' " Adds various text objects and targets.
-        Plugin 'fatih/vim-go'
+        Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        Plug 'tpope/vim-surround'     " Change (){}<>'' in a snap.
+        Plug 'tpope/vim-commentary'
+        Plug 'tpope/vim-fugitive'
+        Plug 'godlygeek/tabular' " Easy automatic tabulations.
+        Plug 'scrooloose/nerdtree' " Better than NetRw, maybe.
+        Plug 'majutsushi/tagbar' " Nice to get a code topview.
+        Plug 'tmhedberg/matchit' " The '%' now matches more k?
+        Plug 'mileszs/ack.vim' " Forget IDE searches gtg fast!
+        Plug 'sjl/gundo.vim' " Why only have linear undo tree?
+        Plug 'junegunn/fzf' " Fuzzy file search.
+        Plug 'wellle/targets.vim' " Adds various text objects and targets.
+        " Plug 'fatih/vim-go'
     " }
 
     " Cosmetics: {
-        Plugin 'vim-airline/vim-airline'
-        Plugin 'vim-airline/vim-airline-themes'
-        Plugin 'morhetz/gruvbox' " Color schemes
+        Plug 'vim-airline/vim-airline'
+        Plug 'vim-airline/vim-airline-themes'
+        Plug 'morhetz/gruvbox' " Color schemes
     " }
 
     " Syntaxes: {
-        Plugin 'octol/vim-cpp-enhanced-highlight' " C++ advanced highlighting
+        Plug 'octol/vim-cpp-enhanced-highlight' " C++ advanced highlighting
     "}
 " }
 
 " Preliminaries: {
-    call vundle#end() " Let Vundle finish initializing itself now.
+    call plug#end() " Let vim-plug finish initializing itself now.
     filetype plugin indent on " Enable file specific features...
 
     source ~/.vim/scripts/cscope_maps.vim
