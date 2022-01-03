@@ -21,15 +21,16 @@
         Plug 'godlygeek/tabular' " Easy automatic tabulations.
         Plug 'scrooloose/nerdtree' " Better than NetRw, maybe.
         Plug 'majutsushi/tagbar' " Nice to get a code topview.
-        Plug 'tmhedberg/matchit' " The '%' now matches more k?
+        Plug 'andymass/vim-matchup' " The '%'now matches more k?
         Plug 'mileszs/ack.vim' " Forget IDE searches gtg fast!
         Plug 'sjl/gundo.vim' " Why only have linear undo tree?
+        Plug 'junegunn/fzf.vim' " Fuzzy file search.
         Plug 'junegunn/fzf' " Fuzzy file search.
         Plug 'wellle/targets.vim' " Adds various text objects and targets.
-        " Plug 'fatih/vim-go'
     " }
 
     " Cosmetics: {
+        Plug 'glepnir/dashboard-nvim'
         Plug 'vim-airline/vim-airline'
         Plug 'vim-airline/vim-airline-themes'
         Plug 'morhetz/gruvbox' " Color schemes
@@ -60,10 +61,12 @@
     set undodir=~/.vim/.vim_undoes " Where do we store all this awesomeness?!?!
     set undofile " Persistent undos are completely freaking awesome!!!
 
-    set history=1024 " Defines the number of stored commands Vim can remember, doesn't really matter :).
+    set history=100 " Defines the number of stored commands Vim can remember, doesn't really matter :).
+    set updatetime=300
     set ttimeoutlen=0
     let g:indentLine_conceallevel = 0
-    " let g:loaded_youcompleteme = 1
+
+    set visualbell noerrorbells
 " }
 
 " Formatting: {
@@ -102,13 +105,13 @@
 
     set wildmenu " Enable the 'autocomplete' menu when in command mode (':').
     set shortmess=at " Shorten some command mode messages, will keep you from having to hit ENTER all the time.
-    " set cmdheight=2 " Might decrease the number of times for hitting enter even more, double default height.
+    set cmdheight=2 " Might decrease the number of times for hitting enter even more, double default height.
     set stal=2 " Always show the tab lines, which makes the user interface a bit more consistent.
 
     set showmatch " Will highlight matching brackets.
     set mat=2 " How long the highlight will last.
     set number " Show line numbers on left side.
-    " set relativenumber " Enables the user to easily see the relative distance between cursor and target line.
+    set relativenumber " Enables the user to easily see the relative distance between cursor and target line.
     set ttyfast " Will send characters over a terminal connection faster. We do have fast connections after all.
     set ruler " Always show current cursor position, which might be needed for the character column location.
     set hidden " Abandon buffer when closed, which is usually what we want to do in this case.
@@ -122,6 +125,9 @@
     set background=dark " Cool programmers only use dark themes. It's good for your eyes man, really nice!
     colorscheme gruvbox
     let s:current_bg = "dark"
+
+    " set fillchars=fold:\ ,vert:\│,eob:\ ,msgsep:‾
+    set splitbelow splitright
 
     " Windows: {
         if has('python3')
@@ -160,7 +166,8 @@
                 set guifont=Hack\ 10,Monospace\ 10
             endif
         else
-            set mouse=c " Mouse support if needed.
+            set mouse=nic " Mouse support if needed.
+            set mousemodel=popup
         endif
 
         " Enable Airline
@@ -171,25 +178,127 @@
 
     " }
 
-    " Auto Completion : {
-        let g:ycm_show_diagnostics_ui = 0
-        let g:ycm_max_num_candidates = 25
-        let g:ycm_max_num_identifier_candidates = 10
-        let g:ycm_collect_identifiers_from_tags_files = 1
-        let g:ycm_seed_identifiers_with_syntax = 1
-        let g:ycm_log_level = 'error'
-        let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
-        let g:ycm_key_list_stop_completion = ['<C-y>', '<Right>', '<Enter>']
-        let g:ycm_goto_buffer_command = 'split-or-existing-window'
-        let g:ycm_confirm_extra_conf = 0
-        let g:ycm_autoclose_preview_window_after_completion = 1
-        let g:ycm_collect_identifiers_from_tags_files = 1
-        " set completeopt-=preview
+    " AutoCompletion: {
+        let g:coc_disable_startup_warning = 1
 
-        let g:ycm_auto_start_csharp_server = 0
-        let g:ycm_auto_stop_csharp_server = 0
-        " Show function help
-        nmap <leader>D <plug>(YCMHover)
+        set shortmess+=c
+
+        if has("nvim-0.5.0") || has("patch-8.1.1564")
+            set signcolumn=number
+        else
+            set signcolumn=yes
+        endif
+
+        inoremap <silent><expr> <TAB>
+                \ pumvisible() ? "\<C-n>" :
+                \ <SID>check_back_space() ? "\<TAB>" :
+                \ coc#refresh()
+
+        function! s:check_back_space() abort
+            let col = col('.') - 1
+            return !col || getline('.')[col - 1] =~# '\s'
+        endfunction
+
+
+        inoremap <expr><UP> pumvisible() ? "\<C-p>" : "\<UP>"
+        inoremap <expr><DOWN> pumvisible() ? "\<C-n>" : "\<DOWN>"
+        inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+        if has("nvim")
+            inoremap <silent><expr> <C-Space> coc#refresh()
+        else
+            inoremap <silent><expr> <C-@> coc#refresh()
+        endif
+
+        nmap <silent> [c <Plug>(coc-diagnostic-prev)
+        nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+        nmap <silent> gd <Plug>(coc-definition)
+        nmap <silent> gy <Plug>(coc-type-definition)
+        nmap <silent> gi <Plug>(coc-implementation)
+        nmap <silent> gr <Plug>(coc-references)
+
+        nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+        function! s:show_documentation()
+            if (index(['vim','help'], &filetype) >= 0)
+                execute 'h '.expand('<cword>')
+            else
+                call CocAction('doHover')
+            endif
+        endfunction
+
+        " Add `:Format` command to format current buffer.
+        command! -nargs=0 Format :call CocAction('format')
+
+        " Add `:Fold` command to fold current buffer.
+        command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+        " Add `:OR` command for organize imports of the current buffer.
+        command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+
+        " Add (Neo)Vim's native statusline support.
+        " NOTE: Please see `:h coc-status` for integrations with external plugins that
+        " provide custom statusline: lightline.vim, vim-airline.
+        set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+        " Mappings for CoCList
+        " Show all diagnostics.
+        nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+        " Manage extensions.
+        nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+        " Show commands.
+        nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+        " Find symbol of current document.
+        nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+        " Search workspace symbols.
+        nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+        " Do default action for next item.
+        nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+        " Do default action for previous item.
+        nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+        " Resume latest coc list.
+        nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+    " }
+
+    " Startup: {
+        let g:dashboard_fzf_engine = 'ag'
+        let g:dashboard_custom_header = [
+        \ ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
+        \ ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
+        \ ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
+        \ ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
+        \ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
+        \ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+        \]
+        let g:dashboard_custom_shortcut_icon = {}
+        let g:dashboard_custom_shortcut_icon['last_session'] = ' '
+        let g:dashboard_custom_shortcut_icon['find_history'] = ' '
+        let g:dashboard_custom_shortcut_icon['find_file'] = ' '
+        let g:dashboard_custom_shortcut_icon['new_file'] = ' '
+        let g:dashboard_custom_shortcut_icon['change_colorscheme'] = ' '
+        let g:dashboard_custom_shortcut_icon['find_word'] = ' '
+        let g:dashboard_custom_shortcut_icon['book_marks'] = ' '
+
+        let g:dashboard_custom_shortcut={
+        \ 'last_session'       : 'l s',
+        \ 'find_history'       : 'r f',
+        \ 'find_file'          : 'f f',
+        \ 'new_file'           : 'n f',
+        \ 'change_colorscheme' : 'c c',
+        \ 'find_word'          : 'f w',
+        \ 'book_marks'         : 'g m',
+        \ }
+
+        let g:dashboard_default_executive ='fzf'
+        nnoremap <silent> <leader>nf :DashboardNewFile<CR>
+        nnoremap <silent> <leader>ff :DashboardFindFile<CR>
+        nnoremap <silent> <leader>fw :DashboardFindWord<CR>
+        nnoremap <silent> <leader>rf :DashboardFindHistory<CR>
+        nnoremap <silent> <Leader>cc :DashboardChangeColorscheme<CR>
+        nnoremap <silent> <Leader>gm :DashboardJumpMark<CR>
+        nmap <leader>ls :<C-u>SessionLoad<CR>
+        nmap <leader>ss :<C-u>SessionSave<CR>
     " }
 
     function BGToggle()
@@ -206,7 +315,7 @@
 
     set list " Enables the characters to be displayed.
     " Useful for showing trailing whitespace and others.
-    set listchars=tab:›\ ,trail:•,extends:>,precedes:<,nbsp:_
+    set listchars=tab:›\ ,trail:•,extends:❯,precedes:❮,nbsp:_
 
     " CPP enhanced highlight: {
         let g:cpp_class_scope_highlight = 1
@@ -229,6 +338,15 @@
         autocmd BufRead,BufNewFile *.hpp,*.cpp set filetype=cpp | set cindent | set foldmethod=syntax
         autocmd BufRead,BufNewFile *.go set filetype=go | set foldmethod=syntax
     augroup END
+
+    " Ignore certain files and folders when globing
+    set wildignore+=*.o,*.obj,*.dylib,*.bin,*.dll,*.exe
+    set wildignore+=*/.git/*,*/.svn/*,*/__pycache__/*,*/build/**
+    set wildignore+=*.jpg,*.png,*.jpeg,*.bmp,*.gif,*.tiff,*.svg,*.ico
+    set wildignore+=*.pyc,*.pkl
+    set wildignore+=*.DS_Store
+    set wildignore+=*.aux,*.bbl,*.blg,*.brf,*.fls,*.fdb_latexmk,*.synctex.gz,*.xdv
+    set wildignorecase
 " }
 
 " Mappings: {

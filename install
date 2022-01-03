@@ -33,6 +33,15 @@ clean() {
     fi
 }
 
+clean_packages() {
+    while read -r line; do
+        pkg="$line"
+        sudo apt-get remove $pkg -y
+        sudo apt-get purge $pkg -y
+    done < "$PKG"
+}
+
+
 
 setup_vim() {
     cd $WD
@@ -83,6 +92,20 @@ setup_bash_aliases() {
     source ~/.bashrc
 }
 
+install_nodejs() {
+    VERSION=v16.13.1
+    DISTRO=linux-x64
+    cd ~/Downloads
+    wget https://nodejs.org/dist/${VERSION}/node-${VERSION}-${DISTRO}.tar.xz
+    sudo mkdir -p /usr/local/lib/nodejs
+    sudo tar -xJvf ~/Downloads/node-$VERSION-$DISTRO.tar.xz -C /usr/local/lib/nodejs
+    rm ~/Downloads/node-$VERSION-$DISTRO.tar.xz
+    cd $WD
+
+    echo "export PATH=/usr/local/lib/nodejs/node-$VERSION-$DISTRO/bin:$PATH" >> ~/.bash_aliases
+    source ~/.bash_aliases
+}
+
 setup_packages() {
     cd $WD
     sudo apt-get install software-properties-common -y
@@ -90,6 +113,9 @@ setup_packages() {
         ppa="$line"
         sudo add-apt-repository ppa:$ppa -y
     done < "$PPA"
+
+    install_nodejs
+
     sudo apt-get update
     while read -r line; do
         pkg="$line"
