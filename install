@@ -95,12 +95,10 @@ setup_bash_aliases() {
 install_nodejs() {
     VERSION=v16.13.1
     DISTRO=linux-x64
-    cd ~/Downloads
-    wget https://nodejs.org/dist/${VERSION}/node-${VERSION}-${DISTRO}.tar.xz
+    wget -P /tmp https://nodejs.org/dist/${VERSION}/node-${VERSION}-${DISTRO}.tar.xz
     sudo mkdir -p /usr/local/lib/nodejs
-    sudo tar -xJvf ~/Downloads/node-$VERSION-$DISTRO.tar.xz -C /usr/local/lib/nodejs
-    rm ~/Downloads/node-$VERSION-$DISTRO.tar.xz
-    cd $WD
+    sudo tar -xJvf /tmp/node-$VERSION-$DISTRO.tar.xz -C /usr/local/lib/nodejs
+    rm /tmp/node-$VERSION-$DISTRO.tar.xz
 
     echo "export PATH=/usr/local/lib/nodejs/node-$VERSION-$DISTRO/bin:$PATH" >> ~/.bash_aliases
     source ~/.bash_aliases
@@ -121,10 +119,6 @@ setup_packages() {
         pkg="$line"
         sudo apt-get install $pkg -y
     done < "$PKG"
-}
-
-setup_softwares() {
-    sudo dpkg -i ./softwares/google-chrome-stable_current_amd64.deb
 }
 
 main() {
