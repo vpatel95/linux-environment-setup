@@ -1,7 +1,7 @@
 " NeoVIM Configuration file
 " Author    : Ved Patel
-" Date      : 24 December 2019
-
+" Date      : 6 January 2022
+" Updated   : 14 January 2023
 
 " Initialization: {
     set nocompatible
@@ -18,6 +18,7 @@
         Plug 'tpope/vim-surround'     " Change (){}<>'' in a snap.
         Plug 'tpope/vim-commentary'
         Plug 'tpope/vim-fugitive'
+        Plug 'airblade/vim-gitgutter'
         Plug 'godlygeek/tabular' " Easy automatic tabulations.
         Plug 'scrooloose/nerdtree' " Better than NetRw, maybe.
         Plug 'majutsushi/tagbar' " Nice to get a code topview.
@@ -27,18 +28,24 @@
         Plug 'junegunn/fzf.vim' " Fuzzy file search.
         Plug 'junegunn/fzf' " Fuzzy file search.
         Plug 'wellle/targets.vim' " Adds various text objects and targets.
-        " Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
     " }
 
     " Cosmetics: {
-        Plug 'glepnir/dashboard-nvim'
         Plug 'vim-airline/vim-airline'
         Plug 'vim-airline/vim-airline-themes'
         Plug 'morhetz/gruvbox' " Color schemes
+        Plug 'ryanoasis/vim-devicons'
     " }
 
-    " Syntaxes: {
-        Plug 'octol/vim-cpp-enhanced-highlight' " C++ advanced highlighting
+    " Languages: {
+        " C_CPP: {
+            Plug 'octol/vim-cpp-enhanced-highlight' " C++ advanced highlighting
+            Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+            Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
+        " }
+        " Golang: {
+            Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
+        " }
     "}
 " }
 
@@ -150,6 +157,7 @@
         let g:NERDTreeWinSize = 48
         let g:NERDTreeMinimalUI = 1
         let g:NERDTreeShowLineNumbers = 1
+        let g:NERDTreeIgnore=['node_modules','\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
         autocmd FileType nerdtree setlocal relativenumber
     " }
 
@@ -165,14 +173,22 @@
                 set guifont=Hack\ 10,Monospace\ 10
             endif
         else
+
             set mouse=c " Mouse support if needed.
         endif
 
         " Enable Airline
-        let g:airline_extensions = ['tabline']
+        set laststatus=2
+        let g:airline_extensions = ['hunks', 'branch', 'tabline']
         let g:airline_powerline_fonts = 1
         let g:airline#extensions#tabline#enabled = 1
         let g:airline#extensions#tabline#buffer_idx_mode = 1
+        let g:airline#extensions#hunks#enabled=1
+        let g:airline#extensions#branch#enabled=1
+
+        " Gitgutter
+        let g:gitgutter_sign_column_always = 1
+        let g:gitgutter_enabled = 0
 
     " }
 
@@ -188,29 +204,42 @@
         endif
 
         inoremap <silent><expr> <TAB>
-                \ pumvisible() ? "\<C-n>" :
-                \ <SID>check_back_space() ? "\<TAB>" :
-                \ coc#refresh()
+                    \ coc#pum#visible() ? coc#pum#next(1) :
+                    \ CheckBackspace() ? "\<Tab>" :
+                    \ coc#refresh()
+        inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-        function! s:check_back_space() abort
+        " Make <CR> to accept selected completion item or notify coc.nvim to format
+        " <C-g>u breaks current undo, please make your own choice
+        inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                    \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+        function! CheckBackspace() abort
             let col = col('.') - 1
-            return !col || getline('.')[col - 1] =~# '\s'
+            return !col || getline('.')[col - 1]  =~# '\s'
         endfunction
 
-
-        inoremap <expr><UP> pumvisible() ? "\<C-p>" : "\<UP>"
-        inoremap <expr><DOWN> pumvisible() ? "\<C-n>" : "\<DOWN>"
-        inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+        inoremap <expr><UP> coc#pum#visible() ? "\<C-p>" : "\<UP>"
+        inoremap <expr><DOWN> coc#pum#visible() ? "\<C-n>" : "\<DOWN>"
 
         inoremap <silent><expr> <C-Space> coc#refresh()
 
         nmap <silent> [c <Plug>(coc-diagnostic-prev)
         nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
-        " nmap <silent> gd <Plug>(coc-definition)
-        " nmap <silent> gy <Plug>(coc-type-definition)
-        " nmap <silent> gi <Plug>(coc-implementation)
-        " nmap <silent> gr <Plug>(coc-references)
+        nmap <leader>cd :call CocAction('jumpDefinition')<CR>
+        nmap <leader><leader>cd :call CocAction('definition', 'vsplit')<CR>
+
+        nmap <leader>cg :call CocAction('jumpDeclarations')<CR>
+        nmap <leader><leader>cg :call CocAction('jumpDeclarations', 'vsplit')<CR>
+
+        nmap <leader>ct :call CocAction('jumpTypeDefinition')<CR>
+        nmap <leader><leader>ct :call CocAction('jumpTypeDefinition', 'vsplit')<CR>
+
+        nmap <leader>cc :call CocAction('jumpUsed')<CR>
+        nmap <leader><leader>cc :call CocAction('jumpUsed', 'vsplit')<CR>
+
+        nmap <silent> hd :call CocAction('definitionHover')<CR>
 
         nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -221,6 +250,12 @@
                 call CocAction('doHover')
             endif
         endfunction
+
+        augroup mygroup
+            autocmd!
+            " Update signature help on jump placeholder
+            autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+        augroup end
 
         " Add `:Format` command to format current buffer.
         command! -nargs=0 Format :call CocAction('format')
@@ -253,38 +288,6 @@
         nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
         " Resume latest coc list.
         nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-    " }
-
-    " Startup: {
-        let g:dashboard_fzf_engine = 'ag'
-        let g:dashboard_custom_header = [
-        \ ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
-        \ ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
-        \ ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
-        \ ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
-        \ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
-        \ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
-        \]
-
-        let g:dashboard_custom_shortcut={
-        \ 'last_session'       : 'l s',
-        \ 'find_history'       : 'r f',
-        \ 'find_file'          : 'f f',
-        \ 'new_file'           : 'n f',
-        \ 'change_colorscheme' : 'c c',
-        \ 'find_word'          : 'f w',
-        \ 'book_marks'         : 'g m',
-        \ }
-
-        let g:dashboard_default_executive ='fzf'
-        nnoremap <silent> <leader>nf :DashboardNewFile<CR>
-        nnoremap <silent> <leader>ff :DashboardFindFile<CR>
-        nnoremap <silent> <leader>fw :DashboardFindWord<CR>
-        nnoremap <silent> <leader>rf :DashboardFindHistory<CR>
-        nnoremap <silent> <Leader>cc :DashboardChangeColorscheme<CR>
-        nnoremap <silent> <Leader>gm :DashboardJumpMark<CR>
-        nmap <leader>ls :<C-u>SessionLoad<CR>
-        nmap <leader>ss :<C-u>SessionSave<CR>
     " }
 
     function BGToggle()
@@ -321,7 +324,7 @@
         autocmd!
         autocmd BufRead,BufNewFile *.java set filetype=java | set foldmethod=syntax
         autocmd BufRead,BufNewFile *.h,*.c set filetype=c | set cindent | set foldmethod=syntax
-        autocmd BufRead,BufNewFile *.hpp,*.cpp set filetype=cpp | set cindent | set foldmethod=syntax
+        autocmd BufRead,BufNewFile *cc,*hh,*.hpp,*.cpp set filetype=cpp | set cindent | set foldmethod=syntax
         autocmd BufRead,BufNewFile *.go set filetype=go | set foldmethod=syntax
         autocmd BufRead,BufNewFile *.py let b:coc_root_patterns = ['.git', '.env'] | set foldmethod=indent
     augroup END
@@ -341,7 +344,7 @@
     nnoremap <silent> <C-L> :silent! nohl<cr><C-L>
 
     " Useful to toggle the NERDTree window back and forth.
-    " Opens directory tree on the left side 
+    " Opens directory tree on the left side
     noremap <silent> <leader>d :silent! NERDTreeToggle<cr>
     " Same thing as above, but for the TagBar plugin...
     " Opens list of tags on the right side

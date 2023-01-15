@@ -32,27 +32,16 @@
     tool = vimdiff
 [difftool]
     prompt = false
-[gitflow "prefix"]
-    feature = feature-
-    release = release-
-    hotfix = hotfix-
-    support = support-
-    versiontag = v
 [merge]
     tool = vimdiff
 [sequence]
     editor = vim
 [alias]
   a = add --all
-  ai = add -i
   #############
   ap = apply
   as = apply --stat
   ac = apply --check
-  #############
-  ama = am --abort
-  amr = am --resolved
-  ams = am --skip
   #############
   b = branch
   ba = branch -a
@@ -91,8 +80,6 @@
   fo = fetch origin
   fu = fetch upstream
   #############
-  fp = format-patch
-  #############
   fk = fsck
   #############
   g = grep -p
@@ -111,8 +98,6 @@
   o = checkout
   om = checkout master
   ob = checkout -b
-  #############
-  pr = prune -v
   #############
   ps = push
   psf = push -f
@@ -182,9 +167,6 @@
   rpo = remote prune origin
   rpu = remote prune upstream
   #############
-  rmf = rm -f
-  rmrf = rm -r -f
-  #############
   s = status
   sb = status -s -b
   #############
@@ -198,45 +180,6 @@
   sw = stash show
   st = !git stash list | wc -l 2>/dev/null | grep -oEi '[0-9][0-9]*'
   #############
-  t = tag
-  td = tag -d
-  #############
   w = show
   wp = show -p
   wr = show -p --no-color
-  #############
-  svnr = svn rebase
-  svnd = svn dcommit
-  svnl = svn log --oneline --show-commit
-  #############
-  subup = submodule update --init --recursive
-  subpull = !git submodule foreach git pull --tags origin master
-  #############
-  assume = update-index --assume-unchanged
-  unassume = update-index --no-assume-unchanged
-  assumed = !git ls -v | grep ^h | cut -c 3-
-  unassumeall = !git assumed | xargs git unassume
-  assumeall = !git status -s | awk {'print $2'} | xargs git assume
-  #############
-  bump = !sh -c 'git commit -am \"Version bump v$1\" && git psuoc && git release $1' -
-  release = !sh -c 'git tag v$1 && git pst' -
-  unrelease = !sh -c 'git tag -d v$1 && git pso :v$1' -
-  merged = !sh -c 'git o master && git plom && git bd $1 && git rpo' -
-  aliases = !git config -l | grep alias | cut -c 7-
-  snap = !git stash save 'snapshot: $(date)' && git stash apply 'stash@{0}'
-  bare = !sh -c 'git symbolic-ref HEAD refs/heads/$1 && git rm --cached -r . && git clean -xfd' -
-  whois = !sh -c 'git log -i -1 --author=\"$1\" --pretty=\"format:%an <%ae>\"' -
-  serve = daemon --reuseaddr --verbose --base-path=. --export-all ./.git
-  #############
-  behind = !git rev-list --left-only --count $(git bu)...HEAD
-  ahead = !git rev-list --right-only --count $(git bu)...HEAD
-  #############
-  ours = "!f() { git checkout --ours $@ && git add $@; }; f"
-  theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
-  subrepo = !sh -c 'git filter-branch --prune-empty --subdirectory-filter $1 master' -
-  human = name-rev --name-only --refs=refs/heads/*
-[filter "lfs"]
-        clean = git-lfs clean -- %f
-        smudge = git-lfs smudge -- %f
-        process = git-lfs filter-process
-        required = true
