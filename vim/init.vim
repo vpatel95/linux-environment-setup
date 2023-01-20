@@ -8,6 +8,7 @@
     filetype off
 
     let g:pymode_python = 'python3'
+    let g:python3_host_prog = '/usr/bin/python3'
 
     call plug#begin('~/.vim/.vim_plug')
 " }
@@ -227,17 +228,21 @@
         nmap <silent> [c <Plug>(coc-diagnostic-prev)
         nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
-        nmap <leader>cd :call CocAction('jumpDefinition')<CR>
-        nmap <leader><leader>cd :call CocAction('definition', 'vsplit')<CR>
+        nmap <silent> gd :call CocAction('jumpDefinition')<CR>
+        nmap <silent> vd :call CocAction('jumpDefinition', 'vsplit')<CR>
+        nmap <silent> sd :call CocAction('jumpDefinition', 'split')<CR>
 
-        nmap <leader>cg :call CocAction('jumpDeclarations')<CR>
-        nmap <leader><leader>cg :call CocAction('jumpDeclarations', 'vsplit')<CR>
+        nmap <silent> gg :call CocAction('jumpDeclaration')<CR>
+        nmap <silent> vg :call CocAction('jumpDeclaration', 'vsplit')<CR>
+        nmap <silent> sg :call CocAction('jumpDeclaration', 'split')<CR>
 
-        nmap <leader>ct :call CocAction('jumpTypeDefinition')<CR>
-        nmap <leader><leader>ct :call CocAction('jumpTypeDefinition', 'vsplit')<CR>
+        nmap <silent> gt :call CocAction('jumpTypeDefinition')<CR>
+        nmap <silent> vt :call CocAction('jumpTypeDefinition', 'vsplit')<CR>
+        nmap <silent> st :call CocAction('jumpTypeDefinition', 'split')<CR>
 
-        nmap <leader>cc :call CocAction('jumpUsed')<CR>
-        nmap <leader><leader>cc :call CocAction('jumpUsed', 'vsplit')<CR>
+        nmap <silent> gr :call CocAction('jumpUsed')<CR>
+        nmap <silent> vr :call CocAction('jumpUsed', 'vsplit')<CR>
+        nmap <silent> sr :call CocAction('jumpUsed', 'split')<CR>
 
         nmap <silent> hd :call CocAction('definitionHover')<CR>
 
@@ -251,7 +256,7 @@
             endif
         endfunction
 
-        augroup mygroup
+        augroup CocGroup
             autocmd!
             " Update signature help on jump placeholder
             autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
