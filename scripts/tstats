@@ -1,0 +1,18 @@
+#!/bin/bash
+
+iface=$1
+RXB=$(</sys/class/net/"$iface"/statistics/rx_bytes)
+TXB=$(</sys/class/net/"$iface"/statistics/tx_bytes)
+sleep 1
+RXBN=$(</sys/class/net/"$iface"/statistics/rx_bytes)
+TXBN=$(</sys/class/net/"$iface"/statistics/tx_bytes)
+RXDIF=$(echo $((RXBN - RXB)) )
+TXDIF=$(echo $((TXBN - TXB)) )
+
+NET_RX=$(bc -l <<< 'scale=2;'${RXDIF}'/1048576')
+NET_TX=$(bc -l <<< 'scale=2;'$TXDIF'/1048576')
+MEM=$(free -m | awk 'NR==2{printf "%.2f%%\t\t", $3*100/$2 }')
+CPU=$(top -bn1 | grep load | awk '{printf "%.2f%%\t\t\n", $(NF-2)}')
+DISK=$(df -h | awk '$NF=="/"{printf "%s\t\t", $5}')
+
+echo -e "M : ${MEM} > C : ${CPU} > N : ${NET_RX}M/s ${NET_TX}M/s > D : ${DISK}"
