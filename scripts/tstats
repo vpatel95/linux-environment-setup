@@ -11,8 +11,9 @@ TXDIF=$(echo $((TXBN - TXB)) )
 
 NET_RX=$(bc -l <<< 'scale=2;'${RXDIF}'/1048576')
 NET_TX=$(bc -l <<< 'scale=2;'$TXDIF'/1048576')
-MEM=$(free -m | awk 'NR==2{printf "%.2f%%\t\t", $3*100/$2 }')
-CPU=$(top -bn1 | grep load | awk '{printf "%.2f%%\t\t\n", $(NF-2)}')
-DISK=$(df -h | awk '$NF=="/"{printf "%s\t\t", $5}')
+MEM=$(free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }')
+#CPU=$(top -bn1 | grep load | awk '{printf "%.2f%%", $(NF-2)}')
+CPU=$(top -bn1 | grep '%Cpu' | awk '{printf $2+$4"%"}')
+DISK=$(df -h | awk '$NF=="/"{printf "%s", $5}')
 
-echo -e "M : ${MEM} > C : ${CPU} > N : ${NET_RX}M/s ${NET_TX}M/s > D : ${DISK}"
+echo -e "(M:${MEM} C:${CPU} N:${NET_RX}M/s,${NET_TX}M/s D:${DISK})"

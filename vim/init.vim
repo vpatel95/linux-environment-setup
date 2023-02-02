@@ -1,7 +1,6 @@
 " NeoVIM Configuration file
 " Author    : Ved Patel
-" Date      : 6 January 2022
-" Updated   : 14 January 2023
+" Date      : 21 December 2022
 
 " Initialization: {
     set nocompatible
@@ -29,6 +28,7 @@
         Plug 'junegunn/fzf.vim' " Fuzzy file search.
         Plug 'junegunn/fzf' " Fuzzy file search.
         Plug 'wellle/targets.vim' " Adds various text objects and targets.
+        " Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
     " }
 
     " Cosmetics: {
@@ -220,34 +220,6 @@
             return !col || getline('.')[col - 1]  =~# '\s'
         endfunction
 
-        inoremap <expr><UP> coc#pum#visible() ? "\<C-p>" : "\<UP>"
-        inoremap <expr><DOWN> coc#pum#visible() ? "\<C-n>" : "\<DOWN>"
-
-        inoremap <silent><expr> <C-Space> coc#refresh()
-
-        nmap <silent> [c <Plug>(coc-diagnostic-prev)
-        nmap <silent> ]c <Plug>(coc-diagnostic-next)
-
-        nmap <silent> gd :call CocAction('jumpDefinition')<CR>
-        nmap <silent> vd :call CocAction('jumpDefinition', 'vsplit')<CR>
-        nmap <silent> sd :call CocAction('jumpDefinition', 'split')<CR>
-
-        nmap <silent> gg :call CocAction('jumpDeclaration')<CR>
-        nmap <silent> vg :call CocAction('jumpDeclaration', 'vsplit')<CR>
-        nmap <silent> sg :call CocAction('jumpDeclaration', 'split')<CR>
-
-        nmap <silent> gt :call CocAction('jumpTypeDefinition')<CR>
-        nmap <silent> vt :call CocAction('jumpTypeDefinition', 'vsplit')<CR>
-        nmap <silent> st :call CocAction('jumpTypeDefinition', 'split')<CR>
-
-        nmap <silent> gr :call CocAction('jumpUsed')<CR>
-        nmap <silent> vr :call CocAction('jumpUsed', 'vsplit')<CR>
-        nmap <silent> sr :call CocAction('jumpUsed', 'split')<CR>
-
-        nmap <silent> hd :call CocAction('definitionHover')<CR>
-
-        nnoremap <silent> K :call <SID>show_documentation()<CR>
-
         function! s:show_documentation()
             if (index(['vim','help'], &filetype) >= 0)
                 execute 'h '.expand('<cword>')
@@ -278,21 +250,6 @@
 
         " Mappings for CoCList
         " Show all diagnostics.
-        nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-        " Manage extensions.
-        nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-        " Show commands.
-        nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-        " Find symbol of current document.
-        nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-        " Search workspace symbols.
-        nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-        " Do default action for next item.
-        nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-        " Do default action for previous item.
-        nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-        " Resume latest coc list.
-        nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
     " }
 
     function BGToggle()
@@ -332,6 +289,7 @@
         autocmd BufRead,BufNewFile *cc,*hh,*.hpp,*.cpp set filetype=cpp | set cindent | set foldmethod=syntax
         autocmd BufRead,BufNewFile *.go set filetype=go | set foldmethod=syntax
         autocmd BufRead,BufNewFile *.py let b:coc_root_patterns = ['.git', '.env'] | set foldmethod=indent
+        autocmd BufRead,BufNewFile *.aliases set filetype=sh | set foldmethod=indent
     augroup END
 
     " Ignore certain files and folders when globing
@@ -417,4 +375,46 @@
     " Set Emmet Binding
     nmap <C-p> <C-y>,
     imap <C-p> <C-y>,
+
+    " Coc mappings
+    inoremap <expr><UP> coc#pum#visible() ? "\<C-p>" : "\<UP>"
+    inoremap <expr><DOWN> coc#pum#visible() ? "\<C-n>" : "\<DOWN>"
+
+    inoremap <silent><expr> <C-Space> coc#refresh()
+
+    nmap <silent> [c <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+    nmap <silent> gd :call CocAction('jumpDefinition')<CR>
+    nmap <silent> vd :call CocAction('jumpDefinition', 'vsplit')<CR>
+    nmap <silent> sd :call CocAction('jumpDefinition', 'split')<CR>
+
+    nmap <silent> gg :call CocAction('jumpDeclaration')<CR>
+    nmap <silent> vg :call CocAction('jumpDeclaration', 'vsplit')<CR>
+    nmap <silent> sg :call CocAction('jumpDeclaration', 'split')<CR>
+
+    nmap <silent> gt :call CocAction('jumpTypeDefinition')<CR>
+    nmap <silent> vt :call CocAction('jumpTypeDefinition', 'vsplit')<CR>
+    nmap <silent> st :call CocAction('jumpTypeDefinition', 'split')<CR>
+
+    nmap <silent> gr :call CocAction('jumpUsed')<CR>
+    nmap <silent> vr :call CocAction('jumpUsed', 'vsplit')<CR>
+    nmap <silent> sr :call CocAction('jumpUsed', 'split')<CR>
+
+    nmap <silent> hd :call CocAction('definitionHover')<CR>
+
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+    nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+    nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+    nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+    nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+    nnoremap <silent><nowait> <space>s  :<C-u>CocList symbols<cr>
+    nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+    nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+    nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+    " Match Up
+    nnoremap <silent><nowait> <space>w> :<c-u>MatchupWhereAmI?<cr>
+
 " }

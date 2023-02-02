@@ -30,7 +30,6 @@
         Plugin 'junegunn/fzf' " Fuzzy file search.
         Plugin 'mattn/emmet-vim' " Emmet for easy html code write up.
         Plugin 'wellle/targets.vim' " Adds various text objects and targets.
-        Plugin 'fatih/vim-go'
     " }
 
     " Cosmetics: {
