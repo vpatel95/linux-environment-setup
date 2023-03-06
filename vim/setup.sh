@@ -11,7 +11,7 @@ VIM=$HOMEDIR/.vim
 NVIM_CONF=$HOMEDIR/.config/nvim
 
 PLUG=$VIM/.vim_plug
-PACK=$VIM/.vim_pack
+PACK=$NVIM_CONF/.vim_pack
 UNDOES=$VIM/.undoes
 
 case $1 in
@@ -32,11 +32,11 @@ case $1 in
         vim +PlugInstall +qall
         ;;
     nvim)
+	rm -rf $VIM
         rm -rf $NVIM_CONF
 
         mkdir -p $VIM
         mkdir -p $NVIM_CONF
-        mkdir -p $PACK
         mkdir -p $UNDOES
 
         cp $OLD_VIM $NVIM_CONF/$OLD_VIM
