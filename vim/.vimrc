@@ -1,50 +1,57 @@
-" VIM Configuration file
+" NeoVIM Configuration file
 " Author    : Ved Patel
-" Date      : 24 December 2019
-
+" Date      : 21 December 2022
 
 " Initialization: {
     set nocompatible
     filetype off
 
     let g:pymode_python = 'python3'
+    let g:python3_host_prog = '/usr/bin/python3'
 
-    set rtp+=~/.vim/.vim_bundle/Vundle.vim
-    set rtp+=~/.vim/.vim_bundle/youcompleteme
-    call vundle#begin('~/.vim/.vim_bundle')
-    Plugin 'VundleVim/Vundle.vim'
+    call plug#begin('~/.vim/.vim_plug')
 " }
 
 " Plugins: {
     " Functional: {
-        " Plugin 'valloric/youcompleteme' " Code-completion engine for Vim
-        Plugin 'tpope/vim-surround'     " Change (){}<>'' in a snap.
-        Plugin 'tpope/vim-commentary'
-        Plugin 'tpope/vim-fugitive'
-        Plugin 'godlygeek/tabular' " Easy automatic tabulations.
-        Plugin 'scrooloose/nerdtree' " Better than NetRw, maybe.
-        Plugin 'majutsushi/tagbar' " Nice to get a code topview.
-        Plugin 'tmhedberg/matchit' " The '%' now matches more k?
-        Plugin 'mileszs/ack.vim' " Forget IDE searches gtg fast!
-        Plugin 'sjl/gundo.vim' " Why only have linear undo tree?
-        Plugin 'junegunn/fzf' " Fuzzy file search.
-        Plugin 'mattn/emmet-vim' " Emmet for easy html code write up.
-        Plugin 'wellle/targets.vim' " Adds various text objects and targets.
+        Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        Plug 'tpope/vim-surround'     " Change (){}<>'' in a snap.
+        Plug 'tpope/vim-commentary'
+        Plug 'tpope/vim-fugitive'
+        Plug 'airblade/vim-gitgutter'
+        Plug 'godlygeek/tabular' " Easy automatic tabulations.
+        Plug 'scrooloose/nerdtree' " Better than NetRw, maybe.
+        Plug 'majutsushi/tagbar' " Nice to get a code topview.
+        Plug 'andymass/vim-matchup' " The '%'now matches more k?
+        Plug 'mileszs/ack.vim' " Forget IDE searches gtg fast!
+        Plug 'sjl/gundo.vim' " Why only have linear undo tree?
+        Plug 'junegunn/fzf.vim' " Fuzzy file search.
+        Plug 'junegunn/fzf' " Fuzzy file search.
+        Plug 'wellle/targets.vim' " Adds various text objects and targets.
+        " Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
     " }
 
     " Cosmetics: {
-        Plugin 'vim-airline/vim-airline'
-        Plugin 'vim-airline/vim-airline-themes'
-        Plugin 'morhetz/gruvbox' " Color schemes
+        Plug 'vim-airline/vim-airline'
+        Plug 'vim-airline/vim-airline-themes'
+        Plug 'morhetz/gruvbox' " Color schemes
+        Plug 'ryanoasis/vim-devicons'
     " }
 
-    " Syntaxes: {
-        Plugin 'octol/vim-cpp-enhanced-highlight' " C++ advanced highlighting
+    " Languages: {
+        " C_CPP: {
+            Plug 'octol/vim-cpp-enhanced-highlight' " C++ advanced highlighting
+            Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+            Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
+        " }
+        " Golang: {
+            Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
+        " }
     "}
 " }
 
 " Preliminaries: {
-    call vundle#end() " Let Vundle finish initializing itself now.
+    call plug#end() " Let vim-plug finish initializing itself now.
     filetype plugin indent on " Enable file specific features...
 
     source ~/.vim/scripts/cscope_maps.vim
@@ -63,10 +70,12 @@
     set undodir=~/.vim/.vim_undoes " Where do we store all this awesomeness?!?!
     set undofile " Persistent undos are completely freaking awesome!!!
 
-    set history=1024 " Defines the number of stored commands Vim can remember, doesn't really matter :).
+    set history=100 " Defines the number of stored commands Vim can remember, doesn't really matter :).
+    set updatetime=300
     set ttimeoutlen=0
     let g:indentLine_conceallevel = 0
-    " let g:loaded_youcompleteme = 1
+
+    set visualbell noerrorbells
 " }
 
 " Formatting: {
@@ -105,13 +114,11 @@
 
     set wildmenu " Enable the 'autocomplete' menu when in command mode (':').
     set shortmess=at " Shorten some command mode messages, will keep you from having to hit ENTER all the time.
-    " set cmdheight=2 " Might decrease the number of times for hitting enter even more, double default height.
     set stal=2 " Always show the tab lines, which makes the user interface a bit more consistent.
 
     set showmatch " Will highlight matching brackets.
     set mat=2 " How long the highlight will last.
     set number " Show line numbers on left side.
-    " set relativenumber " Enables the user to easily see the relative distance between cursor and target line.
     set ttyfast " Will send characters over a terminal connection faster. We do have fast connections after all.
     set ruler " Always show current cursor position, which might be needed for the character column location.
     set hidden " Abandon buffer when closed, which is usually what we want to do in this case.
@@ -125,6 +132,9 @@
     set background=dark " Cool programmers only use dark themes. It's good for your eyes man, really nice!
     colorscheme gruvbox
     let s:current_bg = "dark"
+
+    " set fillchars=fold:\ ,vert:\│,eob:\ ,msgsep:‾
+    set splitbelow splitright
 
     " Windows: {
         if has('python3')
@@ -148,6 +158,7 @@
         let g:NERDTreeWinSize = 48
         let g:NERDTreeMinimalUI = 1
         let g:NERDTreeShowLineNumbers = 1
+        let g:NERDTreeIgnore=['node_modules','\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
         autocmd FileType nerdtree setlocal relativenumber
     " }
 
@@ -163,36 +174,84 @@
                 set guifont=Hack\ 10,Monospace\ 10
             endif
         else
-            set mouse=c " Mouse support if needed.
+
+            " set mouse=c " Mouse support if needed.
         endif
 
         " Enable Airline
-        let g:airline_extensions = ['tabline']
+        set laststatus=2
+        let g:airline_extensions = ['hunks', 'branch', 'tabline']
         let g:airline_powerline_fonts = 1
         let g:airline#extensions#tabline#enabled = 1
         let g:airline#extensions#tabline#buffer_idx_mode = 1
+        let g:airline#extensions#hunks#enabled=1
+        let g:airline#extensions#branch#enabled=1
+
+        " Gitgutter
+        let g:gitgutter_sign_column_always = 1
+        let g:gitgutter_enabled = 0
 
     " }
 
-    " Auto Completion : {
-        let g:ycm_show_diagnostics_ui = 0
-        let g:ycm_max_num_candidates = 25
-        let g:ycm_max_num_identifier_candidates = 10
-        let g:ycm_collect_identifiers_from_tags_files = 1
-        let g:ycm_seed_identifiers_with_syntax = 1
-        let g:ycm_log_level = 'error'
-        let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
-        let g:ycm_key_list_stop_completion = ['<C-y>', '<Right>', '<Enter>']
-        let g:ycm_goto_buffer_command = 'split-or-existing-window'
-        let g:ycm_confirm_extra_conf = 0
-        let g:ycm_autoclose_preview_window_after_completion = 1
-        let g:ycm_collect_identifiers_from_tags_files = 1
-        " set completeopt-=preview
+    " AutoCompletion: {
+        let g:coc_disable_startup_warning = 1
 
-        let g:ycm_auto_start_csharp_server = 0
-        let g:ycm_auto_stop_csharp_server = 0
-        " Show function help
-        nmap <leader>D <plug>(YCMHover)
+        set shortmess+=c
+
+        if has("nvim-0.5.0") || has("patch-8.1.1564")
+            set signcolumn=number
+        else
+            set signcolumn=yes
+        endif
+
+        inoremap <silent><expr> <TAB>
+                    \ coc#pum#visible() ? coc#pum#next(1) :
+                    \ CheckBackspace() ? "\<Tab>" :
+                    \ coc#refresh()
+
+        inoremap <expr><UP> coc#pum#visible() ? coc#pum#prev(1) : "\<UP>"
+        inoremap <expr><DOWN> coc#pum#visible() ? coc#pum#next(1) : "\<DOWN>"
+
+        " Make <CR> to accept selected completion item or notify coc.nvim to format
+        " <C-g>u breaks current undo, please make your own choice
+        inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                    \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+        function! CheckBackspace() abort
+            let col = col('.') - 1
+            return !col || getline('.')[col - 1]  =~# '\s'
+        endfunction
+
+        function! s:show_documentation()
+            if (index(['vim','help'], &filetype) >= 0)
+                execute 'h '.expand('<cword>')
+            else
+                call CocAction('doHover')
+            endif
+        endfunction
+
+        augroup CocGroup
+            autocmd!
+            " Update signature help on jump placeholder
+            autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+        augroup end
+
+        " Add `:Format` command to format current buffer.
+        command! -nargs=0 Format :call CocAction('format')
+
+        " Add `:Fold` command to fold current buffer.
+        command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+        " Add `:OR` command for organize imports of the current buffer.
+        command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+
+        " Add (Neo)Vim's native statusline support.
+        " NOTE: Please see `:h coc-status` for integrations with external plugins that
+        " provide custom statusline: lightline.vim, vim-airline.
+        set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+        " Mappings for CoCList
+        " Show all diagnostics.
     " }
 
     function BGToggle()
@@ -209,7 +268,7 @@
 
     set list " Enables the characters to be displayed.
     " Useful for showing trailing whitespace and others.
-    set listchars=tab:›\ ,trail:•,extends:>,precedes:<,nbsp:_
+    set listchars=tab:›\ ,trail:•,extends:❯,precedes:❮,nbsp:_
 
     " CPP enhanced highlight: {
         let g:cpp_class_scope_highlight = 1
@@ -229,9 +288,20 @@
         autocmd!
         autocmd BufRead,BufNewFile *.java set filetype=java | set foldmethod=syntax
         autocmd BufRead,BufNewFile *.h,*.c set filetype=c | set cindent | set foldmethod=syntax
-        autocmd BufRead,BufNewFile *.hpp,*.cpp set filetype=cpp | set cindent | set foldmethod=syntax
+        autocmd BufRead,BufNewFile *cc,*hh,*.hpp,*.cpp set filetype=cpp | set cindent | set foldmethod=syntax
         autocmd BufRead,BufNewFile *.go set filetype=go | set foldmethod=syntax
+        autocmd BufRead,BufNewFile *.py let b:coc_root_patterns = ['.git', '.env'] | set foldmethod=indent
+        autocmd BufRead,BufNewFile *.aliases set filetype=sh | set foldmethod=indent
     augroup END
+
+    " Ignore certain files and folders when globing
+    set wildignore+=*.o,*.obj,*.dylib,*.bin,*.dll,*.exe
+    set wildignore+=*/.git/*,*/.svn/*,*/__pycache__/*,*/build/**
+    set wildignore+=*.jpg,*.png,*.jpeg,*.bmp,*.gif,*.tiff,*.svg,*.ico
+    set wildignore+=*.pyc,*.pkl
+    set wildignore+=*.DS_Store
+    set wildignore+=*.aux,*.bbl,*.blg,*.brf,*.fls,*.fdb_latexmk,*.synctex.gz,*.xdv
+    set wildignorecase
 " }
 
 " Mappings: {
@@ -239,7 +309,7 @@
     nnoremap <silent> <C-L> :silent! nohl<cr><C-L>
 
     " Useful to toggle the NERDTree window back and forth.
-    " Opens directory tree on the left side 
+    " Opens directory tree on the left side
     noremap <silent> <leader>d :silent! NERDTreeToggle<cr>
     " Same thing as above, but for the TagBar plugin...
     " Opens list of tags on the right side
@@ -307,4 +377,43 @@
     " Set Emmet Binding
     nmap <C-p> <C-y>,
     imap <C-p> <C-y>,
+
+    " Coc mappings
+    inoremap <silent><expr> <C-Space> coc#refresh()
+
+    nmap <silent> [c <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+    nmap <silent> gd :call CocAction('jumpDefinition')<CR>
+    nmap <silent> vd :call CocAction('jumpDefinition', 'vsplit')<CR>
+    nmap <silent> sd :call CocAction('jumpDefinition', 'split')<CR>
+
+    nmap <silent> gg :call CocAction('jumpDeclaration')<CR>
+    nmap <silent> vg :call CocAction('jumpDeclaration', 'vsplit')<CR>
+    nmap <silent> sg :call CocAction('jumpDeclaration', 'split')<CR>
+
+    nmap <silent> gt :call CocAction('jumpTypeDefinition')<CR>
+    nmap <silent> vt :call CocAction('jumpTypeDefinition', 'vsplit')<CR>
+    nmap <silent> st :call CocAction('jumpTypeDefinition', 'split')<CR>
+
+    nmap <silent> gr :call CocAction('jumpUsed')<CR>
+    nmap <silent> vr :call CocAction('jumpUsed', 'vsplit')<CR>
+    nmap <silent> sr :call CocAction('jumpUsed', 'split')<CR>
+
+    nmap <silent> hd :call CocAction('definitionHover')<CR>
+
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+    nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+    nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+    nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+    nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+    nnoremap <silent><nowait> <space>s  :<C-u>CocList symbols<cr>
+    nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+    nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+    nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+    " Match Up
+    nnoremap <silent><nowait> <space>w :<c-u>MatchupWhereAmI?<cr>
+
 " }

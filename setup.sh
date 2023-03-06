@@ -53,15 +53,6 @@ function killUnattendedUpgrades() {
     done && echo 'Unattended upgrade not running.'
 }
 
-function aptGet() {
-    unlockDpkg
-    DEBIAN_FRONTEND=noninteractive \
-        sudo -nE apt-get \
-        -o Dpkg::Options::=--force-confold \
-        -o Dpkg::Options::=--force-confdef \
-        -y --allow-downgrades --allow-remove-essential --allow-change-held-packages "$@"
-}
-
 function checkOperatingSystem() {
     PLATFORM="unknown"
     IN_CONTAINER="no"
@@ -122,12 +113,12 @@ function installBasicPackages() {
     fi
 
     aptGet -q install -y \
-	--no-install-recommends \
+    --no-install-recommends \
         apt-transport-https \
         ca-certificates \
         curl \
         git \
-	gnupg \
+        gnupg \
         make \
         sudo \
         unzip \
@@ -141,20 +132,21 @@ function aptGetUpdate() {
 function installPackages() {
     UBUNTU_KERNEL="$(uname -r)"
     aptGet -q install -y \
-	--no-install-recommends \
-	bc \
-	ccache \
-	cmake \
+        --no-install-recommends \
+        bc \
+        ccache \
+        clangd-15 \
+        cmake \
         build-essential \
         cmake \
         cscope \
-        ctags \
+        exuberant-ctags \
         htop \
         libpcap-dev \
-	libboost-all-dev \
-	libpcap-dev \
-	libssl-dev \
-	liburcu-dev \
+        libboost-all-dev \
+        libpcap-dev \
+        libssl-dev \
+        liburcu-dev \
         linux-headers-${UBUNTU_KERNEL} \
         linux-tools-${UBUNTU_KERNEL} \
         linux-image-${UBUNTU_KERNEL} \
@@ -162,12 +154,12 @@ function installPackages() {
         linux-modules-extra-${UBUNTU_KERNEL} \
         linux-source-${UBUNTU_KERNEL%%-*} \
         make \
-	net-tools \
+        net-tools \
         nmap \
         neovim \
         net-tools \
         openssh-server \
-	python2-dev
+        python2-dev \
         python3-dev \
         python3-pip \
         silversearcher-ag \
@@ -178,15 +170,7 @@ function installPackages() {
         vim
 
     sudo snap install nvim --classic
-    sudo snap install ccls --classic
     sudo pip3 install scan-build
-}
-
-function installLLVM() {
-    llvm_version=${1:-15}
-    unlockDpkg
-    DEBIAN_FRONTEND=noninteractive \
-        sudo ${BASEPATH}/llvm.sh $llvm_version all
 }
 
 function setupGoLang() {
@@ -277,18 +261,14 @@ function unlockDpkg() {
         while ps $apt_pid &>/dev/null; do
             echo "Not dead yet..."
             sleep 1
-	done
+    done
         echo "DEAD: $apt_pid"
     fi
 }
 
 function aptGet() {
     unlockDpkg
-    DEBIAN_FRONTEND=noninteractive \
-        sudo -nE apt-get \
-        -o Dpkg::Options::=--force-confold \
-        -o Dpkg::Options::=--force-confdef \
-        -y --allow-downgrades --allow-remove-essential --allow-change-held-packages "$@"
+    sudo -nE apt-get "$@"
 }
 
 checkOperatingSystem
@@ -299,35 +279,7 @@ setupRepos
 installBasicPackages
 aptGetUpdate
 installPackages
-installLLVM 15
-
-# prepareLocalBin
-#
-#check if golang is installed, if no, install
 checkAndInstallGoLang
 setupGoLang
-#cache c/c++ compilation for speed
 setupCcache
-
-# gdb 12.9 that come with Ubuntu 22.04 crashes.
-# Need to get the devel release
-if ! apt list --installed gdb 2>/dev/null | grep -q '^gdb/'; then
-  # install dependencies
-  aptGet -q install \
-    --no-install-recommends \
-      libbabeltrace1 \
-      libdebuginfod1 \
-      libipt2 \
-      libsource-highlight4v5 \
-      libdebuginfod-common \
-      libsource-highlight-common
-  wget -O /tmp/libgmp10.deb https://svl-artifactory.juniper.net/artifactory/cn2-static-dev/libgmp10_6.2.1+dfsg1-1ubuntu2_amd64.deb
-  wget -O /tmp/gdb.deb https://svl-artifactory.juniper.net/artifactory/cn2-static-dev/gdb_12.1-3ubuntu2_amd64.deb
-  sudo dpkg --install /tmp/libgmp10.deb /tmp/gdb.deb
-fi
-
-# update .gitconfig
-# 1. user.name, user.email
-# 2. recommended configs (credstore)
-# 3. git aliases
 setLocalTimeZone
