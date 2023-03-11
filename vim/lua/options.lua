@@ -4,6 +4,8 @@ local opt = vim.opt
 local global = vim.g
 local fn = vim.fn
 
+vim.cmd('source ~/.vim/cscope_maps.vim')
+
 -- General
 global.pymode_python = 'python3'
 global.python3_host_prog = '/usr/bin/python3'
@@ -92,3 +94,12 @@ opt.listchars.trail = '•'
 opt.listchars.nbsp = '_'
 opt.listchars.extends = '❯'
 opt.listchars.precedes = '❮'
+
+opt.wildignore = {
+    '*.o', '*.obj', '*.dylib', '*.bin', '*.dll', '*.exe',
+    '*/.git/*', '*/.svn/*', '*/__pycache__/*',
+    '*.jpg', '*.png' , '*.jpeg', '*.bmp', '*.gif', '*.tiff', '*.svg', '*.ico',
+    '*.pyc', '*.pkl', '*.DS_Store',
+    '*.aux', '*.bbl', '*.blg', '*.brf,*.fls', '*.fdb_latexmk', '*.synctex.gz', '*.xdv',
+}
+opt.wildignorecase = true
