@@ -39,7 +39,6 @@ case $1 in
         mkdir -p $NVIM_CONF
         mkdir -p $UNDOES
 
-        cp $OLD_VIM $NVIM_CONF/$OLD_VIM
         cp $INIT_LUA $NVIM_CONF/$INIT_LUA
         cp -r ./lua $NVIM_CONF
         cp $COC_SETTING $NVIM_CONF/$COC_SETTING

@@ -1,8 +1,10 @@
 #!/bin/bash -e
 
 GO_VERSION="1.19.4"
-NODEJS_MAJOR_VERSION="pub_14.x"
-NODEJS_VERSION="14.16.0"
+NODEJS_MAJOR_VERSION="pub_18.x"
+NODEJS_VERSION="18.15.0"
+LOCAL_DIR="${HOME}/.local"
+LOCAL_BIN_DIR="${LOCAL_DIR}/bin"
 
 # Common location used for ccache
 : ${CCACHE_DIR:=/var/cache/ccache}
@@ -135,7 +137,7 @@ function installPackages() {
         --no-install-recommends \
         bc \
         ccache \
-        clangd-15 \
+        clangd \
         cmake \
         build-essential \
         cmake \
@@ -156,7 +158,6 @@ function installPackages() {
         make \
         net-tools \
         nmap \
-        neovim \
         net-tools \
         openssh-server \
         python2-dev \
@@ -181,8 +182,7 @@ function setupGoLang() {
 function installGoLang() {
     # Clean up to be safe.
     sudo rm -rf ${HOME}/go/bin ${HOME}/go/pkg ${HOME}/local/src
-    curl -s --fail -o /tmp/go${GO_VERSION}.${PLATFORM}-amd64.tar.gz https://dl.google.com/go/go${GO_VERSION}.${PLATFORM}-amd64.ta
-r.gz
+    curl -s --fail -o /tmp/go${GO_VERSION}.${PLATFORM}-amd64.tar.gz https://dl.google.com/go/go${GO_VERSION}.${PLATFORM}-amd64.tar.gz
     echo "Installing go in ${LOCAL_DIR}"
     tar -C ${LOCAL_DIR} --strip-components=1 -xzf /tmp/go${GO_VERSION}.${PLATFORM}-amd64.tar.gz
     rm -f /tmp/go${GO_VERSION}.${PLATFORM}-amd64.tar.gz
@@ -275,8 +275,8 @@ checkOperatingSystem
 setupSudo
 installDotFiles
 disableUnattendedUpgrades
-setupRepos
 installBasicPackages
+setupRepos
 aptGetUpdate
 installPackages
 checkAndInstallGoLang
