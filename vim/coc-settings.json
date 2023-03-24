@@ -14,10 +14,19 @@
                 ".ccls",
                 "compile_commands.json"
             ],
+            "server.trace": "verbose",
             "initializationOptions": {
                 "cache": {
-                    "directory": "/tmp/ccls"
+                    "directory": ".ccls_cache"
                 }
+            }
+        },
+        "golang": {
+            "command": "gopls",
+            "rootPatterns": ["go.work", "go.mod", ".vim/", ".git/", ".hg/"],
+            "filetypes": ["go"],
+            "initializationOptions": {
+                "usePlaceholders": true
             }
         }
     }
