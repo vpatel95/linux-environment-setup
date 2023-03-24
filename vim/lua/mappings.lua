@@ -67,7 +67,8 @@ local mappings = {
         },
 
         { '<leader>ci', ':set cindent<CR>' },
-        { '<C-f>', ':FZF<CR>' },
+        { '<C-f>', '<cmd>lua require("utils").find_files()<CR>', { noremap = true, silent = true } },
+        { '<leader>fb', '<cmd>FzfLua buffers<CR>', {noremap = true, silent = true } },
         { '<leader>fw', ':Ag<CR>' },
 
         { '<C-space>', 'coc#refresh()', { noremap = true, silent = true, expr = true } }
@@ -77,7 +78,6 @@ local mappings = {
         { '<leader>d', ':silent! NvimTreeToggle<CR>', { noremap = true, silent = true } },
         { '<leader>s', ':silent! TagbarToggle<CR>', { noremap = true, silent = true } },
         { '<leader>g', ':silent! GundoToggle<CR>', { noremap = true, silent = true } },
-        { '<leader>f', ':Ack! <C-R>=expand("<cword>")<CR><CR>', { noremap = true } },
 
         { '<leader>nhs', ':nohlsearch<CR>', { noremap = true} },
 
@@ -109,8 +109,11 @@ local mappings = {
         { '<leader>cws', ':%s/\\s\\+$//e<CR>' },
 
         { '<leader>ci', ':set cindent<CR>' },
-        { '<C-f>', ':FZF<CR>' },
+
         { '<leader>fw', ':Ag<CR>' },
+        { '<C-f>', '<cmd>lua require("utils").find_files()<CR>', { noremap = true, silent = true } },
+        { '<leader>fb', '<cmd>FzfLua buffers<CR>', {noremap = true, silent = true } },
+        { '<leader>f', ':Ack! <C-R>=expand("<cword>")<CR><CR>', { noremap = true } },
 
         { '[c', '<Plug>(coc-diagnostic-prev)', { silent = true } },
         { ']c', '<Plug>(coc-diagnostic-next)', { silent = true } },

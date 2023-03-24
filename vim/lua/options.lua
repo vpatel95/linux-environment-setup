@@ -90,8 +90,8 @@ opt.splitright = true
 
 opt.list = true
 opt.listchars.tab = '›'
-opt.listchars.trail = '•'
-opt.listchars.nbsp = '_'
+opt.listchars.trail = '●'
+opt.listchars.nbsp = '●'
 opt.listchars.extends = '❯'
 opt.listchars.precedes = '❮'
 

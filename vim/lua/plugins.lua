@@ -7,7 +7,6 @@ local ensure_packer = function()
     if fn.empty(fn.glob(install_path)) > 0 then
         fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
         vim.cmd [[packadd packer.nvim]]
-	vim.o.runtimepath = vim.fn.stdpath('data') .. '/site/pack/*/start/*,' .. vim.o.runtimepath
         return true
     end
     return false
@@ -19,32 +18,27 @@ local packer = require('packer')
 local util = require('packer.util')
 
 return packer.startup(function(use)
-    use { 'wbthomason/packer.nvim' }
 
-    use { 'neoclide/coc.nvim', branch = 'release' }
+    use { 'wbthomason/packer.nvim' }
     use { 'tpope/vim-surround' }
     use { 'tpope/vim-commentary' }
     use { 'tpope/vim-fugitive' }
-    use { 'airblade/vim-gitgutter' }
-    use { 'godlygeek/tabular' }
-    use {
-        'nvim-tree/nvim-tree.lua',
-        requires = { 'nvim-tree/nvim-web-devicons' } -- optional, updated every week. (see issue #1193)
-    }
-    use { 'majutsushi/tagbar' }
+    use { 'morhetz/gruvbox' }
+    use { 'vim-airline/vim-airline-themes' }
+    use { 'wellle/targets.vim' }
+    use { 'junegunn/fzf' }
     use { 'andymass/vim-matchup' }
     use { 'mileszs/ack.vim' }
+    use { 'neoclide/coc.nvim', branch = 'release' }
+    use { 'airblade/vim-gitgutter' }
+    use { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons' } }
+    use { 'majutsushi/tagbar' }
     use { 'sjl/gundo.vim' }
-    use { 'junegunn/fzf.vim' }
-    use { 'junegunn/fzf' }
-    use { 'wellle/targets.vim' }
+    use { "ibhagwan/fzf-lua", requires = { "nvim-tree/nvim-web-devicons" }, }
     use { 'vim-airline/vim-airline' }
-    use { 'vim-airline/vim-airline-themes' }
-    use { 'morhetz/gruvbox' }
-    use { 'ryanoasis/vim-devicons' }
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-
-    use { 'neovim/nvim-lspconfig' }
+    use { "stevearc/dressing.nvim" }
+    use { 'nvim-telescope/telescope.nvim', tag = '0.1.1', requires = {'nvim-lua/plenary.nvim'} }
 
     if packer_bootstrap then
         packer.sync()
