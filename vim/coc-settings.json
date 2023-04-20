@@ -1,33 +1,21 @@
 {
     "languageserver": {
-        "ccls": {
-            "command": "ccls",
-            "filetypes": [
-                "c",
-                "cpp",
-                "h",
-                "hpp",
-                "cc",
-                "hh"
-            ],
-            "rootPatterns": [
-                ".ccls",
-                "compile_commands.json"
-            ],
-            "server.trace": "verbose",
-            "initializationOptions": {
-                "cache": {
-                    "directory": ".ccls_cache"
-                }
-            }
+        "clangd": {
+            "command": "clangd-15",
+            "filetypes": [ "c", "cpp", "h", "hpp", "cc", "hh" ],
+            "rootPatterns": [ "compile_commands.json" ],
+            "server.trace": "verbose"
         },
         "golang": {
             "command": "gopls",
-            "rootPatterns": ["go.work", "go.mod", ".vim/", ".git/", ".hg/"],
+            "args": ["serve", "-debug", "0.0.0.0:8484", "-rpc.trace"],
             "filetypes": ["go"],
+            "rootPatterns": ["go.mod", "go.work", ".git"],
             "initializationOptions": {
                 "usePlaceholders": true
             }
         }
-    }
+    },
+    "inlayHint.enable": false,
+    "coc.preferences.jumpCommand": "tabe"
 }

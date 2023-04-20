@@ -71,7 +71,8 @@ local mappings = {
         { '<leader>fb', '<cmd>FzfLua buffers<CR>', {noremap = true, silent = true } },
         { '<leader>fw', ':Ag<CR>' },
 
-        { '<C-space>', 'coc#refresh()', { noremap = true, silent = true, expr = true } }
+        { '<C-space>', 'coc#refresh()', { noremap = true, silent = true, expr = true } },
+        { '<leader>ih', '<cmd>CocCommand document.toggleInlayHint<CR>', { noremap = true, silent = true } }
     },
     ["n"] = {
         { '<C-L>', ':silent! nohl<CR><C-L>', { noremap = true, silent = true } },
@@ -117,19 +118,22 @@ local mappings = {
 
         { '[c', '<Plug>(coc-diagnostic-prev)', { silent = true } },
         { ']c', '<Plug>(coc-diagnostic-next)', { silent = true } },
-        { 'gd', ':call CocAction(\'jumpDefinition\')<CR>', { silent = true } },
+        { 'gd', ':call CocAction(\'jumpDefinition\', \'tabe\')<CR>', { silent = true } },
         { 'vd', ':call CocAction(\'jumpDefinition\', \'vsplit\')<CR>', { silent = true } },
         { 'sd', ':call CocAction(\'jumpDefinition\', \'split\')<CR>', { silent = true } },
-        { 'gg', ':call CocAction(\'jumpDeclaration\')<CR>', { silent = true } },
+        { 'gg', ':call CocAction(\'jumpDeclaration\', \'tabe\')<CR>', { silent = true } },
         { 'vg', ':call CocAction(\'jumpDeclaration\', \'vsplit\')<CR>', { silent = true } },
         { 'sg', ':call CocAction(\'jumpDeclaration\', \'split\')<CR>', { silent = true } },
-        { 'gt', ':call CocAction(\'jumpTypeDefinition\')<CR>', { silent = true } },
+        { 'gt', ':call CocAction(\'jumpTypeDefinition\', \'tabe\')<CR>', { silent = true } },
         { 'vt', ':call CocAction(\'jumpTypeDefinition\', \'vsplit\')<CR>', { silent = true } },
         { 'st', ':call CocAction(\'jumpTypeDefinition\', \'split\')<CR>', { silent = true } },
-        { 'gr', ':call CocAction(\'jumpUsed\')<CR>', { silent = true } },
+        { 'gr', ':call CocAction(\'jumpUsed\', \'tabe\')<CR>', { silent = true } },
         { 'vr', ':call CocAction(\'jumpUsed\', \'vsplit\')<CR>', { silent = true } },
         { 'sr', ':call CocAction(\'jumpUsed\', \'split\')<CR>', { silent = true } },
         { 'hd', ':call CocAction(\'definitionHover\')<CR>', { silent = true } },
+        { 'cg', ':call CocAction(\'showIncomingCalls\')<CR>', {silent = true } },
+        { 'suh', ':call CocAction(\'showSuperTypes\')<CR>', {silent = true } },
+        { 'sbh', ':call CocAction(\'showSubTypes\')<CR>', {silent = true } },
 
         { '<space>a', ':<C-u>CocList diagnostics<CR>', { noremap = true, silent = true, nowait = true } },
         { '<space>e', ':<C-u>CocList extensions<CR>', { noremap = true, silent = true, nowait = true } },
@@ -140,10 +144,12 @@ local mappings = {
         { '<space>k', ':<C-u>CocPrev<CR>', { noremap = true, silent = true, nowait = true } },
         { '<space>p', ':<C-u>CocListResume<CR>', { noremap = true, silent = true, nowait = true } },
 
-        { '<space>w', ':<C-u>MatchupWhereAmI?<CR>', { noremap = true, silent = true, nowait = true } }
+        { '<space>w', ':<C-u>MatchupWhereAmI?<CR>', { noremap = true, silent = true, nowait = true } },
+        { '<leader>ih', '<cmd>CocCommand document.toggleInlayHint<CR>', { noremap = true, silent = true } }
     },
     [""] = {
-        { 'leader>a', ':Tab /', { noremap = true } }
+        { 'leader>a', ':Tab /', { noremap = true } },
+        { '<leader>ih', '<cmd>CocCommand document.toggleInlayHint<CR>', { noremap = true, silent = true } }
     }
 }
 
