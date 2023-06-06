@@ -89,11 +89,10 @@ opt.splitbelow = true
 opt.splitright = true
 
 opt.list = true
-opt.listchars.tab = '›'
-opt.listchars.trail = '●'
-opt.listchars.nbsp = '●'
-opt.listchars.extends = '❯'
-opt.listchars.precedes = '❮'
+vim.cmd([[
+set list
+set listchars=tab:›\ ,trail:•,extends:❯,precedes:❮,nbsp:_
+]])
 
 opt.wildignore = {
     '*.o', '*.obj', '*.dylib', '*.bin', '*.dll', '*.exe',
