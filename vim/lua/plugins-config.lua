@@ -26,6 +26,8 @@ global.tagbar_autoclose = 1
 global.loaded_newtr = 1
 global.loaded_netrwPlugin = 1
 
+global.go_def_mapping_enabled = 0
+
 require("nvim-tree").setup()
 
 global.airline_extensions = {'tabline', 'branch'}

@@ -16,6 +16,5 @@
             }
         }
     },
-    "inlayHint.enable": false,
-    "coc.preferences.jumpCommand": "tabe"
+    "inlayHint.enable": false
 }

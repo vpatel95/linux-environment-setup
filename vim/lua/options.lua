@@ -46,7 +46,8 @@ opt.softtabstop = defaultTabSz
 opt.smarttab = true
 opt.backspace = {'indent','eol','start'}
 opt.wrap = true
-opt.textwidth = 120
+opt.textwidth = 80
+opt.linebreak = true
 opt.lazyredraw = true
 opt.showcmd = true
 

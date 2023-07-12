@@ -29,7 +29,8 @@ return packer.startup(function(use)
     use { 'junegunn/fzf' }
     use { 'andymass/vim-matchup' }
     use { 'mileszs/ack.vim' }
-    -- use { 'ryanoasis/vim-devicons' }
+
+    use { 'fatih/vim-go' }
 
     use {
         'neoclide/coc.nvim',
