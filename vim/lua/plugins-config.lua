@@ -30,7 +30,7 @@ global.go_def_mapping_enabled = 0
 
 require("nvim-tree").setup()
 
-global.airline_extensions = {'tabline', 'branch'}
+global.airline_extensions = {'tabline', 'branch', 'hunks'}
 global.airline_powerline_fonts = 1
 global['airline#extensions#tabline#enabled'] = 1
 global['airline#extensions#tabline#buffer_idx_mode'] = 1
@@ -38,9 +38,6 @@ global['airline#extensions#tabline#show_tabs'] = 1
 global['airline#extensions#tabline#tab_nr_type'] = 1
 global['airline#extensions#hunks#enabled'] = 1
 global['airline#extensions#branch#enabled'] = 1
-
-global.gitgutter_sign_column_always = 1
-global.gitgutter_enabled = 0
 
 require 'nvim-treesitter.configs'.setup {
     ensure_installed = {
