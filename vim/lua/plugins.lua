@@ -31,6 +31,7 @@ return packer.startup(function(use)
     use { 'mileszs/ack.vim' }
 
     use { 'fatih/vim-go' }
+    use { 'sbdchd/neoformat' }
 
     use {
         'neoclide/coc.nvim',

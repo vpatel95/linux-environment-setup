@@ -50,6 +50,7 @@ opt.textwidth = 80
 opt.linebreak = true
 opt.lazyredraw = true
 opt.showcmd = true
+opt.colorcolumn = '+0,+20'
 
 global.indentLine_conceallevel = 0
 

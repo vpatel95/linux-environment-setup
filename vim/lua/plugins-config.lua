@@ -28,6 +28,15 @@ global.loaded_netrwPlugin = 1
 
 global.go_def_mapping_enabled = 0
 
+vim.cmd([[
+let g:neoformat_cpp_clangformat = {
+    \ 'exe': 'clang-format',
+    \ 'args': ['--style="{IndentWidth: 4, ColumnLimit: 80}"']
+\}
+let g:neoformat_enabled_cpp = ['clangformat']
+let g:neoformat_enabled_c = ['clangformat']
+]])
+
 require("nvim-tree").setup()
 
 global.airline_extensions = {'tabline', 'branch', 'hunks'}
