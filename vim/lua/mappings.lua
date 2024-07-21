@@ -32,16 +32,21 @@ function _G.show_documentation()
     end
 end
 
+
 cmd([[
-    " Add `:Format` command to format current buffer.
-    command! -nargs=0 Format :call CocAction('format')
-
-    " Add `:Fold` command to fold current buffer.
-    command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-    " Add `:OR` command for organize imports of the current buffer.
-    command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+function FormatCpp()
+  if !empty(findfile('~/.clang-format'))
+    let cursor_pos = getpos('.')
+    :%!git clang-format -f %:p
+    call setpos('.', cursor_pos)
+  endif
+endfunction
 ]])
+
+vim.api.nvim_create_user_command("Format","call CocAction('format')", {})
+vim.api.nvim_create_user_command("FormatSel","call CocAction('formatSelected')", {})
+vim.api.nvim_create_user_command("Fold", "call CocAction('fold', <f-args>)", {nargs = '?'})
+vim.api.nvim_create_user_command("OR", "call CocActionAsync('runCommand', 'editor.action.organizeImport')", {})
 
 local mappings = {
     ["i"] = {
@@ -70,7 +75,7 @@ local mappings = {
         { '<C-f>', '<cmd>lua require("utils").find_files()<CR>', { noremap = true, silent = true } },
         { '<leader>fb', '<cmd>FzfLua buffers<CR>', {noremap = true, silent = true } },
         { '<leader>fg', '<cmd>FzfLua live_grep<CR>', {noremap = true, silent = true } },
-        { '<leader>gc', '<cmd>FzfLua git_branches<CR>', {noremap = true, silent = true } },
+        { '<leader>gb', '<cmd>FzfLua git_branches<CR>', {noremap = true, silent = true } },
         { '<leader>gs', '<cmd>FzfLua git_stash<CR>', {noremap = true, silent = true } },
         { '<leader>fw', ':Ag<CR>' },
 
@@ -118,7 +123,7 @@ local mappings = {
         { '<C-f>', '<cmd>lua require("utils").find_files()<CR>', { noremap = true, silent = true } },
         { '<leader>fb', '<cmd>FzfLua buffers<CR>', {noremap = true, silent = true } },
         { '<leader>fg', '<cmd>FzfLua live_grep<CR>', {noremap = true, silent = true } },
-        { '<leader>gc', '<cmd>FzfLua git_branches<CR>', {noremap = true, silent = true } },
+        { '<leader>gb', '<cmd>FzfLua git_branches<CR>', {noremap = true, silent = true } },
         { '<leader>gs', '<cmd>FzfLua git_stash<CR>', {noremap = true, silent = true } },
         { '<leader>f', ':Ack! <C-R>=expand("<cword>")<CR><CR>', { noremap = true } },
 
@@ -133,9 +138,9 @@ local mappings = {
         { 'gt', ':call CocAction(\'jumpTypeDefinition\')<CR>', { silent = true } },
         { 'vt', ':call CocAction(\'jumpTypeDefinition\', \'vsplit\')<CR>', { silent = true } },
         { 'st', ':call CocAction(\'jumpTypeDefinition\', \'split\')<CR>', { silent = true } },
-        { 'gr', ':call CocAction(\'jumpUsed\')<CR>', { silent = true } },
-        { 'vr', ':call CocAction(\'jumpUsed\', \'vsplit\')<CR>', { silent = true } },
-        { 'sr', ':call CocAction(\'jumpUsed\', \'split\')<CR>', { silent = true } },
+        { 'gr', ':call CocAction(\'jumpReferences\')<CR>', { silent = true } },
+        { 'vr', ':call CocAction(\'jumpReferences\', \'vsplit\')<CR>', { silent = true } },
+        { 'sr', ':call CocAction(\'jumpReferences\', \'split\')<CR>', { silent = true } },
         { 'hd', ':call CocAction(\'definitionHover\')<CR>', { silent = true } },
         { 'cg', ':call CocAction(\'showIncomingCalls\')<CR>', {silent = true } },
         { 'suh', ':call CocAction(\'showSuperTypes\')<CR>', {silent = true } },

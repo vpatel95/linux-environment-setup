@@ -37,7 +37,11 @@ let g:neoformat_enabled_cpp = ['clangformat']
 let g:neoformat_enabled_c = ['clangformat']
 ]])
 
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+    sort = {
+        sorter = "case_sensitive"
+    }
+})
 
 global.airline_extensions = {'tabline', 'branch', 'hunks'}
 global.airline_powerline_fonts = 1
@@ -70,6 +74,11 @@ require 'nvim-treesitter.configs'.setup {
         end,
 
         additional_vim_regex_highlighting = true,
+    },
+
+    matchup = {
+        enable = true,
+        disable = {"python"},
     },
 }
 

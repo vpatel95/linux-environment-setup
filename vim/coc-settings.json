@@ -4,7 +4,7 @@
             "command": "clangd-15",
             "filetypes": [ "c", "cpp", "h", "hpp", "cc", "hh" ],
             "rootPatterns": [ "compile_commands.json" ],
-            "server.trace": "verbose"
+            "trace.server": "verbose"
         },
         "golang": {
             "command": "gopls",
