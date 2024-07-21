@@ -22,12 +22,12 @@ case $1 in
         mkdir -p $PLUG
         mkdir -p $UNDOES
 
-        cp $VIMRC $HOMEDIR/$VIMRC
+        ln -s $VIMRC $HOMEDIR/$VIMRC
 
         sh -c 'curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-        cp $CSCOPE $VIM/$CSCOPE
+        ln -s $CSCOPE $VIM/$CSCOPE
 
         vim +PlugInstall +qall
         ;;
@@ -39,11 +39,11 @@ case $1 in
         mkdir -p $NVIM_CONF
         mkdir -p $UNDOES
 
-        cp $INIT_LUA $NVIM_CONF/$INIT_LUA
-        cp -r ./lua $NVIM_CONF
-        cp $COC_SETTING $NVIM_CONF/$COC_SETTING
+        ln -s `pwd`/$INIT_LUA $NVIM_CONF/$INIT_LUA
+        ln -s `pwd`/lua $NVIM_CONF/lua
+        ln -s `pwd`/$COC_SETTING $NVIM_CONF/$COC_SETTING
 
-        cp $CSCOPE $VIM/$CSCOPE
+        ln -s `pwd`/$CSCOPE $VIM/$CSCOPE
         ;;
     *)
         echo "Please provide operation <vim | nvim>"
