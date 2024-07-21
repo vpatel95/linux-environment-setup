@@ -10,7 +10,7 @@
             "command": "gopls",
             "args": ["serve", "-debug", "0.0.0.0:8484", "-rpc.trace"],
             "filetypes": ["go"],
-            "rootPatterns": ["go.mod", "go.work", ".git"],
+            "rootPatterns": ["go.mod", "go.sum", "go.work", ".git"],
             "initializationOptions": {
                 "usePlaceholders": true
             }

@@ -29,55 +29,24 @@ return packer.startup(function(use)
     use { 'junegunn/fzf' }
     use { 'andymass/vim-matchup' }
     use { 'mileszs/ack.vim' }
-
     use { 'fatih/vim-go' }
     use { 'sbdchd/neoformat' }
-
-    use {
-        'neoclide/coc.nvim',
-        branch = 'release'
-    }
-
-    use {
-        'airblade/vim-gitgutter'
-    }
-
-    use {
-        'nvim-tree/nvim-tree.lua',
+    use { 'neoclide/coc.nvim', branch = 'release' }
+    use { 'airblade/vim-gitgutter' }
+    use { 'nvim-tree/nvim-tree.lua',
         requires = { 'nvim-tree/nvim-web-devicons' }
     }
-
-    use {
-        'majutsushi/tagbar'
-    }
-
-    use {
-        'sjl/gundo.vim'
-    }
-
-    use {
-        "ibhagwan/fzf-lua",
+    use { 'majutsushi/tagbar' }
+    use { 'sjl/gundo.vim' }
+    use { "ibhagwan/fzf-lua",
         event = "BufEnter",
         requires = { "nvim-tree/nvim-web-devicons" },
     }
-
-
-    use {
-        'vim-airline/vim-airline'
-    }
-
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate'
-    }
-
-    use {
-      "stevearc/dressing.nvim"
-    }
-
-    use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.1',
-        requires = {'nvim-lua/plenary.nvim'}
+    use { 'vim-airline/vim-airline' }
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use { "stevearc/dressing.nvim" }
+    use { 'nvim-telescope/telescope.nvim',
+        tag = '0.1.5', requires = {'nvim-lua/plenary.nvim'}
     }
 
     if packer_bootstrap then

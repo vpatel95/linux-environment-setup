@@ -69,6 +69,9 @@ local mappings = {
         { '<leader>ci', ':set cindent<CR>' },
         { '<C-f>', '<cmd>lua require("utils").find_files()<CR>', { noremap = true, silent = true } },
         { '<leader>fb', '<cmd>FzfLua buffers<CR>', {noremap = true, silent = true } },
+        { '<leader>fg', '<cmd>FzfLua live_grep<CR>', {noremap = true, silent = true } },
+        { '<leader>gc', '<cmd>FzfLua git_branches<CR>', {noremap = true, silent = true } },
+        { '<leader>gs', '<cmd>FzfLua git_stash<CR>', {noremap = true, silent = true } },
         { '<leader>fw', ':Ag<CR>' },
 
         { '<C-space>', 'coc#refresh()', { noremap = true, silent = true, expr = true } },
@@ -114,6 +117,9 @@ local mappings = {
         { '<leader>fw', ':Ag<CR>' },
         { '<C-f>', '<cmd>lua require("utils").find_files()<CR>', { noremap = true, silent = true } },
         { '<leader>fb', '<cmd>FzfLua buffers<CR>', {noremap = true, silent = true } },
+        { '<leader>fg', '<cmd>FzfLua live_grep<CR>', {noremap = true, silent = true } },
+        { '<leader>gc', '<cmd>FzfLua git_branches<CR>', {noremap = true, silent = true } },
+        { '<leader>gs', '<cmd>FzfLua git_stash<CR>', {noremap = true, silent = true } },
         { '<leader>f', ':Ack! <C-R>=expand("<cword>")<CR><CR>', { noremap = true } },
 
         { '[c', '<Plug>(coc-diagnostic-prev)', { silent = true } },
