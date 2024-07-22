@@ -32,22 +32,22 @@ return packer.startup(function(use)
     use { 'fatih/vim-go' }
     use { 'sbdchd/neoformat' }
     use { 'neoclide/coc.nvim', branch = 'release' }
-    use { 'airblade/vim-gitgutter' }
+    use { 'airblade/vim-gitgutter', branch = 'main' }
     use { 'nvim-tree/nvim-tree.lua',
         requires = { 'nvim-tree/nvim-web-devicons' }
     }
     use { 'majutsushi/tagbar' }
     use { 'sjl/gundo.vim' }
-    use { "ibhagwan/fzf-lua",
-        event = "BufEnter",
-        requires = { "nvim-tree/nvim-web-devicons" },
+    use { 'ibhagwan/fzf-lua',
+        requires = { 'nvim-tree/nvim-web-devicons' },
     }
     use { 'vim-airline/vim-airline' }
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use { "stevearc/dressing.nvim" }
+    use { 'stevearc/dressing.nvim' }
     use { 'nvim-telescope/telescope.nvim',
         tag = '0.1.5', requires = {'nvim-lua/plenary.nvim'}
     }
+    use { 'dhananjaylatkar/cscope_maps.nvim' }
 
     if packer_bootstrap then
         packer.sync()

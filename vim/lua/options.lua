@@ -86,7 +86,6 @@ vim.cmd('syntax on')
 opt.laststatus = 2
 opt.showmode = false
 opt.background = 'dark'
-vim.cmd('colorscheme gruvbox')
 opt.splitbelow = true
 opt.splitright = true
 

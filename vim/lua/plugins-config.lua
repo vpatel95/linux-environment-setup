@@ -37,6 +37,8 @@ let g:neoformat_enabled_cpp = ['clangformat']
 let g:neoformat_enabled_c = ['clangformat']
 ]])
 
+vim.cmd('colorscheme gruvbox')
+
 require("nvim-tree").setup({
     sort = {
         sorter = "case_sensitive"
@@ -93,5 +95,13 @@ end
 require('dressing').setup({
     select = {
         backend = { "telescope", "fzf", "builtin" }
+    }
+})
+
+require('cscope_maps').setup({
+    skip_input_prompt = true,
+    cscope = {
+        picker = 'telescope',
+        db_build_cmd_args = { "-bqv" },
     }
 })
