@@ -20,6 +20,20 @@ local util = require('packer.util')
 return packer.startup(function(use)
 
     use { 'wbthomason/packer.nvim' }
+
+    -- LSP
+    -- use { 'neoclide/coc.nvim', branch = 'release' }
+    use { 'neovim/nvim-lspconfig' }
+    --auto complete
+    use { 'hrsh7th/cmp-nvim-lsp' }
+    use { 'hrsh7th/cmp-buffer' }
+    use { 'hrsh7th/cmp-path' }
+    use { 'hrsh7th/cmp-cmdline' }
+    use { 'hrsh7th/nvim-cmp' }
+    -- Snippet
+    -- use { 'hrsh7th/cmp-vsnip' }
+    -- use { 'hrsh7th/vim-vsnip' }
+
     use { 'tpope/vim-surround' }
     use { 'tpope/vim-commentary' }
     use { 'tpope/vim-fugitive' }
@@ -31,16 +45,12 @@ return packer.startup(function(use)
     use { 'mileszs/ack.vim' }
     use { 'fatih/vim-go' }
     use { 'sbdchd/neoformat' }
-    use { 'neoclide/coc.nvim', branch = 'release' }
     use { 'airblade/vim-gitgutter', branch = 'main' }
     use { 'nvim-tree/nvim-tree.lua',
         requires = { 'nvim-tree/nvim-web-devicons' }
     }
     use { 'majutsushi/tagbar' }
     use { 'sjl/gundo.vim' }
-    use { 'ibhagwan/fzf-lua',
-        requires = { 'nvim-tree/nvim-web-devicons' },
-    }
     use { 'vim-airline/vim-airline' }
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use { 'stevearc/dressing.nvim' }

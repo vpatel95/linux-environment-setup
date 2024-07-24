@@ -9,9 +9,6 @@ vim.cmd([[
 ]])
 
 utils.define_augroups({
-    _coc = {
-        { 'User', 'CocJumpPlaceholder', 'call', 'CocActionAsync(\'showSignatureHelp\')' }
-    },
     _file_settings = {
         {'BufRead,BufNewFile', '*.java', 'set filetype=java', '|', 'set foldmethod=syntax' },
         {'BufRead,BufNewFile', '*.c,*.h', 'set filetype=c', '|', 'set cindent', '|', 'set foldmethod=syntax' },
@@ -20,5 +17,8 @@ utils.define_augroups({
         {'BufRead,BufNewFile', '*.py', 'set filetype=python', '|', 'set foldmethod=indent' },
         {'BufRead,BufNewFile', '*.aliases', 'set filetype=sh', '|', 'set foldmethod=indent' },
         {'BufRead,BufNewFile', '*.sandesh', 'set filetype=proto', '|', 'set foldmethod=indent' }
+    },
+    _lsp = {
+        {'CursorHold,CursorHoldI', '*', 'lua vim.diagnostic.open_float(nil, {focus=false})'}
     }
 })

@@ -42,6 +42,10 @@ vim.cmd('colorscheme gruvbox')
 require("nvim-tree").setup({
     sort = {
         sorter = "case_sensitive"
+    },
+    live_filter = {
+        prefix = "[FILTER]: ",
+        always_show_folders = false,
     }
 })
 
@@ -84,8 +88,6 @@ require 'nvim-treesitter.configs'.setup {
     },
 }
 
-global.coc_disable_startup_warning = 1
-
 if fn.has("nvim-0.5.0") or fn.has("patch-8.1.1564") then
     opt.signcolumn = 'number'
 else
@@ -96,6 +98,43 @@ require('dressing').setup({
     select = {
         backend = { "telescope", "fzf", "builtin" }
     }
+})
+
+require('telescope').setup({
+    defaults = {
+        vimgrep_arguments = {
+            "rg",
+            "-L",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+        },
+    },
+    initial_mode = "insert",
+    selection_strategy = "reset",
+    sorting_strategy = "ascending",
+    layout_strategy = "horizontal",
+    layout_config = {
+        horizontal = {
+            prompt_position = "top",
+            preview_width = 0.55,
+            results_width = 0.8,
+        },
+        vertical = {
+            mirror = false,
+        },
+        width = 0.87,
+        height = 0.80,
+        preview_cutoff = 120,
+    },
+    generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
+    path_display = { "shorten" },
+    -- file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+    -- grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
+    -- qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
 })
 
 require('cscope_maps').setup({
