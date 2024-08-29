@@ -59,6 +59,9 @@ return packer.startup(function(use)
     }
     use { 'dhananjaylatkar/cscope_maps.nvim' }
 
+    -- Co-pilot
+    use { 'github/copilot.vim' }
+
     if packer_bootstrap then
         packer.sync()
     end
