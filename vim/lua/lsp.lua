@@ -81,7 +81,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- CLANGD
 require('lspconfig').clangd.setup({
     name = 'clangd',
-    cmd = {'clangd-15', '--background-index', '--enable-config', '-j=14', '--log=info', '--pretty'},
+    cmd = {'clangd-15', '--background-index', '--enable-config', '-j=14', '--log=info', '--pretty', '--offset-encoding=utf-8'},
 	capabilities = capabilities,
     filetypes = {'c', 'cc', 'cpp', 'h', 'hh', 'hpp', 'proto'},
     root_dir = require('lspconfig').util.root_pattern('compile_commands.json'),

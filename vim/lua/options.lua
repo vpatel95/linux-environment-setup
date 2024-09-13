@@ -76,7 +76,8 @@ local options = {
                        '*.jpg', '*.png' , '*.jpeg', '*.bmp', '*.gif', '*.tiff', '*.svg', '*.ico',
                        '*.pyc', '*.pkl', '*.DS_Store',
                        '*.aux', '*.bbl', '*.blg', '*.brf,*.fls', '*.fdb_latexmk', '*.synctex.gz', '*.xdv', },
-    wildignorecase  = true
+    wildignorecase  = true,
+    signcolumn      = 'auto:1'
 }
 
 for k, v in pairs(options) do

@@ -28,35 +28,36 @@ global.loaded_netrwPlugin = 1
 
 global.go_def_mapping_enabled = 0
 
-vim.cmd([[
-let g:neoformat_cpp_clangformat = {
-    \ 'exe': 'clang-format',
-    \ 'args': ['--style="{IndentWidth: 4, ColumnLimit: 80}"']
-\}
-let g:neoformat_enabled_cpp = ['clangformat']
-let g:neoformat_enabled_c = ['clangformat']
-]])
-
 vim.cmd('colorscheme gruvbox')
+
+require('lualine').setup({
+    sections = {
+        lualine_c = {
+            {'filename',
+                path = 1
+            }
+        }
+    },
+    tabline = {
+        lualine_a = {
+            {'buffers',
+                mode = 2
+            }
+        },
+        lualine_z = {'tabs'}
+    },
+})
 
 require("nvim-tree").setup({
     sort = {
         sorter = "case_sensitive"
-    },
-    live_filter = {
-        prefix = "[FILTER]: ",
-        always_show_folders = false,
     }
 })
 
-global.airline_extensions = {'tabline', 'branch', 'hunks'}
-global.airline_powerline_fonts = 1
-global['airline#extensions#tabline#enabled'] = 1
-global['airline#extensions#tabline#buffer_idx_mode'] = 1
-global['airline#extensions#tabline#show_tabs'] = 1
-global['airline#extensions#tabline#tab_nr_type'] = 1
-global['airline#extensions#hunks#enabled'] = 1
-global['airline#extensions#branch#enabled'] = 1
+require('gitsigns').setup({
+    numhl = true,
+    current_line_blame = true,
+})
 
 require 'nvim-treesitter.configs'.setup {
     ensure_installed = {
@@ -88,15 +89,9 @@ require 'nvim-treesitter.configs'.setup {
     },
 }
 
-if fn.has("nvim-0.5.0") or fn.has("patch-8.1.1564") then
-    opt.signcolumn = 'number'
-else
-    opt.signcolumn = 'yes'
-end
-
 require('dressing').setup({
     select = {
-        backend = { "telescope", "fzf", "builtin" }
+        backend = { "telescope", "builtin" }
     }
 })
 

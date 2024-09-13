@@ -34,24 +34,24 @@ return packer.startup(function(use)
     -- use { 'hrsh7th/cmp-vsnip' }
     -- use { 'hrsh7th/vim-vsnip' }
 
+    use { 'tpope/vim-fugitive' }
+    use { 'lewis6991/gitsigns.nvim' }
     use { 'tpope/vim-surround' }
     use { 'tpope/vim-commentary' }
-    use { 'tpope/vim-fugitive' }
     use { 'morhetz/gruvbox' }
-    use { 'vim-airline/vim-airline-themes' }
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
     use { 'wellle/targets.vim' }
-    use { 'junegunn/fzf' }
     use { 'andymass/vim-matchup' }
     use { 'mileszs/ack.vim' }
     use { 'fatih/vim-go' }
-    use { 'sbdchd/neoformat' }
-    use { 'airblade/vim-gitgutter', branch = 'main' }
     use { 'nvim-tree/nvim-tree.lua',
         requires = { 'nvim-tree/nvim-web-devicons' }
     }
     use { 'majutsushi/tagbar' }
     use { 'sjl/gundo.vim' }
-    use { 'vim-airline/vim-airline' }
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use { 'stevearc/dressing.nvim' }
     use { 'nvim-telescope/telescope.nvim',
@@ -60,7 +60,7 @@ return packer.startup(function(use)
     use { 'dhananjaylatkar/cscope_maps.nvim' }
 
     -- Co-pilot
-    use { 'github/copilot.vim' }
+    -- use { 'github/copilot.vim' }
 
     if packer_bootstrap then
         packer.sync()
