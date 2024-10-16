@@ -4,7 +4,6 @@ GO_VERSION="1.19.4"
 NODEJS_MAJOR_VERSION="pub_18.x"
 NODEJS_VERSION="18.15.0"
 LOCAL_DIR="${HOME}/.local"
-LOCAL_BIN_DIR="${LOCAL_DIR}/bin"
 
 # Common location used for ccache
 : ${CCACHE_DIR:=/var/cache/ccache}
@@ -136,10 +135,10 @@ function installPackages() {
     aptGet -q install -y \
         --no-install-recommends \
         bc \
+        build-essential \
         ccache \
         clangd \
         cmake \
-        build-essential \
         cmake \
         cscope \
         exuberant-ctags \
@@ -149,17 +148,13 @@ function installPackages() {
         libpcap-dev \
         libssl-dev \
         liburcu-dev \
-        linux-headers-${UBUNTU_KERNEL} \
-        linux-tools-${UBUNTU_KERNEL} \
-        linux-image-${UBUNTU_KERNEL} \
-        linux-modules-${UBUNTU_KERNEL} \
-        linux-modules-extra-${UBUNTU_KERNEL} \
-        linux-source-${UBUNTU_KERNEL%%-*} \
+        linux-generic \
         make \
         net-tools \
         nmap \
         net-tools \
         openssh-server \
+        pkg-config \
         python2-dev \
         python3-dev \
         python3-pip \
@@ -170,8 +165,12 @@ function installPackages() {
         tree \
         vim
 
-    sudo snap install nvim --classic
-    sudo pip3 install scan-build
+    curl -L https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz -o /tmp/nvim.tar.gz
+    sudo rm -rf /opt/nvim
+    sudo tar -C /opt -xzf /tmp/nvim.tar.gz
+    sudo rm /tmp/nvim.tar.gz
+    export PATH=${PATH}:/opt/nvim-linux64/bin
+    addLineIfMissing "${RC_FILE}" "export PATH=\$PATH:/opt/nvim-linux64/bin"
 }
 
 function setupGoLang() {
@@ -184,6 +183,7 @@ function installGoLang() {
     sudo rm -rf ${HOME}/go/bin ${HOME}/go/pkg ${HOME}/local/src
     curl -s --fail -o /tmp/go${GO_VERSION}.${PLATFORM}-amd64.tar.gz https://dl.google.com/go/go${GO_VERSION}.${PLATFORM}-amd64.tar.gz
     echo "Installing go in ${LOCAL_DIR}"
+    mkdir -p ${LOCAL_DIR}
     tar -C ${LOCAL_DIR} --strip-components=1 -xzf /tmp/go${GO_VERSION}.${PLATFORM}-amd64.tar.gz
     rm -f /tmp/go${GO_VERSION}.${PLATFORM}-amd64.tar.gz
 }
