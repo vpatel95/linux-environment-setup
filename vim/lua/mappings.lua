@@ -28,8 +28,6 @@ local mappings = {
         { '<leader>gb', '<cmd>Telescope git_branches<CR>', {noremap = true, silent = true } },
         { '<leader>gs', '<cmd>Telescope git_stash<CR>', {noremap = true, silent = true } },
         { '<leader>fw', ':Ag<CR>' },
-
-        { '<leader>ih', '<cmd>CocCommand document.toggleInlayHint<CR>', { noremap = true, silent = true } }
     },
     ["n"] = {
         { '<C-L>', ':silent! nohl<CR><C-L>', { noremap = true, silent = true } },
@@ -83,6 +81,7 @@ local mappings = {
         { '<leader>f', ':Ack! <C-R>=expand("<cword>")<CR><CR>', { noremap = true } },
 
         { 'gd', '<cmd>Telescope lsp_definitions path_display={"tail"}<CR>' },
+        { 'vd', '<cmd>lua require("telescope.builtin").lsp_definitions({jump_type="vsplit"})<CR>' },
         { 'gr', '<cmd>Telescope lsp_references path_display={"tail"}<CR>' },
         { 'gt', '<cmd>Telescope lsp_type_definitions path_display={"tail"}<CR>' },
         { 'cg', '<cmd>Telescope lsp_incoming_calls path_display={"tail"}<CR>'},
@@ -93,6 +92,7 @@ local mappings = {
         { 'sbh', vim.lsp.buf.typehierarchy, {silent = true } },
 
         { '<space>w', ':<C-u>MatchupWhereAmI?<CR>', { noremap = true, silent = true, nowait = true } },
+        { '<leader>ih', '<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>', { noremap = true, silent = true } }
     },
     [""] = {
         { 'leader>a', ':Tab /', { noremap = true } },
