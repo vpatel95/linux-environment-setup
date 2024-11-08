@@ -1,8 +1,8 @@
 #!/bin/bash -e
 
-GO_VERSION="1.19.4"
-NODEJS_MAJOR_VERSION="pub_18.x"
-NODEJS_VERSION="18.15.0"
+GO_VERSION="1.23.0"
+NODEJS_MAJOR_VERSION="pub_22.x"
+NODEJS_VERSION="20.17.0"
 LOCAL_DIR="${HOME}/.local"
 
 # Common location used for ccache
