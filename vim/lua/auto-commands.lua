@@ -16,7 +16,8 @@ utils.define_augroups({
         {'BufRead,BufNewFile', '*.go', 'set filetype=go', '|', 'set foldmethod=syntax' },
         {'BufRead,BufNewFile', '*.py', 'set filetype=python', '|', 'set foldmethod=indent' },
         {'BufRead,BufNewFile', '*.aliases', 'set filetype=sh', '|', 'set foldmethod=indent' },
-        {'BufRead,BufNewFile', '*.sandesh', 'set filetype=proto', '|', 'set foldmethod=indent' }
+        {'BufRead,BufNewFile', '*.sandesh', 'set filetype=proto', '|', 'set foldmethod=indent' },
+        {'BufRead,BufNewFile', '*.npl', 'set filetype=npl', '|', 'set cindent', '|', 'set foldmethod=syntax' }
     },
     _lsp = {
         {'CursorHold,CursorHoldI', '*', 'lua vim.diagnostic.open_float(nil, {focus=false})'}

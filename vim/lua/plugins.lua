@@ -58,6 +58,7 @@ return packer.startup(function(use)
         tag = '0.1.5', requires = {'nvim-lua/plenary.nvim'}
     }
     use { 'dhananjaylatkar/cscope_maps.nvim' }
+    use { 'Pocco81/true-zen.nvim' }
 
     -- Co-pilot
     -- use { 'github/copilot.vim' }

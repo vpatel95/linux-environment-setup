@@ -30,6 +30,8 @@ global.go_def_mapping_enabled = 0
 
 vim.cmd('colorscheme gruvbox')
 
+require('true-zen').setup()
+
 require('lualine').setup({
     sections = {
         lualine_c = {
@@ -88,6 +90,7 @@ require 'nvim-treesitter.configs'.setup {
         disable = {"python"},
     },
 }
+vim.treesitter.language.register("c", "npl")
 
 require('dressing').setup({
     select = {
@@ -107,6 +110,7 @@ require('telescope').setup({
             "--column",
             "--smart-case",
         },
+        path_display = { "shorten" },
     },
     initial_mode = "insert",
     selection_strategy = "reset",
@@ -126,7 +130,6 @@ require('telescope').setup({
         preview_cutoff = 120,
     },
     generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-    path_display = { "shorten" },
     -- file_previewer = require("telescope.previewers").vim_buffer_cat.new,
     -- grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
     -- qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,

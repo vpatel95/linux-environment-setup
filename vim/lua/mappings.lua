@@ -14,10 +14,6 @@ function FormatCpp()
 endfunction
 ]])
 
-vim.api.nvim_create_user_command("Format","call CocAction('format')", {})
-vim.api.nvim_create_user_command("FormatSel","call CocAction('formatSelected')", {})
-vim.api.nvim_create_user_command("Fold", "call CocAction('fold', <f-args>)", {nargs = '?'})
-vim.api.nvim_create_user_command("OR", "call CocActionAsync('runCommand', 'editor.action.organizeImport')", {})
 
 local mappings = {
     ["i"] = {
@@ -34,6 +30,12 @@ local mappings = {
         { '<leader>d', ':silent! NvimTreeToggle<CR>', { noremap = true, silent = true } },
         { '<leader>s', ':silent! TagbarToggle<CR>', { noremap = true, silent = true } },
         { '<leader>g', ':silent! GundoToggle<CR>', { noremap = true, silent = true } },
+
+
+        { '<leader>zn', ':TZNarrow<CR>' },
+        { '<leader>zf', ':TZFocus<CR>', { noremap = true, silent = true } },
+        { '<leader>zm', ':TZMinimalist<CR>' },
+        { '<leader>zz', ':TZAtaraxis<CR>' },
 
         { '<leader>nhs', ':nohlsearch<CR>', { noremap = true} },
 
@@ -78,14 +80,14 @@ local mappings = {
         { '<leader>fg', '<cmd>Telescope live_grep<CR>', {noremap = true, silent = true } },
         { '<leader>gb', '<cmd>Telescope git_branches<CR>', {noremap = true, silent = true } },
         { '<leader>gs', '<cmd>Telescope git_stash<CR>', {noremap = true, silent = true } },
-        { '<leader>f', ':Ack! <C-R>=expand("<cword>")<CR><CR>', { noremap = true } },
+        { '<leader>fw', '<cmd>Telescope grep_string<CR>', { noremap = true } },
 
-        { 'gd', '<cmd>Telescope lsp_definitions path_display={"tail"}<CR>' },
+        { 'gd', '<cmd>Telescope lsp_definitions<CR>' },
         { 'vd', '<cmd>lua require("telescope.builtin").lsp_definitions({jump_type="vsplit"})<CR>' },
-        { 'gr', '<cmd>Telescope lsp_references path_display={"tail"}<CR>' },
-        { 'gt', '<cmd>Telescope lsp_type_definitions path_display={"tail"}<CR>' },
-        { 'cg', '<cmd>Telescope lsp_incoming_calls path_display={"tail"}<CR>'},
-        { '<space>s', '<cmd>Telescope lsp_dynamic_workspace_symbols path_display={"tail"}<CR>' },
+        { 'gr', '<cmd>Telescope lsp_references<CR>' },
+        { 'gt', '<cmd>Telescope lsp_type_definitions<CR>' },
+        { 'cg', '<cmd>Telescope lsp_incoming_calls<CR>'},
+        { '<space>s', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>' },
         { 'gg', vim.lsp.buf.declaration, { silent = true } },
         { 'hd', vim.lsp.buf.hover, { silent = true } },
         { 'suh', vim.lsp.buf.typehierarchy, {silent = true } },

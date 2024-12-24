@@ -82,6 +82,8 @@ cmp.setup({
         { name = 'nvim_lsp' },
     }, {
         { name = 'buffer' },
+    }, {
+        { name = 'path' },
     })
 })
 
@@ -100,9 +102,11 @@ vim.diagnostic.config({
 })
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local lspconfig = require('lspconfig')
+local configs = require('lspconfig.configs')
 
 -- CLANGD
-require('lspconfig').clangd.setup({
+lspconfig.clangd.setup({
     name = 'clangd',
     cmd = {'clangd',
         '--header-insertion=never', '--clang-tidy',
@@ -110,16 +114,16 @@ require('lspconfig').clangd.setup({
         '--enable-config', '-j=8', '--offset-encoding=utf-8'},
     capabilities = capabilities,
     filetypes = {'c', 'cc', 'cpp', 'h', 'hh', 'hpp', 'proto'},
-    root_dir = require('lspconfig').util.root_pattern('compile_commands.json'),
+    root_dir = lspconfig.util.root_pattern('compile_commands.json'),
 })
 
 -- GOPLS
-require('lspconfig').gopls.setup({
+lspconfig.gopls.setup({
     name = 'gopls',
     cmd = {'gopls'},
     capabilities = capabilities,
     filetypes = {'go'},
-    root_dir = require('lspconfig').util.root_pattern('go.mod', 'go.sum', 'go.work', '.git'),
+    root_dir = lspconfig.util.root_pattern('go.mod', 'go.sum', 'go.work', '.git'),
     settings = {
         gopls = {
             experimentalPostfixCompletions = true,

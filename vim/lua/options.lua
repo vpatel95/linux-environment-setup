@@ -77,7 +77,9 @@ local options = {
                        '*.pyc', '*.pkl', '*.DS_Store',
                        '*.aux', '*.bbl', '*.blg', '*.brf,*.fls', '*.fdb_latexmk', '*.synctex.gz', '*.xdv', },
     wildignorecase  = true,
-    signcolumn      = 'auto:1'
+    signcolumn      = 'auto:1',
+    cursorlineopt   = 'number',
+    cursorline      = true
 }
 
 for k, v in pairs(options) do
