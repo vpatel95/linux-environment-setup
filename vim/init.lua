@@ -1,9 +1,12 @@
 -- init.lua
 
-require('utils')
-require('mappings')
-require('plugins')
-require('lsp')
-require('plugins-config')
-require('options')
-require('auto-commands')
+require('config.lazy')
+
+-- require('utils')
+-- require('options')
+-- require('mappings')
+-- require('auto-commands')
+-- require('plugins')
+-- require('plugins-config')
+-- require('lsp')
+-- require('mason-conf')
