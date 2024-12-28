@@ -37,18 +37,17 @@ return {
                 disable = disable_highlight,
                 additional_vim_regex_highlighting = false,
             }
-            opts.matchup = { enable = true } --, disable = {"python"}, }
+            opts.matchup = { enable = true }
             opts.indent = { enable = false }
             opts.textobjects = {
                 lsp_interop = {
                     enable = true,
                     peek_definition_code = {
-                        ["<leader>df"] = "@function.outer",
-                        ["<leader>dF"] = "@class.outer",
+                        ["<space>f"] = "@function.outer",
+                        ["<space>F"] = "@class.outer",
                     }
                 }
             }
         end,
     }
 }
-

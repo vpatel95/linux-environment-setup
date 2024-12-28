@@ -3,15 +3,13 @@ local M = {
     finder = {}
 }
 
-local create_wrapper = function(group_name)
+M.autocommands.create_wrapper = function(group_name)
     local augroup = vim.api.nvim_create_augroup(group_name, { clear = true })
     return function(event, opts)
         opts.group = opts.group or augroup
         return vim.api.nvim_create_autocmd(event, opts)
     end
 end
-
-M.autocommands.create = create_wrapper("default")
 
 M.finder.find_files = function()
     local telescope = require("telescope.builtin")

@@ -27,17 +27,18 @@ M.regular = function()
     map({
         [{"n"}] = {
             { "<leader>w", ":bn<CR>", { desc = "Buffer Next" } },
-            { "<leader>q", ":bn<CR>", { desc = "Buffer Previous" } },
+            { "<leader>q", ":bp<CR>", { desc = "Buffer Previous" } },
             { "<leader>n", ":tabn<CR>", { desc = "Tab Next" } },
             { "<leader>p", ":tabp<CR>", { desc = "Tab Previous" } },
-            { '<leader>mc', ':set mouse=c<CR>', { desc = "Mouse CLI" } },
-            { '<leader>ma', ':set mouse=a<CR>', { desc = "Mouse All" } },
-            { '<leader>sn', ':set number<CR>', { desc = "Numbers" } },
-            { '<leader>sr', ':set relativenumber<CR>', { desc = "Relative Numbers" }  },
-            { '<leader>snn', ':set nonumber <bar> set norelativenumber<CR>', { desc = "No number" } },
-            { '<leader>snr', ':set norelativenumber<CR>', { desc = "No relative number" } },
-            { '<leader>cws', ':%s/\\s\\+$//e<CR>', { desc = "Clear whitespace" } },
-            { '<leader>d', '<cmd>Neotree toggle<CR>' },
+            { "<leader>mc", ":set mouse=c<CR>", { desc = "Mouse CLI" } },
+            { "<leader>ma", ":set mouse=a<CR>", { desc = "Mouse All" } },
+            { "<leader>sn", ":set number<CR>", { desc = "Numbers" } },
+            { "<leader>sr", ":set relativenumber<CR>", { desc = "Relative Numbers" }  },
+            { "<leader>snn", ":set nonumber <bar> set norelativenumber<CR>", { desc = "No number" } },
+            { "<leader>snr", ":set norelativenumber<CR>", { desc = "No relative number" } },
+            { "<leader>cws", ":%s/\\s\\+$//e<CR>", { desc = "Clear whitespace" } },
+            { "<leader>d", "<cmd>Neotree toggle<CR>" },
+            { "<leader>g", "<cmd>UndotreeToggle<CR>" },
         },
     }, { remap = false, silent = true})
 end
@@ -45,12 +46,12 @@ end
 M.telescope = function()
     map({
         [{"n"}] = {
-            { '<C-f>', '<cmd>FindFiles<CR>', { desc = "(Telescope) Files" } },
-            { '<leader>fb', '<cmd>Telescope buffers<CR>', { desc = "(Telescope) Buffers" } },
-            { '<leader>fg', '<cmd>Telescope live_grep<CR>', { desc = "(Telescope) Grep" } },
-            { '<leader>gb', '<cmd>Telescope git_branches<CR>', { desc = "(Telescope) Git branch" } },
-            { '<leader>gs', '<cmd>Telescope git_stash<CR>', { desc = "(Telescope) Git stash" } },
-            { '<leader>fw', '<cmd>Telescope grep_string<CR>', { desc = "(Telescope) String search" } },
+            { "<C-f>", "<cmd>FindFiles<CR>", { desc = "(Telescope) Files" } },
+            { "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "(Telescope) Buffers" } },
+            { "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "(Telescope) Grep" } },
+            { "<leader>gb", "<cmd>Telescope git_branches<CR>", { desc = "(Telescope) Git branch" } },
+            { "<leader>gs", "<cmd>Telescope git_stash<CR>", { desc = "(Telescope) Git stash" } },
+            { "<leader>fw", "<cmd>Telescope grep_string<CR>", { desc = "(Telescope) String search" } },
         },
     }, { remap = false, silent = true })
 end
@@ -68,10 +69,10 @@ M.lsp = function()
             { "ga", lsp.code_action, { desc = "(LSP) Get code actions" } },
             { "<leader>D", "<cmd>Telescope lsp_type_definition<CR>", { desc = "(LSP) Get type" } },
             { "K", lsp.hover, { desc = "(LSP) Hover" } },
-            { "<leader>wa", lsp.add_workspace_folder, { desc = "(LSP) Add workspace folder" } },
-            { "<leader>wr", lsp.remove_workspace_folder, { desc = "(LSP) Remove workspace folder" } },
+            { "<space>wa", lsp.add_workspace_folder, { desc = "(LSP) Add workspace folder" } },
+            { "<space>wr", lsp.remove_workspace_folder, { desc = "(LSP) Remove workspace folder" } },
             {
-                "<leader>wl",
+                "<space>wl",
                 function() vim.print(lsp.list_workspace_folders()) end,
                 { desc = "(LSP) Get workspace folders" },
             },
@@ -99,15 +100,15 @@ end
 M.lualine = function()
     map({
         [{"n"}] = {
-            { '<leader>1', ':LualineBuffersJump 1<CR>' },
-            { '<leader>2', ':LualineBuffersJump 2<CR>' },
-            { '<leader>3', ':LualineBuffersJump 3<CR>' },
-            { '<leader>4', ':LualineBuffersJump 4<CR>' },
-            { '<leader>5', ':LualineBuffersJump 5<CR>' },
-            { '<leader>6', ':LualineBuffersJump 6<CR>' },
-            { '<leader>7', ':LualineBuffersJump 7<CR>' },
-            { '<leader>8', ':LualineBuffersJump 8<CR>' },
-            { '<leader>9', ':LualineBuffersJump 9<CR>' },
+            { "<leader>1", ":LualineBuffersJump 1<CR>" },
+            { "<leader>2", ":LualineBuffersJump 2<CR>" },
+            { "<leader>3", ":LualineBuffersJump 3<CR>" },
+            { "<leader>4", ":LualineBuffersJump 4<CR>" },
+            { "<leader>5", ":LualineBuffersJump 5<CR>" },
+            { "<leader>6", ":LualineBuffersJump 6<CR>" },
+            { "<leader>7", ":LualineBuffersJump 7<CR>" },
+            { "<leader>8", ":LualineBuffersJump 8<CR>" },
+            { "<leader>9", ":LualineBuffersJump 9<CR>" },
         },
     }, { remap = false, silent = true})
 end
@@ -115,11 +116,11 @@ end
 M.gitsigns = function()
     map({
         [{"n"}] = {
-            { '<leader>hp', ':Gitsigns prev_hunk<CR>', { desc = "(Git) Previous Hunk" } },
-            { '<leader>hn', ':Gitsigns next_hunk<CR>', { desc = "(Git) Next Hunk" } },
-            { '<leader>hd', ':Gitsigns preview_hunk<CR>', { desc = "(Git) Preview Hunk" } },
-            { '<leader>hu', ':Gitsigns reset_hunk<CR>', { desc = "(Git) Reset Hunk" } },
-            { '<leader>hs', ':Gitsigns stage_hunk<CR>', { desc = "(Git) Stage Hunk" } },
+            { "<leader>hp", ":Gitsigns prev_hunk<CR>", { desc = "(Git) Previous Hunk" } },
+            { "<leader>hn", ":Gitsigns next_hunk<CR>", { desc = "(Git) Next Hunk" } },
+            { "<leader>hd", ":Gitsigns preview_hunk<CR>", { desc = "(Git) Preview Hunk" } },
+            { "<leader>hu", ":Gitsigns reset_hunk<CR>", { desc = "(Git) Reset Hunk" } },
+            { "<leader>hs", ":Gitsigns stage_hunk<CR>", { desc = "(Git) Stage Hunk" } },
         },
     }, { remap = false, silent = true})
 end
@@ -127,10 +128,10 @@ end
 M.zen = function()
     map({
         [{"n"}] = {
-            { '<leader>zn', ':TZNarrow<CR>', { desc = "(Zen) Narrow" } },
-            { '<leader>zf', ':TZFocus<CR>', { desc = "(Zen) Focus" } },
-            { '<leader>zm', ':TZMinimalist<CR>', { desc = "(Zen) Mininmalist" } },
-            { '<leader>zz', ':TZAtaraxis<CR>', { desc = "(Zen) Ataraxis" } },
+            { "<leader>zn", ":TZNarrow<CR>", { desc = "(Zen) Narrow" } },
+            { "<leader>zf", ":TZFocus<CR>", { desc = "(Zen) Focus" } },
+            { "<leader>zm", ":TZMinimalist<CR>", { desc = "(Zen) Mininmalist" } },
+            { "<leader>zz", ":TZAtaraxis<CR>", { desc = "(Zen) Ataraxis" } },
         }
     }, {remap = false, silent = true})
 end
@@ -168,10 +169,18 @@ M.trouble = function(opts)
     }, {}, opts)
 end
 
-return M
+M.term = function()
+    local opts = {buffer = 0}
+    return map({
+        [{"t"}] = {
+            {"<esc>", [[<C-\><C-n>]], { desc = "(Term) Esc"}},
+            {"<C-w>", [[<C-\><C-n><C-w>]], { desc = "(Term) C-w" }}
+        },
+        [{"n"}] = {
+            {"<leader>or", "<cmd>OverseerRun<CR>", { desc = "(Overseer) Run" }},
+            {"<leader>ot", "<cmd>OverseerToggle<CR>", { desc = "(Overseer) Toggle" }},
+        }
+    }, {}, opts)
+end
 
---     ["n"] = {
---         { '<leader>s', ':silent! TagbarToggle<CR>', { noremap = true, silent = true } },
---         { '<leader>g', ':silent! GundoToggle<CR>', { noremap = true, silent = true } },
---         { '<space>w', ':<C-u>MatchupWhereAmI?<CR>', { noremap = true, silent = true, nowait = true } },
---     },
+return M

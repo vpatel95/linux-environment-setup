@@ -24,9 +24,6 @@ local options = {
     ttimeoutlen     = 0,
     complete        = vim.opt.complete - 'i',
     sessionoptions  = vim.opt.sessionoptions - 'options',
-    -- Undo
-    undofile        = true,
-    undodir         = os.getenv('HOME') .. '/.vim/.vim_undoes',
     -- Bells
     visualbell      = true,
     errorbells      = false,

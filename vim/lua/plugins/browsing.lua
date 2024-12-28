@@ -18,7 +18,9 @@ return {
                         "--column",
                         "--smart-case",
                     },
-                    path_display = { "shorten" },
+                    path_display = {
+                        shorten = 2,
+                    }
                 },
                 initial_mode = "insert",
                 selection_strategy = "reset",

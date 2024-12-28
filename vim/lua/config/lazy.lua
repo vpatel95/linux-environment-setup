@@ -26,14 +26,17 @@ require("lazy").setup({
   spec = {
     -- Import vim options
     { import = "options" },
-    -- import your plugins
+    -- import UI plugins
+    { import = "plugins.ui" },
+    -- import plugins
     { import = "plugins" },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "gruvbox", "habamax" } },
   -- automatically check for plugin updates
-  checker = { enabled = true },
+  checker = { enabled = true, notify = false},
+  change_detenction = { notify = false},
   rocks = { enabled = false },
   performance = {
     rtp = {
