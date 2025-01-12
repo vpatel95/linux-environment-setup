@@ -3,16 +3,10 @@
 HOMEDIR=~
 INIT_LUA=init.lua
 
-VIM=$HOMEDIR/.vim
 NVIM_CONF=$HOMEDIR/.config/nvim
-UNDOES=$VIM/.undoes
 
-rm -rf $VIM
 rm -rf $NVIM_CONF
-
-mkdir -p $VIM
 mkdir -p $NVIM_CONF
-mkdir -p $UNDOES
 
 case $1 in
     nvim-ln)

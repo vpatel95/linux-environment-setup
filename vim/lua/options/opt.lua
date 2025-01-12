@@ -24,9 +24,6 @@ local options = {
     ttimeoutlen     = 0,
     complete        = vim.opt.complete - 'i',
     sessionoptions  = vim.opt.sessionoptions - 'options',
-    -- Undo
-    undofile        = true,
-    undodir         = os.getenv('HOME') .. '/.vim/.vim_undoes',
     -- Bells
     visualbell      = true,
     errorbells      = false,
@@ -42,7 +39,6 @@ local options = {
     wrap            = true,
     textwidth       = 80,
     linebreak       = true,
-    lazyredraw      = true,
     showcmd         = true,
     colorcolumn     = '+0,+20',
     -- Searching
@@ -79,7 +75,8 @@ local options = {
     wildignorecase  = true,
     signcolumn      = 'auto:1',
     cursorlineopt   = 'number',
-    cursorline      = true
+    cursorline      = true,
+    termguicolors   = true
 }
 
 for k, v in pairs(options) do
@@ -94,10 +91,13 @@ if vim.fn.executable('ag') == 1 then
     vim.g.ackprg = 'ag --vimgrep'
 end
 
-vim.cmd('source ~/.vim/cscope_maps.vim')
-vim.cmd('syntax on')
 vim.cmd([[
-set list
-set listchars=tab:›\ ,trail:•,extends:❯,precedes:❮,nbsp:_
+    syntax on
+    filetype on
+    filetype plugin on
+    filetype indent on
+    set list
+    set listchars=tab:›\ ,trail:•,extends:❯,precedes:❮,nbsp:_
 ]])
 
+return {}
