@@ -10,9 +10,10 @@ LOCAL_DIR="${HOME}/.local"
 
 USER_SHELL=$(basename $SHELL)
 RC_FILE="${HOME}/.${USER_SHELL}rc"
-GITCONFIG=gitconfig
-BASH_ALIASES=bash_aliases
-TMUX_CONF=tmux.conf
+GITCONFIG=.gitconfig
+BASH_ALIASES=.aliases
+TMUX_CONF=.tmux.conf
+ZSHRC=.zshrc
 
 if [[ $UID != 0 ]]; then
     SUDO=sudo
@@ -89,9 +90,10 @@ function setupSudo() {
 }
 
 function installDotFiles() {
-    cp "${BASEPATH}/${GITCONFIG}" "${HOME}/.${GITCONFIG}"
-    cp "${BASEPATH}/${BASH_ALIASES}" "${HOME}/.${BASH_ALIASES}"
-    cp "${BASEPATH}/${TMUX_CONF}" "${HOME}/.${TMUX_CONF}"
+    cp "${BASEPATH}/${ZSHRC}" "${HOME}/${ZSHRC}
+    cp "${BASEPATH}/${GITCONFIG}" "${HOME}/${GITCONFIG}"
+    cp "${BASEPATH}/${BASH_ALIASES}" "${HOME}/${BASH_ALIASES}"
+    cp "${BASEPATH}/${TMUX_CONF}" "${HOME}/${TMUX_CONF}"
 }
 
 function disableUnattendedUpgrades() {

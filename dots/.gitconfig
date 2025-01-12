@@ -1,6 +1,6 @@
 [user]
-    name = John Doe
-    email = johndoe@test.com
+    name = Ved Patel
+    email = vedmpatel@gmail.com
 [core]
     editor = vim
     whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
