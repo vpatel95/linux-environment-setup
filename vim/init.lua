@@ -1,12 +1,2 @@
--- init.lua
-
-require('config.lazy')
-
--- require('utils')
--- require('options')
--- require('mappings')
--- require('auto-commands')
--- require('plugins')
--- require('plugins-config')
--- require('lsp')
--- require('mason-conf')
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")

@@ -1,23 +1,25 @@
 #!/bin/bash
 
+BASEPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 HOMEDIR=~
 INIT_LUA=init.lua
 
 NVIM_CONF=$HOMEDIR/.config/nvim
-
-rm -rf $NVIM_CONF
-mkdir -p $NVIM_CONF
+NVIM_UNDOES=$NVIM_CONF/.undoes
 
 case $1 in
     nvim-ln)
-        ln -s `pwd`/$INIT_LUA $NVIM_CONF/$INIT_LUA
-        ln -s `pwd`/lua $NVIM_CONF/lua
+        rm -rf $NVIM_CONF
+        ln -s ${BASEPATH} $NVIM_CONF
+        mkdir -p $NVIM_UNDOES
         ;;
     nvim-cp)
-        cp `pwd`/$INIT_LUA $NVIM_CONF/$INIT_LUA
-        cp -r `pwd`/lua $NVIM_CONF/lua
+        rm -rf $NVIM_CONF
+        rsync -a --exclude '.git*' ${BASEPATH}/ ${NVIM_CONF}
+        mkdir -p $NVIM_UNDOES
         ;;
     *)
-        echo "Please provide operation <nvim-ln | nvim-cp>"
+        echo "Usage : "
+        echo "    bash $0 <nvim-ln | nvim-cp>"
         ;;
 esac
